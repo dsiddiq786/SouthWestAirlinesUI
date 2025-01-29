@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   icons: {
-    // icon: '/images/logo/trivago-favicon.ico',
+    icon: '/favicon/southWestFavicon.png',
   },
 };
 

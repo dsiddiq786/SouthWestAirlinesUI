@@ -1,9 +1,9 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: 'XYZ.com',
+  name: 'Southwest Airlines | Book Flights, Make Reservations and Plan a Trip',
   description:
-    'XYZ description',
+    'Book Flights, Make Reservations and Plan a Trip',
   // navItems: [
   //   {
   //     label: "Home",
