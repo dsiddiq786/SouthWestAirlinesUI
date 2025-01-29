@@ -6,6 +6,8 @@ import { Providers } from './providers';
 
 import { siteConfig } from '@/config/site';
 
+import { fontArial } from '@/config/fonts';
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -25,7 +27,9 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en">
       <head />
-      <body className={clsx('min-h-screen bg-background antialiased')}>
+      <body
+        className={clsx('font-arialTest min-h-screen bg-white antialiased')}
+      >
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'light' }}>
           <main className="container mx-auto max-w-7xl flex-grow px-6 py-2">
             {children}

@@ -10,8 +10,15 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        // sans: ['var(--font-sans)'],
-        // mono: ['var(--font-mono)'],
+        sans: ['var(--font-sans)'],
+        mono: ['var(--font-mono)'],
+        arial: ['var(--font-arial)'],
+        arialTest: ['Arial'],
+      },
+      colors: {
+        'yellow-sw': '#FFBF27',
+        'black-sw': '#111c40',
+        'blue-sw': '#304CB2',
       },
     },
   },

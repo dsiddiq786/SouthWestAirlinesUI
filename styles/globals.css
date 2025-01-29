@@ -2,3 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    .box-shadow-sw {
+        box-shadow: 0 1px #8f8f8f;
+    }
+}
