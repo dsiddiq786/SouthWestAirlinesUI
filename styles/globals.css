@@ -6,4 +6,8 @@
     .box-shadow-sw {
         box-shadow: 0 1px #8f8f8f;
     }
+
+    .container-sw {
+        @apply container mx-auto max-w-[59rem] ;
+    }
 }

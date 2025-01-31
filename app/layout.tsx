@@ -6,7 +6,7 @@ import { Providers } from './providers';
 
 import { siteConfig } from '@/config/site';
 
-import { fontArial } from '@/config/fonts';
+import { fontArial, fontSouthwestSans } from '@/config/fonts';
 
 export const metadata: Metadata = {
   title: {
@@ -28,12 +28,17 @@ export default function RootLayout({
     <html suppressHydrationWarning lang="en">
       <head />
       <body
-        className={clsx('font-arialTest min-h-screen bg-white antialiased')}
+        className={clsx([
+          'min-h-screen',
+          // 'bg-white',
+          'font-arial',
+          'antialiased',
+          fontArial.variable,
+          fontSouthwestSans.variable,
+        ])}
       >
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'light' }}>
-          <main className="container mx-auto max-w-7xl flex-grow px-6 py-2">
-            {children}
-          </main>
+          <main className="">{children}</main>
         </Providers>
       </body>
     </html>

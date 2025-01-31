@@ -10,15 +10,20 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-sans)'],
-        mono: ['var(--font-mono)'],
         arial: ['var(--font-arial)'],
-        arialTest: ['Arial'],
+        swSans: ['var(--font-swSans)'],
       },
       colors: {
         'yellow-sw': '#FFBF27',
         'black-sw': '#111c40',
         'blue-sw': '#304CB2',
+        'gray-sw': '#636363',
+      },
+      backgroundImage: {
+        'hero-bg': "url('/images/bg-hero.png')",
+      },
+      backgroundPosition: {
+        'center-200': 'center 105px',
       },
     },
   },

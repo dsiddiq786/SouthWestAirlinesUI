@@ -1,11 +1,12 @@
 import { FaUser } from 'react-icons/fa';
 import { BsGlobe } from 'react-icons/bs';
+import { FaSearch } from 'react-icons/fa';
 
 import React from 'react';
 
 export default function Header() {
   return (
-    <header className="container mx-auto flex max-w-4xl flex-col gap-5 py-[2px]">
+    <header className="container-sw flex flex-col pb-6 pt-2">
       {/* Login bar */}
       <div className="flex w-full items-center justify-end">
         <div className="flex items-center gap-5">
@@ -14,15 +15,15 @@ export default function Header() {
             {/* balace */}
             <div>
               <p>
-                <span className="text-blue-sw text-xs">
-                  <em>Log in to view to points balance</em>
+                <span className="text-xs italic text-blue-sw">
+                  Log in to view points balance
                 </span>
               </p>
             </div>
 
             {/* Login button */}
             <div>
-              <button className="text-black-sw hover:border-black-sw box-shadow-sw bg-yellow-sw flex items-center gap-1 rounded-sm border border-transparent px-[20px] py-2 transition-all">
+              <button className="box-shadow-sw flex items-center gap-1 rounded-sm border border-transparent bg-yellow-sw px-[20px] py-2 text-black-sw transition-all hover:border-black-sw">
                 <span>
                   <FaUser className="" />
                 </span>
@@ -33,14 +34,14 @@ export default function Header() {
             {/* Create acc */}
             <a
               href="#"
-              className="text-blue-sw text-xs font-bold hover:underline"
+              className="text-xs font-bold text-blue-sw hover:underline"
             >
               Create account
             </a>
           </div>
 
           {/* Espanol? */}
-          <button className="text-blue-sw flex items-center gap-1 text-xs">
+          <button className="flex items-center gap-1 text-xs text-blue-sw">
             <span className="cursor-pointer hover:underline">Español</span>
             <span>
               <BsGlobe className="text-sm font-bold" />
@@ -61,9 +62,9 @@ export default function Header() {
         </div>
 
         {/* navbar */}
-        <nav className="flex items-center gap-5">
+        <nav className="-mb-2 flex items-center gap-5">
           {/* Links */}
-          <ul className="text-blue-sw flex items-center gap-1">
+          <ul className="flex items-center gap-1 text-blue-sw">
             <li>
               <a href="#" className="text-xs font-bold uppercase">
                 flight |
@@ -92,14 +93,17 @@ export default function Header() {
           </ul>
 
           {/* Special offers */}
-          <button className="text-blue-sw text-xs font-bold uppercase">
+          <button className="text-xs font-bold uppercase text-blue-sw">
             <span>special offers</span>
           </button>
 
           {/* rapid rewards */}
-          <button className="text-blue-sw text-xs font-bold uppercase">
+          <button className="text-xs font-bold uppercase text-blue-sw">
             <span>Rapid Rewards</span>
+            <sup className="pl-[1px]">®</sup>
           </button>
+
+          <FaSearch className="text-blue-sw" />
         </nav>
       </div>
     </header>
