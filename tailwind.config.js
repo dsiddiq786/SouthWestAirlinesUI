@@ -10,7 +10,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        arial: ['var(--font-arial)'],
+        arial: ['Arial', 'sans-serif'],
+        // arial: ['var(--font-arial)'],
         swSans: ['var(--font-swSans)'],
       },
       colors: {

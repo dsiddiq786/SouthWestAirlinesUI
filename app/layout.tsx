@@ -35,7 +35,7 @@ export default function RootLayout({
           // 'bg-white',
           'font-arial',
           'antialiased',
-          fontArial.variable,
+          // fontArial.variable,
           fontSouthwestSans.variable,
         ])}
       >
