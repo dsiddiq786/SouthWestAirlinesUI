@@ -5,6 +5,7 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header';
 import HeroSEC from './components/HeroSec';
 import Rewards from './components/Rewards';
+import SearchInputs from './components/SearchInputs/SearchInputs';
 import SpecialOffer from './components/SpecialOffer';
 import TravelAdvisory from './components/TravelAdvisory';
 
@@ -30,7 +31,7 @@ export default function Home() {
 
             {/* Inputs, Rewards, SpecialOffers, features */}
             <div className="mt-6 flex flex-col gap-2 overflow-hidden rounded-sm">
-              {/* Rewards */}
+              <SearchInputs />
               <Rewards />
               <SpecialOffer />
               <Features />
@@ -39,7 +40,7 @@ export default function Home() {
         </div>
 
         {/* Background Image */}
-        <div className="bg-hero-bg bg-center-200 absolute top-0 h-screen w-full bg-cover bg-fixed bg-no-repeat">
+        <div className="absolute top-0 h-screen w-full bg-hero-bg bg-cover bg-fixed bg-center-200 bg-no-repeat">
           {/* <div className="fixed top-24 w-full">
             <img
               src="/images/hero-bg2.png"

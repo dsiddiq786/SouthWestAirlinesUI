@@ -8,6 +8,8 @@ import { siteConfig } from '@/config/site';
 
 import { fontArial, fontSouthwestSans } from '@/config/fonts';
 
+import { FlightProvider } from '@/context/FlightContext';
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -38,7 +40,9 @@ export default function RootLayout({
         ])}
       >
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'light' }}>
-          <main className="">{children}</main>
+          <FlightProvider>
+            <main className="">{children}</main>
+          </FlightProvider>
         </Providers>
       </body>
     </html>
