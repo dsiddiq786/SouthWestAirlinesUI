@@ -30,7 +30,7 @@ export default function Home() {
             </div>
 
             {/* Inputs, Rewards, SpecialOffers, features */}
-            <div className="mt-6 flex flex-col gap-2 overflow-hidden rounded-sm">
+            <div className="mt-6 flex flex-col gap-2 rounded-sm">
               <SearchInputs />
               <Rewards />
               <SpecialOffer />

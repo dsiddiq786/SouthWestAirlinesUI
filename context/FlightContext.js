@@ -3,6 +3,9 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import flightsData from '../data/flights.json'; // Ensure you have a flights.json file
 
+import { useTravelType } from './InputContexts/TravelTypeContext';
+import { useBagFees } from './InputContexts/BagFeesContext';
+
 const FlightContext = createContext();
 
 // Prevent multiple interactions in the browser (optional feature)
@@ -11,8 +14,18 @@ if (typeof window !== 'undefined' && !window.filterInteractions) {
 }
 
 export function FlightProvider({ children }) {
-  const [flights, setFlights] = useState([]);
+  const [flights, setFlights] = useState(flightsData);
+  const [filteredFlights, setFilteredFlights] = useState(flightsData);
   const [filters, setFilters] = useState({}); // Example filters (e.g., price range, airlines)
+
+  //   Travel types
+  const { travelTypeOptions, selectedTravelType, setSelectedTravelType } =
+    useTravelType();
+
+  // Bag Fees
+  const { bagFeeOptions, selectedBagFee, setSelectedBagFee } = useBagFees();
+
+  //   console.log(selectedTravelType, selectedBagFee);
 
   // Load flights data on mount
   useEffect(() => {
@@ -42,7 +55,25 @@ export function FlightProvider({ children }) {
 
   return (
     <FlightContext.Provider
-      value={{ flights, setFlights, filterFlights, filters, setFilters }}
+      value={{
+        // flights
+        allFlights: flights,
+        filteredFlights,
+
+        // filters
+        filters,
+        setFilters,
+
+        // travel types
+        travelTypeOptions,
+        selectedTravelType,
+        setSelectedTravelType,
+
+        // Bag fees
+        bagFeeOptions,
+        selectedBagFee,
+        setSelectedBagFee,
+      }}
     >
       {children}
     </FlightContext.Provider>

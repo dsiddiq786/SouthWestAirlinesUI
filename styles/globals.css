@@ -3,6 +3,18 @@
 @tailwind utilities;
 
 @layer utilities {
+
+    *:focus {
+            outline: none !important;
+        }
+    
+        /* Tailwind-specific: Remove focus and ring */
+        *:focus-visible {
+            outline: none !important;
+            /* Remove the 'ring' property */
+        }
+
+        
     .box-shadow-sw {
         box-shadow: 0 1px #8f8f8f;
     }

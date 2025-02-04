@@ -50,12 +50,11 @@ export default function RecentSearches() {
         >
           <span className="text-[13px]">Recent searches</span>
           <span>
-            <IoCaretDownSharp className="text-blue-sw" />
+            <IoCaretDownSharp className="text-lg text-blue-sw" />
           </span>
         </span>
       </button>
 
-      {/* Sort dropdown menu */}
       {isDropDownOpen && (
         <div className="absolute bottom-10 w-full border">recent searches</div>
       )}

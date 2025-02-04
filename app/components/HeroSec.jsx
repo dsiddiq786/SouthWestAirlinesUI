@@ -2,7 +2,10 @@ import React from 'react';
 
 export default function HeroSEC() {
   return (
-    <a href="#" className="block w-full px-[4.7rem] pb-[10.5rem] pt-[5.8rem]">
+    <div
+      role="button"
+      className="block w-full px-[4.7rem] pb-[10.5rem] pt-[5.8rem]"
+    >
       {/* Book now */}
 
       {/* hero text and button */}
@@ -13,7 +16,7 @@ export default function HeroSEC() {
           </span>
         </strong>
 
-        <span className="mb-4 text-[24px] font-bold font-light text-blue-sw">
+        <span className="mb-4 text-[24px] font-light text-blue-sw">
           Low fares to the U.S.
         </span>
 
@@ -38,6 +41,6 @@ export default function HeroSEC() {
           <span className="text-[200px]">69</span>
         </div>
       </div> */}
-    </a>
+    </div>
   );
 }
