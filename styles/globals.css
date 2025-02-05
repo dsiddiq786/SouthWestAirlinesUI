@@ -22,4 +22,12 @@
     .container-sw {
         @apply container mx-auto max-w-[59rem] ;
     }
+
+    .bg-sw {
+        @apply bg-gradient-to-b from-white to-gray-100;
+    }
+
+        .sliced-div {
+                clip-path: polygon(0 0, 90% 0,/*  */ 100% 100%, 0% 100%);
+        }
 }

@@ -3,9 +3,12 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
 import flightsData from '../data/flights.json'; // Ensure you have a flights.json file
+import airportsData from '../data/airports.json';
 
 import { useTravelType } from './InputContexts/TravelTypeContext';
 import { useBagFees } from './InputContexts/BagFeesContext';
+import { usePassengerCount } from './InputContexts/PassengerContext';
+import { useDeparture } from './InputContexts/DepartureContext';
 
 const FlightContext = createContext();
 
@@ -16,6 +19,7 @@ if (typeof window !== 'undefined' && !window.filterInteractions) {
 
 export function FlightProvider({ children }) {
   const [flights, setFlights] = useState(flightsData);
+  const [airports] = useState(airportsData);
   const [filteredFlights, setFilteredFlights] = useState(flightsData);
   const [filters, setFilters] = useState({}); // Example filters (e.g., price range, airlines)
 
@@ -26,7 +30,29 @@ export function FlightProvider({ children }) {
   // Bag Fees
   const { bagFeeOptions, selectedBagFee, setSelectedBagFee } = useBagFees();
 
-  //   console.log(selectedTravelType, selectedBagFee);
+  // Passenger count
+  const {
+    passengerTypes,
+    passengerCounts,
+    setPassengerCounts,
+    handleIncrement,
+    handleDecrement,
+    totalPassengers,
+    setTotalPassengers,
+  } = usePassengerCount();
+
+  // Departure
+  const {
+    groupedCitiesByState,
+    selectedStates,
+    setSelectedStates,
+    selectedCities,
+    setSelectedCities,
+    toggleCitySelection,
+    toggleStateSelection,
+  } = useDeparture(airports, flights);
+
+  console.log(groupedCitiesByState);
 
   // Load flights data on mount
   useEffect(() => {
@@ -74,6 +100,24 @@ export function FlightProvider({ children }) {
         bagFeeOptions,
         selectedBagFee,
         setSelectedBagFee,
+
+        // Passenger count
+        passengerTypes,
+        passengerCounts,
+        setPassengerCounts,
+        handleIncrement,
+        handleDecrement,
+        totalPassengers,
+        setTotalPassengers,
+
+        // Departure
+        groupedCitiesByState,
+        selectedStates,
+        setSelectedStates,
+        selectedCities,
+        setSelectedCities,
+        toggleCitySelection,
+        toggleStateSelection,
       }}
     >
       {children}

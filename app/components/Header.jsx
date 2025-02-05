@@ -22,7 +22,7 @@ export default function Header() {
 
             {/* Login button */}
             <div>
-              <button className="box-shadow-sw flex items-center gap-1 rounded-sm border border-transparent bg-yellow-sw px-[20px] py-2 text-black-sw transition-all hover:border-black-sw">
+              <button className="box-shadow-sw flex items-center gap-1 rounded-sm border border-transparent bg-yellow-sw px-[20px] py-2 text-black-sw transition-all hover:border-black-sw hover:shadow-none">
                 <span>
                   <FaUser className="" />
                 </span>

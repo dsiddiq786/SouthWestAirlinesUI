@@ -7,9 +7,9 @@ export default function BagFees() {
 
   return (
     <div className="flex items-center gap-6">
-      <span className="text-[13px] leading-none text-blue-sw">
+      <button className="text-[13px] leading-none text-blue-sw decoration-black-sw hover:text-black-sw hover:underline">
         Baggage and optional fees
-      </span>
+      </button>
       <div className="flex items-center gap-4">
         {bagFeeOptions.map((option) => (
           <RadioItem

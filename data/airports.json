@@ -1,0 +1,728 @@
+[
+  {
+    "name": "AMA",
+    "code": "AMA",
+    "city": "Amarillo",
+    "state": "TX"
+  },
+  {
+    "name": "AUA",
+    "code": "AUA",
+    "city": "Oranjestad",
+    "state": "AW"
+  },
+  {
+    "name": "Hartsfield-Jackson Atlanta",
+    "code": "ATL",
+    "city": "Atlanta",
+    "state": "GA"
+  },
+  {
+    "name": "Austin-Bergstrom",
+    "code": "AUS",
+    "city": "Austin",
+    "state": "TX"
+  },
+  {
+    "name": "Baltimore/Washington Thurgood Marshall",
+    "code": "BWI",
+    "city": "Baltimore",
+    "state": "MD"
+  },
+  {
+    "name": "BZE",
+    "code": "BZE",
+    "city": "Belize City",
+    "state": "BZ"
+  },
+  {
+    "name": "BLI",
+    "code": "BLI",
+    "city": "Bellingham",
+    "state": "WA"
+  },
+  {
+    "name": "BHM",
+    "code": "BHM",
+    "city": "Birmingham",
+    "state": "AL"
+  },
+  {
+    "name": "BOI",
+    "code": "BOI",
+    "city": "Boise",
+    "state": "ID"
+  },
+  {
+    "name": "Logan",
+    "code": "BOS",
+    "city": "Boston",
+    "state": "MA"
+  },
+  {
+    "name": "BZN",
+    "code": "BZN",
+    "city": "Bozeman",
+    "state": "MT"
+  },
+  {
+    "name": "BUF",
+    "code": "BUF",
+    "city": "Buffalo",
+    "state": "NY"
+  },
+  {
+    "name": "BUR",
+    "code": "BUR",
+    "city": "Burbank",
+    "state": "CA"
+  },
+  {
+    "name": "CUN",
+    "code": "CUN",
+    "city": "Canc\u00fan",
+    "state": "MX"
+  },
+  {
+    "name": "CHS",
+    "code": "CHS",
+    "city": "Charleston",
+    "state": "SC"
+  },
+  {
+    "name": "CLT",
+    "code": "CLT",
+    "city": "Charlotte",
+    "state": "NC"
+  },
+  {
+    "name": "MDW",
+    "code": "MDW",
+    "city": "Chicago",
+    "state": "IL"
+  },
+  {
+    "name": "O'Hare",
+    "code": "ORD",
+    "city": "Chicago",
+    "state": "IL"
+  },
+  {
+    "name": "CVG",
+    "code": "CVG",
+    "city": "Cincinnati",
+    "state": "OH"
+  },
+  {
+    "name": "CLE",
+    "code": "CLE",
+    "city": "Cleveland",
+    "state": "OH"
+  },
+  {
+    "name": "COS",
+    "code": "COS",
+    "city": "Colorado Springs",
+    "state": "CO"
+  },
+  {
+    "name": "CMH",
+    "code": "CMH",
+    "city": "Columbus",
+    "state": "OH"
+  },
+  {
+    "name": "CRP",
+    "code": "CRP",
+    "city": "Corpus Christi",
+    "state": "TX"
+  },
+  {
+    "name": "CZM",
+    "code": "CZM",
+    "city": "Cozumel",
+    "state": "MX"
+  },
+  {
+    "name": "Dallas Love Field",
+    "code": "DAL",
+    "city": "Dallas",
+    "state": "TX"
+  },
+  {
+    "name": "Denver",
+    "code": "DEN",
+    "city": "Denver",
+    "state": "CO"
+  },
+  {
+    "name": "DSM",
+    "code": "DSM",
+    "city": "Des Moines",
+    "state": "IA"
+  },
+  {
+    "name": "VPS",
+    "code": "VPS",
+    "city": "Destin",
+    "state": "FL"
+  },
+  {
+    "name": "DTW",
+    "code": "DTW",
+    "city": "Detroit",
+    "state": "MI"
+  },
+  {
+    "name": "ELP",
+    "code": "ELP",
+    "city": "El Paso",
+    "state": "TX"
+  },
+  {
+    "name": "EUG",
+    "code": "EUG",
+    "city": "Eugene",
+    "state": "OR"
+  },
+  {
+    "name": "FLL",
+    "code": "FLL",
+    "city": "Fort Lauderdale",
+    "state": "FL"
+  },
+  {
+    "name": "RSW",
+    "code": "RSW",
+    "city": "Fort Myers",
+    "state": "FL"
+  },
+  {
+    "name": "FAT",
+    "code": "FAT",
+    "city": "Fresno",
+    "state": "CA"
+  },
+  {
+    "name": "GCM",
+    "code": "GCM",
+    "city": "George Town",
+    "state": "KY"
+  },
+  {
+    "name": "GRR",
+    "code": "GRR",
+    "city": "Grand Rapids",
+    "state": "MI"
+  },
+  {
+    "name": "GSP",
+    "code": "GSP",
+    "city": "Greenville",
+    "state": "SC"
+  },
+  {
+    "name": "HRL",
+    "code": "HRL",
+    "city": "Harlingen",
+    "state": "TX"
+  },
+  {
+    "name": "BDL",
+    "code": "BDL",
+    "city": "Hartford",
+    "state": "CT"
+  },
+  {
+    "name": "HAV",
+    "code": "HAV",
+    "city": "Havana",
+    "state": "CU"
+  },
+  {
+    "name": "ITO",
+    "code": "ITO",
+    "city": "Hilo",
+    "state": "HI"
+  },
+  {
+    "name": "HNL",
+    "code": "HNL",
+    "city": "Honolulu",
+    "state": "HI"
+  },
+  {
+    "name": "IAH",
+    "code": "IAH",
+    "city": "Houston",
+    "state": "TX"
+  },
+  {
+    "name": "HOU",
+    "code": "HOU",
+    "city": "Houston",
+    "state": "TX"
+  },
+  {
+    "name": "IND",
+    "code": "IND",
+    "city": "Indianapolis",
+    "state": "IN"
+  },
+  {
+    "name": "JAN",
+    "code": "JAN",
+    "city": "Jackson",
+    "state": "MS"
+  },
+  {
+    "name": "JAX",
+    "code": "JAX",
+    "city": "Jacksonville",
+    "state": "FL"
+  },
+  {
+    "name": "OGG",
+    "code": "OGG",
+    "city": "Kahului",
+    "state": "HI"
+  },
+  {
+    "name": "MCI",
+    "code": "MCI",
+    "city": "Kansas City",
+    "state": "MO"
+  },
+  {
+    "name": "KOA",
+    "code": "KOA",
+    "city": "Kona",
+    "state": "HI"
+  },
+  {
+    "name": "Harry Reid",
+    "code": "LAS",
+    "city": "Las Vegas",
+    "state": "NV"
+  },
+  {
+    "name": "LIR",
+    "code": "LIR",
+    "city": "Liberia",
+    "state": "CR"
+  },
+  {
+    "name": "LIT",
+    "code": "LIT",
+    "city": "Little Rock",
+    "state": "AR"
+  },
+  {
+    "name": "LGB",
+    "code": "LGB",
+    "city": "Long Beach",
+    "state": "CA"
+  },
+  {
+    "name": "LIH",
+    "code": "LIH",
+    "city": "Lihue",
+    "state": "HI"
+  },
+  {
+    "name": "ISP",
+    "code": "ISP",
+    "city": "Islip",
+    "state": "NY"
+  },
+  {
+    "name": "Los Angeles",
+    "code": "LAX",
+    "city": "Los Angeles",
+    "state": "CA"
+  },
+  {
+    "name": "SJD",
+    "code": "SJD",
+    "city": "San Jos\u00e9 del Cabo",
+    "state": "MX"
+  },
+  {
+    "name": "SDF",
+    "code": "SDF",
+    "city": "Louisville",
+    "state": "KY"
+  },
+  {
+    "name": "LBB",
+    "code": "LBB",
+    "city": "Lubbock",
+    "state": "TX"
+  },
+  {
+    "name": "MHT",
+    "code": "MHT",
+    "city": "Manchester",
+    "state": "NH"
+  },
+  {
+    "name": "MEM",
+    "code": "MEM",
+    "city": "Memphis",
+    "state": "TN"
+  },
+  {
+    "name": "Miami",
+    "code": "MIA",
+    "city": "Miami",
+    "state": "FL"
+  },
+  {
+    "name": "MAF",
+    "code": "MAF",
+    "city": "Midland",
+    "state": "TX"
+  },
+  {
+    "name": "MKE",
+    "code": "MKE",
+    "city": "Milwaukee",
+    "state": "WI"
+  },
+  {
+    "name": "Minneapolis\u2212Saint Paul",
+    "code": "MSP",
+    "city": "Minneapolis",
+    "state": "MN"
+  },
+  {
+    "name": "MBJ",
+    "code": "MBJ",
+    "city": "Montego Bay",
+    "state": "JM"
+  },
+  {
+    "name": "MTJ",
+    "code": "MTJ",
+    "city": "Montrose",
+    "state": "CO"
+  },
+  {
+    "name": "MYR",
+    "code": "MYR",
+    "city": "Myrtle Beach",
+    "state": "SC"
+  },
+  {
+    "name": "BNA",
+    "code": "BNA",
+    "city": "Nashville",
+    "state": "TN"
+  },
+  {
+    "name": "NAS",
+    "code": "NAS",
+    "city": "Nassau",
+    "state": "BS"
+  },
+  {
+    "name": "MSY",
+    "code": "MSY",
+    "city": "New Orleans",
+    "state": "LA"
+  },
+  {
+    "name": "LGA",
+    "code": "LGA",
+    "city": "New York",
+    "state": "NY"
+  },
+  {
+    "name": "ORF",
+    "code": "ORF",
+    "city": "Norfolk",
+    "state": "VA"
+  },
+  {
+    "name": "OAK",
+    "code": "OAK",
+    "city": "Oakland",
+    "state": "CA"
+  },
+  {
+    "name": "OKC",
+    "code": "OKC",
+    "city": "Oklahoma City",
+    "state": "OK"
+  },
+  {
+    "name": "OMA",
+    "code": "OMA",
+    "city": "Omaha",
+    "state": "NE"
+  },
+  {
+    "name": "ONT",
+    "code": "ONT",
+    "city": "Ontario",
+    "state": "CA"
+  },
+  {
+    "name": "SNA",
+    "code": "SNA",
+    "city": "Santa Ana",
+    "state": "CA"
+  },
+  {
+    "name": "MCO",
+    "code": "MCO",
+    "city": "Orlando",
+    "state": "FL"
+  },
+  {
+    "name": "PSP",
+    "code": "PSP",
+    "city": "Palm Springs",
+    "state": "CA"
+  },
+  {
+    "name": "ECP",
+    "code": "ECP",
+    "city": "Panama City",
+    "state": "FL"
+  },
+  {
+    "name": "PNS",
+    "code": "PNS",
+    "city": "Pensacola",
+    "state": "FL"
+  },
+  {
+    "name": "PHL",
+    "code": "PHL",
+    "city": "Philadelphia",
+    "state": "PA"
+  },
+  {
+    "name": "Phoenix Sky Harbor",
+    "code": "PHX",
+    "city": "Phoenix",
+    "state": "AZ"
+  },
+  {
+    "name": "PIT",
+    "code": "PIT",
+    "city": "Pittsburgh",
+    "state": "PA"
+  },
+  {
+    "name": "PDX",
+    "code": "PDX",
+    "city": "Portland",
+    "state": "OR"
+  },
+  {
+    "name": "PWM",
+    "code": "PWM",
+    "city": "Portland",
+    "state": "ME"
+  },
+  {
+    "name": "PVD",
+    "code": "PVD",
+    "city": "Providence",
+    "state": "RI"
+  },
+  {
+    "name": "PLS",
+    "code": "PLS",
+    "city": "Providenciales",
+    "state": "TC"
+  },
+  {
+    "name": "PVR",
+    "code": "PVR",
+    "city": "Puerto Vallarta",
+    "state": "MX"
+  },
+  {
+    "name": "PUJ",
+    "code": "PUJ",
+    "city": "Punta Cana",
+    "state": "DO"
+  },
+  {
+    "name": "RDU",
+    "code": "RDU",
+    "city": "Raleigh",
+    "state": "NC"
+  },
+  {
+    "name": "RNO",
+    "code": "RNO",
+    "city": "Reno",
+    "state": "NV"
+  },
+  {
+    "name": "RIC",
+    "code": "RIC",
+    "city": "Richmond",
+    "state": "VA"
+  },
+  {
+    "name": "ROC",
+    "code": "ROC",
+    "city": "Rochester",
+    "state": "NY"
+  },
+  {
+    "name": "SMF",
+    "code": "SMF",
+    "city": "Sacramento",
+    "state": "CA"
+  },
+  {
+    "name": "SLC",
+    "code": "SLC",
+    "city": "Salt Lake City",
+    "state": "UT"
+  },
+  {
+    "name": "SAT",
+    "code": "SAT",
+    "city": "San Antonio",
+    "state": "TX"
+  },
+  {
+    "name": "SAN",
+    "code": "SAN",
+    "city": "San Diego",
+    "state": "CA"
+  },
+  {
+    "name": "San Francisco",
+    "code": "SFO",
+    "city": "San Francisco",
+    "state": "CA"
+  },
+  {
+    "name": "SJC",
+    "code": "SJC",
+    "city": "San Jose",
+    "state": "CA"
+  },
+  {
+    "name": "SJO",
+    "code": "SJO",
+    "city": "San Jose",
+    "state": "CR"
+  },
+  {
+    "name": "SJU",
+    "code": "SJU",
+    "city": "San Juan",
+    "state": "PR"
+  },
+  {
+    "name": "SBA",
+    "code": "SBA",
+    "city": "Santa Barbara",
+    "state": "CA"
+  },
+  {
+    "name": "SRQ",
+    "code": "SRQ",
+    "city": "Sarasota",
+    "state": "FL"
+  },
+  {
+    "name": "SAV",
+    "code": "SAV",
+    "city": "Savannah",
+    "state": "GA"
+  },
+  {
+    "name": "Seattle-Tacoma",
+    "code": "SEA",
+    "city": "Seattle",
+    "state": "WA"
+  },
+  {
+    "name": "GEG",
+    "code": "GEG",
+    "city": "Spokane",
+    "state": "WA"
+  },
+  {
+    "name": "STL",
+    "code": "STL",
+    "city": "St. Louis",
+    "state": "MO"
+  },
+  {
+    "name": "HDN",
+    "code": "HDN",
+    "city": "Steamboat Springs",
+    "state": "CO"
+  },
+  {
+    "name": "SYR",
+    "code": "SYR",
+    "city": "Syracuse",
+    "state": "NY"
+  },
+  {
+    "name": "TPA",
+    "code": "TPA",
+    "city": "Tampa",
+    "state": "FL"
+  },
+  {
+    "name": "TUS",
+    "code": "TUS",
+    "city": "Tucson",
+    "state": "AZ"
+  },
+  {
+    "name": "TUL",
+    "code": "TUL",
+    "city": "Tulsa",
+    "state": "OK"
+  },
+  {
+    "name": "Washington Dulles",
+    "code": "IAD",
+    "city": "Washington",
+    "state": "DC"
+  },
+  {
+    "name": "DCA",
+    "code": "DCA",
+    "city": "Washington",
+    "state": "DC"
+  },
+  {
+    "name": "PBI",
+    "code": "PBI",
+    "city": "West Palm Beach",
+    "state": "FL"
+  },
+  {
+    "name": "ICT",
+    "code": "ICT",
+    "city": "Wichita",
+    "state": "KS"
+  },
+  {
+    "name": "ALB",
+    "code": "ALB",
+    "city": "Albany",
+    "state": "NY"
+  },
+  {
+    "name": "ABQ",
+    "code": "ABQ",
+    "city": "Albuquerque",
+    "state": "NM"
+  }
+]

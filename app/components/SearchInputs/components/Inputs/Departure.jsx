@@ -1,7 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { IoCaretDownSharp } from 'react-icons/io5';
+import States from './States';
+import { useFlights } from '@/context/FlightContext';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Departure() {
+  const { groupedCitiesByState } = useFlights();
+
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
   const dropdownRef = useRef(null);
@@ -34,7 +39,7 @@ export default function Departure() {
   }, [setIsDropDownOpen]);
 
   return (
-    <div ref={dropdownRef} className="flex flex-col">
+    <div ref={dropdownRef} className="relative flex flex-col">
       <span className="pb-[8px] text-[11px] font-bold text-gray-sw">
         DEPART
       </span>
@@ -54,21 +59,17 @@ export default function Departure() {
 
       {isDropDownOpen && (
         <>
-          <div className="absolute bottom-[5.7rem] z-50 w-full rounded-sm border bg-white shadow-lg shadow-gray-300">
-            <div className="max-h-64 w-full overflow-y-scroll px-3 pt-3">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet a
-              odio placeat neque architecto iure earum atque natus quos labore,
-              sint ad impedit distinctio quas ea quod minus veritatis quidem
-              unde! Obcaecati sunt dolorem provident quidem odio corrupti
-              explicabo eum aperiam quo hic, blanditiis minima dolores! Debitis
-              quam autem reiciendis ducimus minus eum fuga dicta facere nihil,
-              ipsa repellat sapiente culpa quis quasi et, fugiat distinctio
-              dignissimos. Dicta in fugit dolorem optio esse ex. Ipsum assumenda
-              perspiciatis ab praesentium in dolorem. Doloremque earum ea
-              corporis a iste consequuntur voluptatem inventore dolor mollitia
-              accusantium? Quam ea nam cumque. Unde, in enim?
-            </div>
-            <div className="relative -bottom-4 left-12">
+          <div className="absolute -left-5 bottom-[5.7rem] z-50 w-[200%] rounded-sm border bg-white shadow-lg shadow-gray-400 xl:w-[240%]">
+            <ul className="max-h-64 w-full overflow-y-scroll px-3 pt-3">
+              {groupedCitiesByState.map((state) => {
+                return (
+                  <div key={uuidv4()}>
+                    <States state={state} />
+                  </div>
+                );
+              })}
+            </ul>
+            <div className="relative -bottom-4 left-20">
               <IoCaretDownSharp className="text-2xl text-white" />
             </div>
           </div>
