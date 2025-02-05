@@ -68,7 +68,7 @@ const FooterLinks = () => {
         </h3>
         <ul>
           {aboutSouthwest.map((link, index) => (
-            <LinkItem key={index} label={link.label} href={link.href} />
+            <LinkItem key={index} href={link.href} label={link.label} />
           ))}
         </ul>
       </div>
@@ -80,7 +80,7 @@ const FooterLinks = () => {
         </h3>
         <ul>
           {flyingSouthwest.map((link, index) => (
-            <LinkItem key={index} label={link.label} href={link.href} />
+            <LinkItem key={index} href={link.href} label={link.label} />
           ))}
         </ul>
       </div>
@@ -92,7 +92,7 @@ const FooterLinks = () => {
         </h3>
         <ul>
           {southwestProducts.map((link, index) => (
-            <LinkItem key={index} label={link.label} href={link.href} />
+            <LinkItem key={index} href={link.href} label={link.label} />
           ))}
         </ul>
       </div>
@@ -102,7 +102,7 @@ const FooterLinks = () => {
         <h3 className="mb-2 text-[16px] font-bold text-blue-sw">Help Center</h3>
         <ul>
           {helpCenter.map((link, index) => (
-            <LinkItem key={index} label={link.label} href={link.href} />
+            <LinkItem key={index} href={link.href} label={link.label} />
           ))}
         </ul>
       </div>
@@ -114,8 +114,8 @@ const FooterLinks = () => {
 const LinkItem = ({ label, href }) => (
   <li className="mb-1">
     <a
-      href={href}
       className="text-[13px] text-black-sw hover:text-blue-sw hover:underline hover:decoration-blue-sw"
+      href={href}
     >
       {label}
     </a>

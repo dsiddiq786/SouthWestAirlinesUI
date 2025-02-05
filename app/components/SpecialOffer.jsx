@@ -10,8 +10,8 @@ export default function SpecialOffer() {
       {/* Offers */}
       <div className="grid auto-cols-fr grid-flow-col">
         {/* Vacation */}
-        <a href="#" className="group/vacation">
-          <img src="/images/special-offers/vacation.png" alt="" />
+        <a className="group/vacation" href="#">
+          <img alt="" src="/images/special-offers/vacation.png" />
 
           <div className="flex flex-col gap-2 p-4">
             <span className="text-[13px] font-bold text-yellow-sw">
@@ -34,8 +34,8 @@ export default function SpecialOffer() {
         </a>
 
         {/* Car */}
-        <a href="#" className="group/car">
-          <img src="/images/special-offers/car.jpg" alt="" />
+        <a className="group/car" href="#">
+          <img alt="" src="/images/special-offers/car.jpg" />
 
           <div className="flex flex-col gap-2 p-4">
             <span className="text-[13px] font-bold text-yellow-sw">
@@ -57,8 +57,8 @@ export default function SpecialOffer() {
         </a>
 
         {/* Hotel */}
-        <a href="#" className="group/hotel">
-          <img src="/images/special-offers/hotel.jpg" alt="" />
+        <a className="group/hotel" href="#">
+          <img alt="" src="/images/special-offers/hotel.jpg" />
 
           <div className="flex flex-col gap-9 p-4">
             <div className="flex flex-col gap-2">
@@ -80,8 +80,8 @@ export default function SpecialOffer() {
         </a>
 
         {/* Cruise */}
-        <a href="#" className="group/cruise">
-          <img src="/images/special-offers/cruise.jpg" alt="" />
+        <a className="group/cruise" href="#">
+          <img alt="" src="/images/special-offers/cruise.jpg" />
 
           <div className="flex flex-col gap-9 p-4">
             <div className="flex flex-col gap-2">

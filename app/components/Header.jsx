@@ -1,7 +1,6 @@
 import { FaUser } from 'react-icons/fa';
 import { BsGlobe } from 'react-icons/bs';
 import { FaSearch } from 'react-icons/fa';
-
 import React from 'react';
 
 export default function Header() {
@@ -33,8 +32,8 @@ export default function Header() {
 
             {/* Create acc */}
             <a
-              href="#"
               className="text-xs font-bold text-blue-sw hover:underline"
+              href="#"
             >
               Create account
             </a>
@@ -66,27 +65,27 @@ export default function Header() {
           {/* Links */}
           <ul className="flex items-center gap-1 text-blue-sw">
             <li>
-              <a href="#" className="text-xs font-bold uppercase">
+              <a className="text-xs font-bold uppercase" href="#">
                 flight |
               </a>
             </li>
             <li>
-              <a href="#" className="text-xs font-bold uppercase">
+              <a className="text-xs font-bold uppercase" href="#">
                 hotel |
               </a>
             </li>
             <li>
-              <a href="#" className="text-xs font-bold uppercase">
+              <a className="text-xs font-bold uppercase" href="#">
                 car |
               </a>
             </li>
             <li>
-              <a href="#" className="text-xs font-bold uppercase">
+              <a className="text-xs font-bold uppercase" href="#">
                 vacations |
               </a>
             </li>
             <li>
-              <a href="#" className="text-xs font-bold uppercase">
+              <a className="text-xs font-bold uppercase" href="#">
                 cruises
               </a>
             </li>

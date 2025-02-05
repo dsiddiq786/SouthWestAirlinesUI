@@ -3,6 +3,7 @@ import { FaYoutube, FaLinkedinIn, FaPinterestP } from 'react-icons/fa';
 import { RiFacebookFill } from 'react-icons/ri';
 import { ImInstagram } from 'react-icons/im';
 import { AiOutlineMobile } from 'react-icons/ai';
+
 import FooterLinks from './components/FooterLinks';
 
 export default function Footer() {
@@ -33,6 +34,7 @@ export default function Footer() {
       bgColor: 'bg-[#bd081c]',
     }, // Pinterest Red
   ];
+
   return (
     <div className="w-full bg-[#f5f5f5]">
       <div className="container-sw relative z-10 py-10">
@@ -49,8 +51,8 @@ export default function Footer() {
               </strong>
 
               <a
-                href="#"
                 className="text-[30px] font-bold text-blue-sw hover:text-black-sw hover:underline hover:decoration-black-sw"
+                href="#"
               >
                 <span>Help Center</span>
               </a>
@@ -62,8 +64,8 @@ export default function Footer() {
                 Subscribe
               </span>
               <a
-                href="#"
                 className="text-[20px] font-bold text-blue-sw hover:text-black-sw hover:underline hover:decoration-black-sw"
+                href="#"
               >
                 <span>
                   Wanna receive
@@ -72,8 +74,8 @@ export default function Footer() {
               </a>
               <span className="text-gray-sw text-[13px]">
                 <a
-                  href="#"
                   className="font-extralight text-blue-sw hover:text-black-sw hover:underline hover:decoration-black-sw"
+                  href="#"
                 >
                   Sign up
                 </a>
@@ -99,8 +101,8 @@ export default function Footer() {
                 {socialMedia.map((item, index) => (
                   <a
                     key={index}
-                    href="#"
                     className={`${item.bgColor} ${item.bgColor === 'bg-[#0077b5]' ? 'rounded-sm' : 'rounded-full'} flex items-center justify-center p-[4px] text-lg text-white`}
+                    href="#"
                     target="_blank"
                   >
                     {item.icon}
@@ -125,7 +127,7 @@ export default function Footer() {
         </section>
 
         {/* copyright */}
-        <section></section>
+        <section />
       </div>
     </div>
   );

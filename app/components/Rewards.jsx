@@ -6,8 +6,8 @@ export default function Rewards() {
     <div className="grid grid-cols-2 rounded-[1px] font-swSans">
       {/* Join rapid */}
       <a
-        href="#"
         className="group/join flex w-full flex-col gap-4 bg-[#192c7f] pb-[20px] pl-[30px] pr-[15px] pt-[35px] text-white"
+        href="#"
       >
         <div className="flex flex-col gap-2 text-[35px] font-extrabold leading-tight text-yellow-sw">
           <div>Join Rapid Rewards®.</div>
@@ -46,8 +46,8 @@ export default function Rewards() {
 
       {/* Points */}
       <a
-        href="#"
         className="group/points relative flex w-full flex-col justify-between overflow-hidden bg-[#ffbf27] pb-[20px] pl-[30px] pr-[15px] pt-[35px] text-[#1a2c80]"
+        href="#"
       >
         <div>
           {/* tag */}
@@ -72,7 +72,7 @@ export default function Rewards() {
 
         {/* card */}
         <div className="absolute -bottom-5 right-9 flex justify-end">
-          <img src="/images/debit-card.png" alt="" />
+          <img alt="" src="/images/debit-card.png" />
         </div>
       </a>
     </div>

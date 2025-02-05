@@ -40,10 +40,10 @@ export default function Arrival() {
         <BsInfoCircleFill className="text-[13px] text-blue-sw" />
       </span>
       <input
+        className="w-[184px] rounded-sm border py-[2px] pl-[7px] pr-[48px] text-[32px] font-bold leading-none text-blue-sw shadow-inner"
         onClick={() => {
           setIsDropDownOpen(true);
         }}
-        className="w-[184px] rounded-sm border py-[2px] pl-[7px] pr-[48px] text-[32px] font-bold leading-none text-blue-sw shadow-inner"
         type="text"
         // value={searchQuery}
         // onChange={(e) => handleSearch(e.target.value)}

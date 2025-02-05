@@ -1,6 +1,5 @@
 import '@/styles/globals.css';
 import { Metadata } from 'next';
-import clsx from 'clsx';
 
 import { siteConfig } from '@/config/site';
 

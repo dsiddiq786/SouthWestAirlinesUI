@@ -5,9 +5,7 @@ import clsx from 'clsx';
 import { Providers } from './providers';
 
 import { siteConfig } from '@/config/site';
-
-import { fontArial, fontSouthwestSans } from '@/config/fonts';
-
+import { fontSouthwestSans } from '@/config/fonts';
 import { FlightProvider } from '@/context/FlightContext';
 
 export const metadata: Metadata = {

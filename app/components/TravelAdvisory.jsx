@@ -10,7 +10,7 @@ export default function TravelAdvisory() {
 
       <div className="flex items-center gap-1">
         <div className="font-bold text-black-sw">TRAVEL ADVISORY:</div>
-        <a href="#" className="text-blue-sw hover:underline">
+        <a className="text-blue-sw hover:underline" href="#">
           Washington (Reagan National), D.C. - DCA Operations
         </a>
       </div>

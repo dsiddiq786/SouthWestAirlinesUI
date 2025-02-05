@@ -3,8 +3,8 @@ import React from 'react';
 export default function HeroSEC() {
   return (
     <div
+      className="block w-full px-[4.7rem] pb-[9.8rem] pt-[5.8rem]"
       role="button"
-      className="block w-full px-[4.7rem] pb-[10.5rem] pt-[5.8rem]"
     >
       {/* Book now */}
 

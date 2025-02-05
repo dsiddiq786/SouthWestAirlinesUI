@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect } from 'react';
+
 import flightsData from '../data/flights.json'; // Ensure you have a flights.json file
 
 import { useTravelType } from './InputContexts/TravelTypeContext';

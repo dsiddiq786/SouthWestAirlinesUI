@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-
 import { IoCaretDownSharp } from 'react-icons/io5';
 
 export default function RecentSearches() {

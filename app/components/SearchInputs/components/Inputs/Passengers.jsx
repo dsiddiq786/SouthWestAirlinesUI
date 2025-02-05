@@ -1,7 +1,7 @@
 import { PiUserFill } from 'react-icons/pi';
 export default function Passengers() {
   return (
-    <div role="button" className="flex flex-col">
+    <div className="flex flex-col" role="button">
       <span className="pb-[8px] text-[11px] font-bold text-gray-sw">
         PASSENGERS
       </span>
