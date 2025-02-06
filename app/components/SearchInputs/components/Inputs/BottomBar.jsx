@@ -49,7 +49,7 @@ export default function BottomBar() {
             <span className="text-[9px] text-gray-sw">(Optional)</span>
           </span>
           <input
-            className="rounded-sm border px-7 py-[6px] text-sm leading-none text-blue-sw shadow-inner"
+            className="rounded-sm border px-1 py-[6px] text-sm leading-none text-black-sw shadow-inner"
             type="text"
             maxLength={10}
           />

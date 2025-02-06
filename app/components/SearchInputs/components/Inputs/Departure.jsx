@@ -5,7 +5,12 @@ import { useFlights } from '@/context/FlightContext';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function Departure() {
-  const { groupedCitiesByState } = useFlights();
+  const {
+    groupedCitiesByState,
+    filteredCitiesByState,
+    handleSearch,
+    searchQuery,
+  } = useFlights();
 
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
@@ -49,19 +54,18 @@ export default function Departure() {
           setIsDropDownOpen(true);
         }}
         type="text"
-        // value={searchQuery}
-        // onChange={(e) => handleSearch(e.target.value)}
-        // onClick={togglePopover}
+        value={searchQuery}
+        onChange={(e) => handleSearch(e.target.value)}
       />
       <div>
         <span className="text-[11px] text-gray-sw">AMA</span>
       </div>
 
-      {isDropDownOpen && (
+      {isDropDownOpen && searchQuery.length >= 2 && (
         <>
           <div className="absolute -left-5 bottom-[5.7rem] z-50 w-[200%] rounded-sm border bg-white shadow-lg shadow-gray-400 xl:w-[240%]">
             <ul className="max-h-64 w-full overflow-y-scroll px-3 pt-3">
-              {groupedCitiesByState.map((state) => {
+              {filteredCitiesByState.map((state) => {
                 return (
                   <div key={uuidv4()}>
                     <States state={state} />

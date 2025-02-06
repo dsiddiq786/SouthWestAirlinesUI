@@ -44,15 +44,19 @@ export function FlightProvider({ children }) {
   // Departure
   const {
     groupedCitiesByState,
+    filteredCitiesByState,
+    handleSearch,
+    searchQuery,
+    setSearchQuery,
     selectedStates,
     setSelectedStates,
-    selectedCities,
-    setSelectedCities,
-    toggleCitySelection,
+    selectedCodes,
+    setSelectedCodes,
+    toggleCodeSelection,
     toggleStateSelection,
   } = useDeparture(airports, flights);
 
-  console.log(groupedCitiesByState);
+  console.log(selectedStates, selectedCodes);
 
   // Load flights data on mount
   useEffect(() => {
@@ -112,11 +116,15 @@ export function FlightProvider({ children }) {
 
         // Departure
         groupedCitiesByState,
+        filteredCitiesByState,
+        handleSearch,
+        searchQuery,
+        setSearchQuery,
         selectedStates,
         setSelectedStates,
-        selectedCities,
-        setSelectedCities,
-        toggleCitySelection,
+        selectedCodes,
+        setSelectedCodes,
+        toggleCodeSelection,
         toggleStateSelection,
       }}
     >
