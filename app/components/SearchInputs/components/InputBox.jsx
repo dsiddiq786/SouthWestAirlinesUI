@@ -2,13 +2,13 @@ import React from 'react';
 import RecentSearches from './Inputs/RecentSearches';
 import TravelTypes from './Inputs/TravelTypes';
 import BagFees from './Inputs/BagFees';
-import Departure from './Inputs/Departure';
-import Arrival from './Inputs/Arrival';
+import Departure from './Inputs/Departure/Departure';
 import { RiExchangeLine } from 'react-icons/ri';
 import DepartDate from './Inputs/DepartDate';
 import ReturnDate from './Inputs/ReturnDate';
 import Passengers from './Inputs/Passengers';
 import BottomBar from './Inputs/BottomBar';
+import Arrival from './Inputs/Arrive/Arrival';
 
 export default function InputBox() {
   return (

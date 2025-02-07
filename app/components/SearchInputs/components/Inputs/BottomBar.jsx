@@ -1,8 +1,10 @@
 import { BiCalendar } from 'react-icons/bi';
 import { GrMapLocation } from 'react-icons/gr';
 import { IoLocationSharp } from 'react-icons/io5';
+import { useFlights } from '@/context/FlightContext';
 
 export default function BottomBar() {
+  const { checkSearchSubmit } = useFlights();
   return (
     <div className="flex items-start whitespace-nowrap">
       {/* Details */}
@@ -64,7 +66,10 @@ export default function BottomBar() {
 
         {/* Search Button */}
         <div>
-          <button className="box-shadow-sw flex items-center gap-1 rounded-sm border border-transparent bg-yellow-sw px-[20px] py-2 text-black-sw transition-all duration-200 hover:border-black-sw hover:shadow-none">
+          <button
+            onClick={() => checkSearchSubmit()}
+            className="box-shadow-sw flex items-center gap-1 rounded-sm border border-transparent bg-yellow-sw px-[20px] py-2 text-black-sw transition-all duration-200 hover:border-black-sw hover:shadow-none"
+          >
             <span className="text-xs font-bold">Search</span>
           </button>
         </div>

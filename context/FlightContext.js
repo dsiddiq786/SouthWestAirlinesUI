@@ -8,7 +8,9 @@ import airportsData from '../data/airports.json';
 import { useTravelType } from './InputContexts/TravelTypeContext';
 import { useBagFees } from './InputContexts/BagFeesContext';
 import { usePassengerCount } from './InputContexts/PassengerContext';
-import { useDeparture } from './InputContexts/DepartureContext';
+import { useDepart } from './InputContexts/DepartureContext';
+import { useArrive } from './InputContexts/ArriveContext';
+import { useSearchSubmit } from './InputContexts/SearchSubmitContext';
 
 const FlightContext = createContext();
 
@@ -41,22 +43,55 @@ export function FlightProvider({ children }) {
     setTotalPassengers,
   } = usePassengerCount();
 
+  const [updatedSelectedArriveCodes, setUpdatedSelectedArriveCodes] = useState(
+    []
+  );
   // Departure
   const {
-    groupedCitiesByState,
-    filteredCitiesByState,
-    handleSearch,
-    searchQuery,
-    setSearchQuery,
-    selectedStates,
-    setSelectedStates,
-    selectedCodes,
-    setSelectedCodes,
-    toggleCodeSelection,
-    toggleStateSelection,
-  } = useDeparture(airports, flights);
+    groupedDepartCitiesByState,
+    filteredDepartCitiesByState,
+    handleDepartSearch,
+    departSearchQuery,
+    setDepartSearchQuery,
+    selectedDepartStates,
+    setSelectedDepartStates,
+    selectedDepartCodes,
+    setSelectedDepartCodes,
+    toggleDepartCodeSelection,
+    toggleDepartStateSelection,
+  } = useDepart(airports, updatedSelectedArriveCodes);
 
-  console.log(selectedStates, selectedCodes);
+  // Arrive
+  const {
+    groupedArriveCitiesByState,
+    filteredArriveCitiesByState,
+    handleArriveSearch,
+    arriveSearchQuery,
+    setArriveSearchQuery,
+    selectedArriveStates,
+    setSelectedArriveStates,
+    selectedArriveCodes,
+    setSelectedArriveCodes,
+    toggleArriveCodeSelection,
+    toggleArriveStateSelection,
+  } = useArrive(airports, selectedDepartCodes);
+  useEffect(() => {
+    setUpdatedSelectedArriveCodes(selectedArriveCodes);
+  }, [selectedArriveCodes]);
+
+  console.log(selectedDepartStates, selectedDepartCodes);
+  console.log(selectedArriveStates, selectedArriveCodes);
+
+  // Search submit
+  const {
+    isSearchClicked,
+    setIsSearchClicked,
+    isDepartEmpty,
+    setIsDepartEmpty,
+    isArriveEmpty,
+    setIsArriveEmpty,
+    checkSearchSubmit,
+  } = useSearchSubmit(selectedDepartCodes, selectedArriveCodes);
 
   // Load flights data on mount
   useEffect(() => {
@@ -115,17 +150,39 @@ export function FlightProvider({ children }) {
         setTotalPassengers,
 
         // Departure
-        groupedCitiesByState,
-        filteredCitiesByState,
-        handleSearch,
-        searchQuery,
-        setSearchQuery,
-        selectedStates,
-        setSelectedStates,
-        selectedCodes,
-        setSelectedCodes,
-        toggleCodeSelection,
-        toggleStateSelection,
+        groupedDepartCitiesByState,
+        filteredDepartCitiesByState,
+        handleDepartSearch,
+        departSearchQuery,
+        setDepartSearchQuery,
+        selectedDepartStates,
+        setSelectedDepartStates,
+        selectedDepartCodes,
+        setSelectedDepartCodes,
+        toggleDepartCodeSelection,
+        toggleDepartStateSelection,
+
+        // Arrive
+        groupedArriveCitiesByState,
+        filteredArriveCitiesByState,
+        handleArriveSearch,
+        arriveSearchQuery,
+        setArriveSearchQuery,
+        selectedArriveStates,
+        setSelectedArriveStates,
+        selectedArriveCodes,
+        setSelectedArriveCodes,
+        toggleArriveCodeSelection,
+        toggleArriveStateSelection,
+
+        // Search Submit
+        isSearchClicked,
+        setIsSearchClicked,
+        isDepartEmpty,
+        setIsDepartEmpty,
+        isArriveEmpty,
+        setIsArriveEmpty,
+        checkSearchSubmit,
       }}
     >
       {children}

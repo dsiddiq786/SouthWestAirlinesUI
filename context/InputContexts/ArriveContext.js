@@ -1,8 +1,8 @@
 import { useState, useMemo, useEffect } from 'react';
 
-export function useDepart(airports, selectedArriveCodes) {
+export function useArrive(airports, selectedDepartCodes) {
   // Group cities by state and maintain the correct format
-  const groupedDepartCitiesByState = useMemo(() => {
+  const groupedArriveCitiesByState = useMemo(() => {
     const stateCityMap = airports.reduce((acc, airport) => {
       const state = airport.state || 'Unknown';
       const city = airport.city || 'Unknown';
@@ -27,63 +27,63 @@ export function useDepart(airports, selectedArriveCodes) {
   }, [airports]); // Runs when `airports` changes
 
   // Global state for selected states and airport codes
-  const [selectedDepartStates, setSelectedDepartStates] = useState([]);
-  const [selectedDepartCodes, setSelectedDepartCodes] = useState([]);
-  const [departSearchQuery, setDepartSearchQuery] = useState(''); // Search query state
+  const [selectedArriveStates, setSelectedArriveStates] = useState([]);
+  const [selectedArriveCodes, setSelectedArriveCodes] = useState([]);
+  const [arriveSearchQuery, setArriveSearchQuery] = useState(''); // Search query state
 
   // Function to handle search input
-  const handleDepartSearch = (query) => {
-    setDepartSearchQuery(query.toLowerCase());
+  const handleArriveSearch = (query) => {
+    setArriveSearchQuery(query.toLowerCase());
   };
 
-  // useEffect to update departSearchQuery when selectedDepartCodes change
+  // useEffect to update arriveSearchQuery when selectedArriveCodes change
   useEffect(() => {
-    if (selectedDepartCodes.length > 0) {
+    if (selectedArriveCodes.length > 0) {
       // Join selected codes into a comma-separated string
-      const query = selectedDepartCodes
+      const query = selectedArriveCodes
         .map((code) => code.toUpperCase())
         .join(', ');
-      setDepartSearchQuery((prev) => (prev !== query ? query : prev));
+      setArriveSearchQuery((prev) => (prev !== query ? query : prev));
     }
-  }, [selectedDepartCodes]); // Only depends on selectedDepartCodes
+  }, [selectedArriveCodes]); // Only depends on selectedArriveCodes
 
-  // useEffect to clear selections only when departSearchQuery is changed manually
+  // useEffect to clear selections only when arriveSearchQuery is changed manually
   useEffect(() => {
-    if (departSearchQuery.length > 0 && selectedDepartCodes.length > 0) {
-      // Prevent clearing when departSearchQuery is being set by code selection
-      const codeMatches = selectedDepartCodes.some((code) =>
-        departSearchQuery.includes(code.toUpperCase())
+    if (arriveSearchQuery.length > 0 && selectedArriveCodes.length > 0) {
+      // Prevent clearing when arriveSearchQuery is being set by code selection
+      const codeMatches = selectedArriveCodes.some((code) =>
+        arriveSearchQuery.includes(code.toUpperCase())
       );
 
       // Check if all selected codes belong to a single state
-      const matchingState = groupedDepartCitiesByState.find(
+      const matchingState = groupedArriveCitiesByState.find(
         ({ state, cities }) =>
-          selectedDepartCodes.every((code) =>
+          selectedArriveCodes.every((code) =>
             cities.some((c) => c.code === code)
           )
       );
 
       if (!codeMatches) {
-        setSelectedDepartCodes([]); // Clear only selected codes
+        setSelectedArriveCodes([]); // Clear only selected codes
         if (matchingState) {
-          setSelectedDepartStates([]); // Clear selectedDepartStates if all selected codes belong to one state
+          setSelectedArriveStates([]); // Clear selectedArriveStates if all selected codes belong to one state
         }
       }
     }
-  }, [departSearchQuery]); // Now depends on groupedDepartCitiesByState
+  }, [arriveSearchQuery]); // Now depends on groupedArriveCitiesByState
 
   // Filtered state based on search query
-  const filteredDepartCitiesByState = useMemo(() => {
-    if (!departSearchQuery || departSearchQuery.trim() === '')
-      return groupedDepartCitiesByState; // Return all if search is empty
+  const filteredArriveCitiesByState = useMemo(() => {
+    if (!arriveSearchQuery || arriveSearchQuery.trim() === '')
+      return groupedArriveCitiesByState; // Return all if search is empty
 
-    // Split departSearchQuery by comma and trim each term
-    const searchTerms = departSearchQuery
+    // Split arriveSearchQuery by comma and trim each term
+    const searchTerms = arriveSearchQuery
       .split(',')
       .map((term) => term.trim().toLowerCase());
 
     // Step 1: Initial filtering based on search query
-    let filtered = groupedDepartCitiesByState.filter(({ state, cities }) =>
+    let filtered = groupedArriveCitiesByState.filter(({ state, cities }) =>
       searchTerms.some(
         (term) =>
           state.toLowerCase().includes(term) || // Match state name
@@ -95,19 +95,19 @@ export function useDepart(airports, selectedArriveCodes) {
       )
     );
 
-    // Step 2: If selectedDepartCodes exist, show only their states with all cities in those states
-    if (selectedDepartCodes.length > 0) {
+    // Step 2: If selectedArriveCodes exist, show only their states with all cities in those states
+    if (selectedArriveCodes.length > 0) {
       const statesWithSelectedCodes = new Set();
 
       // Find states that contain the selected codes
-      groupedDepartCitiesByState.forEach(({ state, cities }) => {
-        if (cities.some((c) => selectedDepartCodes.includes(c.code))) {
+      groupedArriveCitiesByState.forEach(({ state, cities }) => {
+        if (cities.some((c) => selectedArriveCodes.includes(c.code))) {
           statesWithSelectedCodes.add(state);
         }
       });
 
       // Modify filtered list to keep selected codes & all other cities in their states
-      filtered = groupedDepartCitiesByState
+      filtered = groupedArriveCitiesByState
         .filter(({ state }) => statesWithSelectedCodes.has(state)) // Keep only states with selected codes
         .map(({ state, cities }) => ({
           state,
@@ -118,20 +118,20 @@ export function useDepart(airports, selectedArriveCodes) {
     // Step 3: Remove cities that are in selectedDepartCodes
     filtered = filtered.map(({ state, cities }) => ({
       state,
-      cities: cities.filter((c) => !selectedArriveCodes.includes(c.code)), // Remove depart codes
+      cities: cities.filter((c) => !selectedDepartCodes.includes(c.code)), // Remove depart codes
     }));
 
     return filtered;
   }, [
-    departSearchQuery,
-    groupedDepartCitiesByState,
-    selectedDepartCodes,
+    arriveSearchQuery,
+    groupedArriveCitiesByState,
     selectedArriveCodes,
-  ]); // Now also depends on selectedDepartCodes
+    selectedDepartCodes,
+  ]); // Now also depends on selectedArriveCodes
 
   // Toggle airport code selection
-  const toggleDepartCodeSelection = (code) => {
-    setSelectedDepartCodes(
+  const toggleArriveCodeSelection = (code) => {
+    setSelectedArriveCodes(
       (prev) =>
         prev.includes(code)
           ? prev.filter((item) => item !== code) // Remove if already selected
@@ -139,42 +139,42 @@ export function useDepart(airports, selectedArriveCodes) {
     );
 
     // Find the corresponding state for the selected airport code
-    const correspondingState = groupedDepartCitiesByState.find((el) =>
+    const correspondingState = groupedArriveCitiesByState.find((el) =>
       el.cities.some((c) => c.code === code)
     )?.state;
 
     if (!correspondingState) return; // Exit if no state found
 
     // Ensure the state is removed only if no other selected airport codes belong to it
-    setSelectedDepartStates(
+    setSelectedArriveStates(
       (prev) =>
-        groupedDepartCitiesByState
+        groupedArriveCitiesByState
           .find((el) => el.state === correspondingState)
-          ?.cities.some((c) => selectedDepartCodes.includes(c.code)) // Check if any airport code remains
+          ?.cities.some((c) => selectedArriveCodes.includes(c.code)) // Check if any airport code remains
           ? prev
           : prev.filter((item) => item !== correspondingState) // Remove state if no airport codes remain
     );
   };
 
   // Toggle state selection and update airport codes
-  const toggleDepartStateSelection = (state) => {
-    if (selectedDepartStates.includes(state)) {
+  const toggleArriveStateSelection = (state) => {
+    if (selectedArriveStates.includes(state)) {
       // Deselect state & remove its airport codes
-      setSelectedDepartStates((prev) => prev.filter((item) => item !== state));
-      setSelectedDepartCodes((prev) =>
+      setSelectedArriveStates((prev) => prev.filter((item) => item !== state));
+      setSelectedArriveCodes((prev) =>
         prev.filter(
           (code) =>
-            !groupedDepartCitiesByState
+            !groupedArriveCitiesByState
               .find((el) => el.state === state)
               ?.cities.some((c) => c.code === code)
         )
       );
     } else {
       // Select state & add its airport codes
-      setSelectedDepartStates((prev) => [...prev, state]);
-      setSelectedDepartCodes((prev) => [
+      setSelectedArriveStates((prev) => [...prev, state]);
+      setSelectedArriveCodes((prev) => [
         ...prev,
-        ...(groupedDepartCitiesByState
+        ...(groupedArriveCitiesByState
           .find((el) => el.state === state)
           ?.cities.map((c) => c.code) || []),
       ]);
@@ -182,16 +182,16 @@ export function useDepart(airports, selectedArriveCodes) {
   };
 
   return {
-    groupedDepartCitiesByState,
-    filteredDepartCitiesByState,
-    handleDepartSearch,
-    departSearchQuery,
-    setDepartSearchQuery,
-    selectedDepartStates,
-    setSelectedDepartStates,
-    selectedDepartCodes,
-    setSelectedDepartCodes,
-    toggleDepartCodeSelection,
-    toggleDepartStateSelection,
+    groupedArriveCitiesByState,
+    filteredArriveCitiesByState,
+    handleArriveSearch,
+    arriveSearchQuery,
+    setArriveSearchQuery,
+    selectedArriveStates,
+    setSelectedArriveStates,
+    selectedArriveCodes,
+    setSelectedArriveCodes,
+    toggleArriveCodeSelection,
+    toggleArriveStateSelection,
   };
 }

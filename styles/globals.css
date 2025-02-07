@@ -16,8 +16,12 @@
 
         
     .box-shadow-sw {
-        box-shadow: 0 1px #8f8f8f;
+        box-shadow: 0 1px #a7a7a7;
     }
+        .inner-box-shadow-sw {
+            box-shadow: inset 0 1px #a7a7a7;
+            /* Inner shadow only at the top */
+        }
 
     .container-sw {
         @apply container mx-auto max-w-[59rem] ;

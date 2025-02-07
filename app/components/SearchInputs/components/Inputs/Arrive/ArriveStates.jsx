@@ -2,12 +2,12 @@ import CheckboxItem from '@/app/components/General/CheckboxItem';
 import { v4 as uuidv4 } from 'uuid';
 import { useFlights } from '@/context/FlightContext';
 
-export default function States({ state }) {
+export default function ArriveStates({ state }) {
   const {
-    selectedStates,
-    selectedCodes,
-    toggleCodeSelection,
-    toggleStateSelection,
+    selectedArriveStates,
+    selectedArriveCodes,
+    toggleArriveCodeSelection,
+    toggleArriveStateSelection,
   } = useFlights();
 
   return (
@@ -25,10 +25,10 @@ export default function States({ state }) {
                 </div>
                 <CheckboxItem
                   padding={'pl-1'}
-                  checked={selectedStates.includes(state.state)}
+                  checked={selectedArriveStates.includes(state.state)}
                   label={`${state.state} Airports`}
                   onChange={() => {
-                    toggleStateSelection(state.state);
+                    toggleArriveStateSelection(state.state);
                   }}
                 />
               </li>
@@ -39,9 +39,9 @@ export default function States({ state }) {
                 <li key={uuidv4()} className="w-full">
                   <CheckboxItem
                     padding={'pl-[22px]'}
-                    checked={selectedCodes.includes(city.code)}
+                    checked={selectedArriveCodes.includes(city.code)}
                     label={`${city.city}, ${state.state} - ${city.code}`}
-                    onChange={() => toggleCodeSelection(city.code)}
+                    onChange={() => toggleArriveCodeSelection(city.code)}
                   />
                 </li>
               ))}
@@ -54,9 +54,9 @@ export default function States({ state }) {
               <li key={uuidv4()} className="w-full">
                 <CheckboxItem
                   padding={'pl-1'}
-                  checked={selectedCodes.includes(city.code)}
+                  checked={selectedArriveCodes.includes(city.code)}
                   label={`${city.city}, ${state.state} - ${city.code}`}
-                  onChange={() => toggleCodeSelection(city.code)}
+                  onChange={() => toggleArriveCodeSelection(city.code)}
                   isCheckBoxHidden={true}
                 />
               </li>
