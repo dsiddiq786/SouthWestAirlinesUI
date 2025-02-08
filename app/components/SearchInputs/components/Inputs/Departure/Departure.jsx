@@ -14,7 +14,9 @@ export default function Departure() {
     isDepartEmpty,
     setIsDepartEmpty,
     isSearchClicked,
+    codeDetailsWithCityState,
   } = useFlights();
+  console.log(codeDetailsWithCityState);
 
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
@@ -90,7 +92,9 @@ export default function Departure() {
                   </span>
                 ) : (
                   <span className="text-[11px] text-gray-sw">
-                    {selectedDepartCodes[0]}
+                    {codeDetailsWithCityState.filter((detail) => {
+                      return detail.includes(selectedDepartCodes[0]);
+                    })}
                   </span>
                 )}
               </>

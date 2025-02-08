@@ -11,6 +11,8 @@ import { usePassengerCount } from './InputContexts/PassengerContext';
 import { useDepart } from './InputContexts/DepartureContext';
 import { useArrive } from './InputContexts/ArriveContext';
 import { useSearchSubmit } from './InputContexts/SearchSubmitContext';
+import { useDepartDate } from './InputContexts/DepartDateContext';
+import { useReturnDate } from './InputContexts/ReturnDateContext';
 
 const FlightContext = createContext();
 
@@ -24,6 +26,10 @@ export function FlightProvider({ children }) {
   const [airports] = useState(airportsData);
   const [filteredFlights, setFilteredFlights] = useState(flightsData);
   const [filters, setFilters] = useState({}); // Example filters (e.g., price range, airlines)
+
+  const codeDetailsWithCityState = airports.map(
+    (item) => `${item.city}, ${item.state} - ${item.code}`
+  );
 
   //   Travel types
   const { travelTypeOptions, selectedTravelType, setSelectedTravelType } =
@@ -79,8 +85,24 @@ export function FlightProvider({ children }) {
     setUpdatedSelectedArriveCodes(selectedArriveCodes);
   }, [selectedArriveCodes]);
 
-  console.log(selectedDepartStates, selectedDepartCodes);
-  console.log(selectedArriveStates, selectedArriveCodes);
+  // Exchange codes function
+  const exchangeCodes = () => {
+    setSelectedDepartCodes(selectedArriveCodes);
+    setSelectedArriveCodes(selectedDepartCodes);
+  };
+
+  // Depart Date
+  const { departDate, setDepartDate } = useDepartDate();
+
+  // Arrive Date
+  const { returnDate, setReturnDate } = useReturnDate();
+
+  // Resetting the return date if one-way is selected as the travel type
+  useEffect(() => {
+    if (selectedTravelType === travelTypeOptions[1]) {
+      setReturnDate('');
+    }
+  }, [selectedTravelType]);
 
   // Search submit
   const {
@@ -91,7 +113,20 @@ export function FlightProvider({ children }) {
     isArriveEmpty,
     setIsArriveEmpty,
     checkSearchSubmit,
-  } = useSearchSubmit(selectedDepartCodes, selectedArriveCodes);
+    isDepartDateEmpty,
+    setIsDepartDateEmpty,
+    isReturnDateEmpty,
+    setIsReturnDateEmpty,
+  } = useSearchSubmit(
+    selectedDepartCodes,
+    selectedArriveCodes,
+    selectedTravelType,
+    selectedBagFee,
+    totalPassengers,
+    departDate,
+    returnDate,
+    travelTypeOptions
+  );
 
   // Load flights data on mount
   useEffect(() => {
@@ -119,6 +154,16 @@ export function FlightProvider({ children }) {
     setFlights(filteredFlights);
   };
 
+  console.log('Depart Codes: ', selectedDepartCodes);
+  console.log('Arrive Codes: ', selectedArriveCodes);
+  console.log('Travel Type: ', selectedTravelType);
+  console.log('Bag fee: ', selectedBagFee);
+  console.log('Total Passengers: ', totalPassengers);
+  console.log('Filtered Depart Codes: ', filteredDepartCitiesByState);
+  console.log('Filtered Arrive Codes: ', filteredArriveCitiesByState);
+  console.log('Departure Date: ', departDate);
+  console.log('Return Date: ', returnDate);
+
   return (
     <FlightContext.Provider
       value={{
@@ -129,6 +174,9 @@ export function FlightProvider({ children }) {
         // filters
         filters,
         setFilters,
+
+        // codeDetailsWithCityState array
+        codeDetailsWithCityState,
 
         // travel types
         travelTypeOptions,
@@ -175,6 +223,17 @@ export function FlightProvider({ children }) {
         toggleArriveCodeSelection,
         toggleArriveStateSelection,
 
+        // Exchange code
+        exchangeCodes,
+
+        // Depart Date
+        departDate,
+        setDepartDate,
+
+        // Return Date
+        returnDate,
+        setReturnDate,
+
         // Search Submit
         isSearchClicked,
         setIsSearchClicked,
@@ -183,6 +242,10 @@ export function FlightProvider({ children }) {
         isArriveEmpty,
         setIsArriveEmpty,
         checkSearchSubmit,
+        isDepartDateEmpty,
+        setIsDepartDateEmpty,
+        isReturnDateEmpty,
+        setIsReturnDateEmpty,
       }}
     >
       {children}

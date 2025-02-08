@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export function useTravelType() {
   // Travel type options
@@ -6,7 +6,7 @@ export function useTravelType() {
 
   // State to manage the selected travel type
   const [selectedTravelType, setSelectedTravelType] = useState(
-    travelTypeOptions[0]
+    travelTypeOptions[1]
   ); // Default to "Round Trip"
 
   return {

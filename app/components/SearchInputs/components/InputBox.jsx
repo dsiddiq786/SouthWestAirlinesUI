@@ -9,8 +9,10 @@ import ReturnDate from './Inputs/ReturnDate';
 import Passengers from './Inputs/Passengers';
 import BottomBar from './Inputs/BottomBar';
 import Arrival from './Inputs/Arrive/Arrival';
+import { useFlights } from '@/context/FlightContext';
 
 export default function InputBox() {
+  const { exchangeCodes } = useFlights();
   return (
     <div className="flex flex-col bg-white pt-[16px]">
       <div className="px-[20px]">
@@ -36,7 +38,7 @@ export default function InputBox() {
             <div className="z-10 -mr-2">
               <Departure />
             </div>
-            <button className="z-20 bg-white">
+            <button onClick={() => exchangeCodes()} className="z-20 bg-white">
               <RiExchangeLine className="text-2xl text-blue-sw" />
             </button>
             <div className="z-10 -ml-2">

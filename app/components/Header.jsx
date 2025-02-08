@@ -2,6 +2,7 @@ import { FaUser } from 'react-icons/fa';
 import { BsGlobe } from 'react-icons/bs';
 import { FaSearch } from 'react-icons/fa';
 import React from 'react';
+import Link from 'next/link';
 
 export default function Header() {
   return (
@@ -53,11 +54,13 @@ export default function Header() {
       <div className="flex items-end justify-between">
         {/* Logo */}
         <div>
-          <img
-            src="/images/logo/southWestLogoBlue.svg"
-            alt="southwest logo"
-            // className="w-20"
-          />
+          <Link href={'/'}>
+            <img
+              src="/images/logo/southWestLogoBlue.svg"
+              alt="southwest logo"
+              // className="w-20"
+            />
+          </Link>
         </div>
 
         {/* navbar */}

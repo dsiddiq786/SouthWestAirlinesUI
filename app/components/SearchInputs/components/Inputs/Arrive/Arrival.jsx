@@ -15,6 +15,7 @@ export default function Arrival() {
     isArriveEmpty,
     setIsArriveEmpty,
     isSearchClicked,
+    codeDetailsWithCityState,
   } = useFlights();
 
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -56,7 +57,7 @@ export default function Arrival() {
   return (
     <div ref={dropdownRef} className="relative flex flex-col">
       <span className="flex items-center gap-1 pb-[8px] text-[11px] font-bold text-gray-sw">
-        Arrive
+        ARRIVE
         <BsInfoCircleFill className="text-[13px] text-blue-sw" />
       </span>
       <div className="relative">
@@ -92,7 +93,9 @@ export default function Arrival() {
                   </span>
                 ) : (
                   <span className="text-[11px] text-gray-sw">
-                    {selectedArriveCodes[0]}
+                    {codeDetailsWithCityState.filter((detail) => {
+                      return detail.includes(selectedArriveCodes[0]);
+                    })}
                   </span>
                 )}
               </>
