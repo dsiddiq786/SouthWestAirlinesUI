@@ -16,7 +16,6 @@ export default function Departure() {
     isSearchClicked,
     codeDetailsWithCityState,
   } = useFlights();
-  console.log(codeDetailsWithCityState);
 
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 

@@ -46,8 +46,8 @@ export function useSearchSubmit(
         params.set('travelType', selectedTravelType);
         params.set('bagFee', selectedBagFee);
         params.set('totalPassengers', totalPassengers);
-        params.set('departDate', departDate);
-        params.set('returnDate', returnDate);
+        params.set('departDate', formatDate(departDate));
+        params.set('returnDate', formatDate(returnDate));
 
         // Navigate to the flights page with search params
         router.push(`/air/booking/select-depart?${params.toString()}`);

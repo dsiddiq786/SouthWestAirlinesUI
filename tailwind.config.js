@@ -22,6 +22,7 @@ module.exports = {
       },
       backgroundImage: {
         'hero-bg': "url('/images/bg-hero.png')",
+        'price-unavailable': "url('/images/select-depart/unavailable.png')",
       },
       backgroundPosition: {
         'center-200': 'center 105px',

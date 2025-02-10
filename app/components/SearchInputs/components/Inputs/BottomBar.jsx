@@ -9,11 +9,11 @@ export default function BottomBar() {
     <div className="flex items-start whitespace-nowrap">
       {/* Details */}
       <div className="mt-5">
-        <ul className="sliced-div relative flex list-none items-center gap-4 bg-[#f5f5f5] py-3 pl-[17px] pr-16">
+        <ul className="sliced-div relative flex list-none items-center gap-4 bg-[#f5f5f5] py-3 pl-[17px] pr-24">
           {/* Where we fly */}
           <li>
             <button className="group/where flex items-center gap-2 p-[3px] text-[13px]">
-              <IoLocationSharp className="text-[#fe8748]" size={20} />
+              <IoLocationSharp className="text-[#fe8748]" size={25} />
               <span className="text-gray-sw decoration-gray-sw group-hover/where:underline">
                 Where we fly
               </span>
@@ -22,7 +22,7 @@ export default function BottomBar() {
           {/* Low fare */}
           <li>
             <button className="group/lowFare flex items-center gap-2 p-[3px] text-[13px]">
-              <BiCalendar className="text-[#febf28]" size={20} />
+              <BiCalendar className="text-[#febf28]" size={25} />
               <span className="text-gray-sw decoration-gray-sw group-hover/lowFare:underline">
                 Low Fare Calender
               </span>
@@ -31,7 +31,7 @@ export default function BottomBar() {
           {/* exploreDes */}
           <li>
             <button className="group/exploreDes flex items-center gap-2 p-[3px] text-[13px]">
-              <GrMapLocation className="text-blue-sw" size={20} />
+              <GrMapLocation className="text-blue-sw" size={25} />
               <span className="text-gray-sw decoration-blue-sw group-hover/exploreDes:underline">
                 Explore destinations
               </span>

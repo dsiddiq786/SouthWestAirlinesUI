@@ -7,7 +7,7 @@ export default function CheckboxItem({
 }) {
   return (
     <label
-      className={`relative flex cursor-pointer ${padding} items-center gap-2 py-[5px] text-blue-sw hover:bg-[#e6e7e8]`}
+      className={`relative mb-[1px] flex cursor-pointer transition-all ${padding} ${checked ? 'bg-[#e6e7e8]' : 'hover:bg-[#e6e7e8]'} items-center gap-2 py-[5px] text-blue-sw`}
     >
       {/* Default HTML Checkbox */}
       <input

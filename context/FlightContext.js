@@ -13,6 +13,7 @@ import { useArrive } from './InputContexts/ArriveContext';
 import { useSearchSubmit } from './InputContexts/SearchSubmitContext';
 import { useDepartDate } from './InputContexts/DepartDateContext';
 import { useReturnDate } from './InputContexts/ReturnDateContext';
+import { useDepartFlight } from './SelectDepart/DepartFlightContext';
 
 const FlightContext = createContext();
 
@@ -22,10 +23,23 @@ if (typeof window !== 'undefined' && !window.filterInteractions) {
 }
 
 export function FlightProvider({ children }) {
-  const [flights, setFlights] = useState(flightsData);
+  const [flights, setFlights] = useState([]);
+
+  useEffect(() => {
+    // Load flights asynchronously to prevent blocking the main thread
+    const loadFlights = async () => {
+      try {
+        setFlights(flightsData); // Set data safely
+      } catch (error) {
+        console.error('Error loading flights:', error);
+      }
+    };
+
+    setTimeout(loadFlights, 0); // Delay execution to allow smooth rendering
+  }, []); // Run only once
+
   const [airports] = useState(airportsData);
-  const [filteredFlights, setFilteredFlights] = useState(flightsData);
-  const [filters, setFilters] = useState({}); // Example filters (e.g., price range, airlines)
+  const [filteredFlights, setFilteredFlights] = useState(flights);
 
   const codeDetailsWithCityState = airports.map(
     (item) => `${item.city}, ${item.state} - ${item.code}`
@@ -128,41 +142,59 @@ export function FlightProvider({ children }) {
     travelTypeOptions
   );
 
-  // Load flights data on mount
+  const {
+    priceVariants,
+    selectedDepartFlight,
+    setSelectedDepartFlight,
+    handlePriceSelection,
+    updateDepartFlightURL,
+  } = useDepartFlight();
+
   useEffect(() => {
-    setFlights(flightsData);
-  }, []);
+    if (!flights || flights.length === 0) return; // Ensure flights data exists
 
-  // Function to filter flights
-  const filterFlights = (criteria) => {
-    let filteredFlights = flightsData;
+    // Convert selectedDepartCodes & selectedArriveCodes to Sets for O(1) lookup
+    const departSet = new Set(selectedDepartCodes);
+    const arriveSet = new Set(selectedArriveCodes);
 
-    if (criteria.airline) {
-      filteredFlights = filteredFlights.filter(
-        (flight) => flight.airline === criteria.airline
-      );
-    }
+    // Use `reduce()` to iterate `flights` only ONCE
+    const groupedFlights = flights.reduce((acc, flight) => {
+      // Check if flight's departure & arrival exist in selected sets
+      if (
+        departSet.has(flight.departurePort) &&
+        arriveSet.has(flight.arrivalPort)
+      ) {
+        const key = `${flight.departurePort}-${flight.arrivalPort}`;
 
-    if (criteria.priceRange) {
-      filteredFlights = filteredFlights.filter(
-        (flight) =>
-          flight.price >= criteria.priceRange.min &&
-          flight.price <= criteria.priceRange.max
-      );
-    }
+        // If route doesn't exist in accumulator, create an entry
+        if (!acc[key]) {
+          acc[key] = {
+            departure: flight.departurePort,
+            arrival: flight.arrivalPort,
+            flights: [],
+          };
+        }
 
-    setFlights(filteredFlights);
-  };
+        // Push flight data to its corresponding departure → arrival group
+        acc[key].flights.push(flight);
+      }
+      return acc;
+    }, {});
 
-  console.log('Depart Codes: ', selectedDepartCodes);
-  console.log('Arrive Codes: ', selectedArriveCodes);
-  console.log('Travel Type: ', selectedTravelType);
-  console.log('Bag fee: ', selectedBagFee);
-  console.log('Total Passengers: ', totalPassengers);
-  console.log('Filtered Depart Codes: ', filteredDepartCitiesByState);
-  console.log('Filtered Arrive Codes: ', filteredArriveCitiesByState);
-  console.log('Departure Date: ', departDate);
-  console.log('Return Date: ', returnDate);
+    // Convert object to array & update state
+    setFilteredFlights(Object.values(groupedFlights));
+  }, [flights, selectedDepartCodes, selectedArriveCodes]);
+
+  // console.log('Depart Codes: ', selectedDepartCodes);
+  // console.log('Arrive Codes: ', selectedArriveCodes);
+  // console.log('Travel Type: ', selectedTravelType);
+  // console.log('Bag fee: ', selectedBagFee);
+  // console.log('Total Passengers: ', totalPassengers);
+  // console.log('Filtered Depart Codes: ', filteredDepartCitiesByState);
+  // console.log('Filtered Arrive Codes: ', filteredArriveCitiesByState);
+  // console.log('Departure Date: ', departDate);
+  // console.log('Return Date: ', returnDate);
+  // console.log(selectedDepartFlight);
 
   return (
     <FlightContext.Provider
@@ -170,10 +202,6 @@ export function FlightProvider({ children }) {
         // flights
         allFlights: flights,
         filteredFlights,
-
-        // filters
-        filters,
-        setFilters,
 
         // codeDetailsWithCityState array
         codeDetailsWithCityState,
@@ -246,6 +274,13 @@ export function FlightProvider({ children }) {
         setIsDepartDateEmpty,
         isReturnDateEmpty,
         setIsReturnDateEmpty,
+
+        // DepartFlight
+        priceVariants,
+        selectedDepartFlight,
+        setSelectedDepartFlight,
+        handlePriceSelection,
+        updateDepartFlightURL,
       }}
     >
       {children}

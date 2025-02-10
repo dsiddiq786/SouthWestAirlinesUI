@@ -100,15 +100,19 @@ export default function DepartInfo() {
 
       {/*   Govt tax and dollars or points */}
       <div className="mt-1 flex items-start gap-4">
-        {/* Govt tax notification */}
-        <div className="flex flex-col items-end text-[11px]">
-          <button className="text-blue-sw underline transition-all hover:text-black-sw hover:decoration-black-sw">
-            Government taxes & fees included
-          </button>
-          <p className="text-black-sw">
-            All fares are rounded upto the nearest dollar.
-          </p>
-        </div>
+        {selectedBagFee === bagFeeOptions[0] && (
+          <>
+            {/* Govt tax notification */}
+            <div className="flex flex-col items-end text-[11px]">
+              <button className="text-blue-sw underline transition-all hover:text-black-sw hover:decoration-black-sw">
+                Government taxes & fees included
+              </button>
+              <p className="text-black-sw">
+                All fares are rounded upto the nearest dollar.
+              </p>
+            </div>
+          </>
+        )}
 
         {/* Dollars and points */}
         <div className="flex border text-[13px]">
