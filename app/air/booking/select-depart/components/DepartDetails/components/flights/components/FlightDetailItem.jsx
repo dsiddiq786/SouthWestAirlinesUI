@@ -11,9 +11,12 @@ export default function FlightDetailItem({ flight, metadata }) {
   const { priceVariants, selectedDepartFlight, handlePriceSelection } =
     useFlights();
 
+  // console.log(selectedDepartFlight?.price.variant === priceVariants[0]);
+  console.log(selectedDepartFlight);
+
   return (
     <>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
         {/* flight detail item */}
         <div className="flex">
           {/* time , duration etc */}
@@ -73,7 +76,7 @@ export default function FlightDetailItem({ flight, metadata }) {
                     <div className="flex w-[150px] flex-col items-center justify-between">
                       {/* No. of stops */}
                       <button className="rounded-sm bg-[#e6e7e8] px-[6px] py-1 text-[11px] font-bold leading-none text-gray-sw">
-                        Non stop
+                        Nonstop
                       </button>
                     </div>
                   )}
@@ -97,15 +100,11 @@ export default function FlightDetailItem({ flight, metadata }) {
                   key={uuidv4()}
                   className={`group/priceBtn relative flex w-[94px] items-center justify-center rounded-sm border py-4 ${
                     price === 'Unavailable'
-                      ? 'bg-price-unavailable cursor-not-allowed border-[#8f8f8f] bg-cover'
-                      : selectedDepartFlight.price.variant === priceVariants[0]
-                        ? 'bg-blue-sw text-white underline decoration-2 underline-offset-1'
-                        : selectedDepartFlight.price.variant ===
-                            priceVariants[1]
-                          ? 'bg-[#a4baf2] text-white underline decoration-2 underline-offset-1'
-                          : index === 2
-                            ? 'border-[#a4baf2] bg-white text-yellow-600 transition-all duration-300 hover:bg-[#e8ecf9]'
-                            : 'border-[#a4baf2] bg-white text-center text-blue-sw transition-all duration-300 hover:bg-[#e8ecf9]'
+                      ? 'cursor-not-allowed border-[#8f8f8f] bg-price-unavailable bg-cover'
+                      : priceVariants[index].variant ===
+                          selectedDepartFlight?.price
+                        ? priceVariants[index].class
+                        : 'border-[#a4baf2] bg-white text-center text-blue-sw transition-all duration-300 hover:bg-[#e8ecf9]'
                   }`}
                 >
                   <span className="flex items-start">
@@ -115,7 +114,12 @@ export default function FlightDetailItem({ flight, metadata }) {
                     )}
                     {/* Price */}
                     <span
-                      className={` ${price === 'Unavailable' ? 'text-[13px] text-gray-sw' : 'text-[22px]'} font-bold`}
+                      className={` ${price === 'Unavailable' ? 'text-[13px] text-gray-sw' : 'text-[22px]'} ${
+                        priceVariants[index].variant ===
+                        selectedDepartFlight?.price
+                          ? 'underline decoration-2 underline-offset-4'
+                          : ''
+                      } font-bold`}
                     >
                       {price}
                     </span>
@@ -128,8 +132,16 @@ export default function FlightDetailItem({ flight, metadata }) {
                   )}
 
                   {/* bottom background */}
-                  {selectedDepartFlight && (
-                    <div className="absolute -bottom-3 h-3 w-full bg-[#304cb2]"></div>
+                  {priceVariants[index].variant ===
+                    selectedDepartFlight?.price && (
+                    <div
+                      className={`absolute -bottom-2 h-2 w-full ${
+                        priceVariants[index].variant ===
+                        selectedDepartFlight?.price
+                          ? priceVariants[index].bottomBackground
+                          : ''
+                      }`}
+                    ></div>
                   )}
                 </button>
               );
@@ -140,14 +152,18 @@ export default function FlightDetailItem({ flight, metadata }) {
         {/* price variant features */}
         {selectedDepartFlight && (
           <section>
-            {selectedDepartFlight.price.variant ===
-              priceVariants[0].variant && <BusinessSelect />}
-            {selectedDepartFlight.price.variant ===
-              priceVariants[1].variant && <Anytime />}
-            {selectedDepartFlight.price.variant ===
-              priceVariants[2].variant && <WannaGetAwayPlus />}
-            {selectedDepartFlight.price.variant ===
-              priceVariants[3].variant && <WannaGetAway />}
+            {selectedDepartFlight.price === priceVariants[0].variant && (
+              <BusinessSelect />
+            )}
+            {selectedDepartFlight.price === priceVariants[1].variant && (
+              <Anytime />
+            )}
+            {selectedDepartFlight.price === priceVariants[2].variant && (
+              <WannaGetAwayPlus />
+            )}
+            {selectedDepartFlight.price === priceVariants[3].variant && (
+              <WannaGetAway />
+            )}
           </section>
         )}
       </div>

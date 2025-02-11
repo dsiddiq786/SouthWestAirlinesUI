@@ -195,7 +195,7 @@ export function FlightProvider({ children }) {
   // console.log('Filtered Arrive Codes: ', filteredArriveCitiesByState);
   // console.log('Departure Date: ', departDate);
   // console.log('Return Date: ', returnDate);
-  console.log(selectedDepartFlight);
+  // console.log(selectedDepartFlight);
   // console.log(filteredFlights);
 
   return (

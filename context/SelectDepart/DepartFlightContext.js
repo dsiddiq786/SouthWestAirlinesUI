@@ -8,22 +8,20 @@ export function useDepartFlight() {
 
   // Price variants with corresponding points
   const priceVariants = [
-    { variant: 'Business Select', points: '5,193' },
-    { variant: 'Anytime', points: '3,863' },
-    { variant: 'Wanna Get Away plus', points: '2,398' },
-    { variant: 'Wanna Get Away', points: '1,687' },
+    { variant: 'Business Select', points: '5,193', class: "rounded-b-none border-none bg-blue-sw text-white", bottomBackground: "bg-[#304cb2]" },
+    { variant: 'Anytime', points: '3,863', class: "rounded-b-none border-none bg-[#a4baf2] text-black-sw", bottomBackground: "bg-[#a4baf2]" },
+    { variant: 'Wanna Get Away plus', points: '2,398', class: "rounded-b-none  bg-[#f5f5f5] text-black-sw", bottomBackground: "bg-[#f5f5f5]" },
+    { variant: 'Wanna Get Away', points: '1,687', class: "rounded-b-none border-none bg-[#ffbf27] text-black-sw", bottomBackground: "bg-[#ffbf27]" },
   ];
 
   // State to track selected flight
   const [selectedDepartFlight, setSelectedDepartFlight] = useState(null);
-  //   console.log(selectedDepartFlight);
-  const updateDepartFlightURL = (flight, price) => {
+  const updateDepartFlightURL = (flight, variant) => {
     const departFlight = {
       flightId: flight.id,
-      price: price,
+      price: variant,
     };
     const params = new URLSearchParams(searchParams);
-    console.log(departFlight);
     params.set(
       'departFlight',
       encodeURIComponent(JSON.stringify(departFlight))
@@ -41,9 +39,9 @@ export function useDepartFlight() {
 
     setSelectedDepartFlight({
       flight: [flight],
-      price: priceVariants[variantIndex],
+      price: priceVariants[variantIndex].variant,
     });
-    updateDepartFlightURL(flight, priceVariants[variantIndex]);
+    updateDepartFlightURL(flight, priceVariants[variantIndex].variant);
   };
 
   // Function to update the URL
