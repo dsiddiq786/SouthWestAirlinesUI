@@ -1,24 +1,25 @@
 import { useFlights } from '@/context/FlightContext';
 import { FaCheckCircle } from 'react-icons/fa';
 
-export default function BusinessSelect() {
+export default function WannaGetAway() {
   const { priceVariants } = useFlights();
   return (
     <div className="flex flex-col gap-2">
       {/* uppder div */}
-      <div className="flex h-[160px] items-stretch border-2 border-blue-sw text-white">
+      <div className="flex h-[160px] items-stretch border-2 border-[#ffbf27] text-black-sw">
         {/* title and points */}
-        <div className="flex w-[185px] flex-col gap-1 bg-blue-sw py-6 pl-4 pr-2">
+        <div className="flex w-[185px] flex-col gap-1 bg-[#ffbf27] py-6 pl-4 pr-2">
           {/* title */}
           <h3 className="text-[28px] font-bold leading-none">
-            Business <br /> Select
+            Wanna <br />
+            Get Away
           </h3>
 
           {/* earn */}
           <div className="flex flex-col leading-none">
             <span className="text-[13px]">EARN</span>
             <span className="text-[20px] font-bold">
-              {priceVariants[0].points}
+              {priceVariants[3].points}
             </span>
           </div>
 
@@ -37,7 +38,7 @@ export default function BusinessSelect() {
               <div className="flex gap-2">
                 <FaCheckCircle size={14} className="text-[#008020]" />
                 <span className="text-[13px] font-bold text-black-sw">
-                  Refundable<sup>7</sup>
+                  Non-refundable (flight credit if you cancel)<sup>4</sup>
                 </span>
               </div>
 
@@ -45,7 +46,8 @@ export default function BusinessSelect() {
               <div className="flex gap-2">
                 <FaCheckCircle size={14} className="text-[#008020]" />
                 <span className="text-[13px] font-bold text-black-sw">
-                  Priority boarding A1-A15
+                  No change
+                  <sup>2</sup> or cancel fees<sup>3</sup>
                 </span>
               </div>
 
@@ -53,7 +55,7 @@ export default function BusinessSelect() {
               <div className="flex gap-2">
                 <FaCheckCircle size={14} className="text-[#008020]" />
                 <span className="text-[13px] font-bold text-black-sw">
-                  Free Inflight Internet<sup>12</sup>
+                  Free same-day standby (taxes and fees may apply)<sup>6</sup>
                 </span>
               </div>
             </div>
@@ -70,29 +72,41 @@ export default function BusinessSelect() {
       </div>
 
       {/* Lower div */}
-      <div className="flex h-[110px] items-center border-2 px-4">
+      <div className="flex h-[110px] items-center gap-[4.5rem] border-2 px-4">
         {/* we get it  */}
         <div className="flex flex-col text-[18px] font-bold leading-none text-blue-sw">
-          <span>We get it: we love</span>
-          <span>being first too</span>
-        </div>
-
-        {/* img */}
-        <div className="pl-2 pr-4">
-          <img
-            src="/images/select-depart/BusSelect.png"
-            className="w-[40px]"
-            alt=""
-          />
-        </div>
-
-        {/* paragraph */}
-        <div className="flex flex-col gap-1 text-[14px] leading-none text-black-sw">
+          <span>Upgrade to Wanna</span>
           <span>
-            This fare guarantees a boarding position in A1-A15, which means
-            you're one of the first to board.
+            Get Away <span className="italic text-red-600">plus</span>
           </span>
-          <span>Start thinking about your favorite seat!</span>
+        </div>
+
+        {/* points and upgrade button */}
+        <div className="flex flex-1 items-center justify-between leading-none">
+          <ul className="list-disc space-y-3 text-[14px] font-bold text-gray-sw">
+            <li>
+              Earn 2,398 Rapid Rewards<sup>®</sup> points<sup>11</sup>
+            </li>
+            <li>
+              Transferable Flight Credit™<sup>5</sup>
+            </li>
+            <li>
+              Free same-day confirmed change (taxes and fees may apply)
+              <sup>6</sup>
+            </li>
+          </ul>
+
+          {/* price and button */}
+          <div className="flex items-center gap-4 pr-5">
+            <div className="flex flex-col items-center justify-center leading-none text-blue-sw">
+              <span className="text-[12px] italic">for only</span>
+              <span className="text-[28px] font-bold">$20</span>
+              <span className="text-[12px] italic">more</span>
+            </div>
+            <button className="rounded-sm bg-blue-sw px-[20px] py-2 text-[14px] font-bold text-white">
+              Upgrade
+            </button>
+          </div>
         </div>
       </div>
     </div>

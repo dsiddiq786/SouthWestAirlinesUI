@@ -42,7 +42,7 @@ export default function DepartInfo() {
             <h2 className="text-[42px] font-bold tracking-tighter text-black-sw">
               Depart:
             </h2>
-            <div className="flex items-center gap-3 text-[26px] text-black-sw">
+            <div className="flex items-center gap-3 text-[42px] tracking-tight text-black-sw">
               {/* Depart Codes */}
               <span>
                 {selectedDepartCodes.length > 1 ? (

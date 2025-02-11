@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default function FlightDetails({ flights }) {
   const { selectedDepartFlight } = useFlights();
-  console.log(selectedDepartFlight);
+
   return (
     <div className="flex flex-col">
       {/* Filters */}
@@ -73,7 +73,7 @@ export default function FlightDetails({ flights }) {
             {flights
               .filter(
                 (flightDetail) =>
-                  flightDetail.id === selectedDepartFlight.flight.id
+                  flightDetail.id === selectedDepartFlight.flight[0].id
               )
               .map((flightDetail) => (
                 <FlightDetailItem

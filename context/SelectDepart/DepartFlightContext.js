@@ -16,14 +16,18 @@ export function useDepartFlight() {
 
   // State to track selected flight
   const [selectedDepartFlight, setSelectedDepartFlight] = useState(null);
-
-  const updateDepartFlightURL = (
-    selectedDepartFlightId,
-    selectedDepartFlightPrice
-  ) => {
+  //   console.log(selectedDepartFlight);
+  const updateDepartFlightURL = (flight, price) => {
+    const departFlight = {
+      flightId: flight.id,
+      price: price,
+    };
     const params = new URLSearchParams(searchParams);
-    params.set('departFlightId', selectedDepartFlightId);
-    params.set('departFlightPrice', selectedDepartFlightPrice);
+    console.log(departFlight);
+    params.set(
+      'departFlight',
+      encodeURIComponent(JSON.stringify(departFlight))
+    );
 
     replace(`?${params.toString()}`, { scroll: false }); // Update URL without reload
   };
@@ -36,10 +40,10 @@ export function useDepartFlight() {
     }
 
     setSelectedDepartFlight({
-      flight: flight,
+      flight: [flight],
       price: priceVariants[variantIndex],
     });
-    updateDepartFlightURL(flight.id, priceVariants[variantIndex]);
+    updateDepartFlightURL(flight, priceVariants[variantIndex]);
   };
 
   // Function to update the URL

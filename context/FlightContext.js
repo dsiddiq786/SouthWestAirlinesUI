@@ -30,6 +30,7 @@ export function FlightProvider({ children }) {
     const loadFlights = async () => {
       try {
         setFlights(flightsData); // Set data safely
+        setFilteredFlights(flights);
       } catch (error) {
         console.error('Error loading flights:', error);
       }
@@ -38,8 +39,8 @@ export function FlightProvider({ children }) {
     setTimeout(loadFlights, 0); // Delay execution to allow smooth rendering
   }, []); // Run only once
 
-  const [airports] = useState(airportsData);
   const [filteredFlights, setFilteredFlights] = useState(flights);
+  const [airports] = useState(airportsData);
 
   const codeDetailsWithCityState = airports.map(
     (item) => `${item.city}, ${item.state} - ${item.code}`
@@ -118,6 +119,14 @@ export function FlightProvider({ children }) {
     }
   }, [selectedTravelType]);
 
+  const {
+    priceVariants,
+    selectedDepartFlight,
+    setSelectedDepartFlight,
+    handlePriceSelection,
+    updateDepartFlightURL,
+  } = useDepartFlight();
+
   // Search submit
   const {
     isSearchClicked,
@@ -141,14 +150,6 @@ export function FlightProvider({ children }) {
     returnDate,
     travelTypeOptions
   );
-
-  const {
-    priceVariants,
-    selectedDepartFlight,
-    setSelectedDepartFlight,
-    handlePriceSelection,
-    updateDepartFlightURL,
-  } = useDepartFlight();
 
   useEffect(() => {
     if (!flights || flights.length === 0) return; // Ensure flights data exists
@@ -194,7 +195,8 @@ export function FlightProvider({ children }) {
   // console.log('Filtered Arrive Codes: ', filteredArriveCitiesByState);
   // console.log('Departure Date: ', departDate);
   // console.log('Return Date: ', returnDate);
-  // console.log(selectedDepartFlight);
+  console.log(selectedDepartFlight);
+  // console.log(filteredFlights);
 
   return (
     <FlightContext.Provider
@@ -262,6 +264,13 @@ export function FlightProvider({ children }) {
         returnDate,
         setReturnDate,
 
+        // DepartFlight
+        priceVariants,
+        selectedDepartFlight,
+        setSelectedDepartFlight,
+        handlePriceSelection,
+        updateDepartFlightURL,
+
         // Search Submit
         isSearchClicked,
         setIsSearchClicked,
@@ -274,13 +283,6 @@ export function FlightProvider({ children }) {
         setIsDepartDateEmpty,
         isReturnDateEmpty,
         setIsReturnDateEmpty,
-
-        // DepartFlight
-        priceVariants,
-        selectedDepartFlight,
-        setSelectedDepartFlight,
-        handlePriceSelection,
-        updateDepartFlightURL,
       }}
     >
       {children}
