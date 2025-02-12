@@ -2,6 +2,7 @@ import React from 'react';
 import DepartInfo from './components/DepartInfo';
 import DatesBar from './components/DatesBar';
 import Flights from './components/flights/Flights';
+import Accordians from './components/Accordians/Accordians';
 
 export default function DepartDetails() {
   return (
@@ -17,6 +18,11 @@ export default function DepartDetails() {
       {/* Flights */}
       <div>
         <Flights />
+      </div>
+
+      {/* Accordians */}
+      <div className="mt-10">
+        <Accordians />
       </div>
     </section>
   );

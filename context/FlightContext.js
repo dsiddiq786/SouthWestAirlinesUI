@@ -119,13 +119,17 @@ export function FlightProvider({ children }) {
     }
   }, [selectedTravelType]);
 
+  // Depart Flight
   const {
     priceVariants,
     selectedDepartFlight,
     setSelectedDepartFlight,
     handlePriceSelection,
     updateDepartFlightURL,
+    openDepartDropdown, setDepartOpenDropdownId,
+    handleDepartDropDown
   } = useDepartFlight();
+
 
   // Search submit
   const {
@@ -270,6 +274,8 @@ export function FlightProvider({ children }) {
         setSelectedDepartFlight,
         handlePriceSelection,
         updateDepartFlightURL,
+        openDepartDropdown, setDepartOpenDropdownId,
+        handleDepartDropDown,
 
         // Search Submit
         isSearchClicked,

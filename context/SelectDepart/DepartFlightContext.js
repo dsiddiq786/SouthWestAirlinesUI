@@ -44,11 +44,20 @@ export function useDepartFlight() {
     updateDepartFlightURL(flight, priceVariants[variantIndex].variant);
   };
 
-  // Function to update the URL
+  const [openDepartDropdown, setDepartOpenDropdownId] = useState(null);
+
+  // Handle drop down function open/close using the id of flightItem
+  const handleDepartDropDown = (id) => {
+    setDepartOpenDropdownId((prevId) => (prevId === id ? null : id)); // Toggle the dropdown for the specific id
+  }
+
+
+
 
   useEffect(() => {
     if (pathname === '/') {
       setSelectedDepartFlight(null);
+      setDepartOpenDropdownId(null)
     }
   }, [pathname]);
 
@@ -58,5 +67,7 @@ export function useDepartFlight() {
     setSelectedDepartFlight,
     handlePriceSelection,
     updateDepartFlightURL,
+    openDepartDropdown, setDepartOpenDropdownId,
+    handleDepartDropDown
   };
 }

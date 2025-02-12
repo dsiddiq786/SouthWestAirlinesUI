@@ -6,7 +6,7 @@ import { AiOutlineMobile } from 'react-icons/ai';
 
 import FooterLinks from './components/FooterLinks';
 
-export default function Footer() {
+export default function Footer({ isLinks }) {
   const socialMedia = [
     {
       icon: <RiFacebookFill className="text-xl" />,
@@ -45,7 +45,7 @@ export default function Footer() {
             {/* Need help */}
             <div className="flex flex-col">
               <strong>
-                <span className="text-gray-sw text-[22px] font-bold">
+                <span className="text-[22px] font-bold text-gray-sw">
                   Need help?
                 </span>
               </strong>
@@ -60,7 +60,7 @@ export default function Footer() {
 
             {/* Subscribe */}
             <div className="flex flex-col gap-1 leading-none">
-              <span className="text-gray-sw text-[22px] font-bold">
+              <span className="text-[22px] font-bold text-gray-sw">
                 Subscribe
               </span>
               <a
@@ -72,7 +72,7 @@ export default function Footer() {
                   <br /> email from us?
                 </span>
               </a>
-              <span className="text-gray-sw text-[13px]">
+              <span className="text-[13px] text-gray-sw">
                 <a
                   className="font-extralight text-blue-sw hover:text-black-sw hover:underline hover:decoration-black-sw"
                   href="#"
@@ -90,10 +90,10 @@ export default function Footer() {
             <div className="flex flex-col">
               {/* connect */}
               <div className="flex gap-1">
-                <span className="text-gray-sw text-[22px] font-bold">
+                <span className="text-[22px] font-bold text-gray-sw">
                   Connect with us
                 </span>
-                <RiExternalLinkFill className="text-gray-sw relative top-1" />
+                <RiExternalLinkFill className="relative top-1 text-gray-sw" />
               </div>
 
               {/* social media */}
@@ -122,12 +122,73 @@ export default function Footer() {
         </section>
 
         {/* Link sections */}
-        <section>
-          <FooterLinks />
-        </section>
+        {isLinks && (
+          <section>
+            <FooterLinks />
+          </section>
+        )}
 
         {/* copyright */}
-        <section />
+        <section className="mt-5 border-t">
+          <div className="pt-5 text-[11px] text-gray-sw">
+            <p className="flex items-center">
+              <span className="mr-1">
+                <RiExternalLinkFill size={15} />
+              </span>{' '}
+              Indicates external site which may or may not meet accessibility
+              guidelines
+            </p>
+            <div className="flex items-center justify-between">
+              <p className="mt-4">
+                © 2025 Southwest Airlines Co. All Rights Reserved. Use of the
+                Southwest websites and our Company Information <br />{' '}
+                constitutes acceptance of our
+                <a
+                  href="#"
+                  className="text-blue-sw underline hover:text-black-sw"
+                >
+                  Terms and Conditions
+                </a>{' '}
+                <a
+                  href="#"
+                  className="text-blue-sw underline hover:text-black-sw"
+                >
+                  Privacy Policy
+                </a>{' '}
+                <a
+                  href="#"
+                  className="text-blue-sw underline hover:text-black-sw"
+                >
+                  Trademarks
+                </a>{' '}
+                <a
+                  href="#"
+                  className="text-blue-sw underline hover:text-black-sw"
+                >
+                  Do Not Sell/Share My Personal <br /> Information
+                </a>
+              </p>
+              <div className="mt-4 flex justify-end gap-12 text-[9px]">
+                <div className="flex flex-col items-end justify-end">
+                  <img
+                    src="/images/logo/southWestLogoBlue.svg"
+                    alt=""
+                    className="w-20"
+                  />
+                  <span className="pr-3 text-blue-sw">Business</span>
+                </div>
+                <div className="flex flex-col items-end justify-end">
+                  <img
+                    src="/images/logo/southWestLogoBlue.svg"
+                    alt=""
+                    className="w-20"
+                  />
+                  <span className="pr-3 text-blue-sw">Cargo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

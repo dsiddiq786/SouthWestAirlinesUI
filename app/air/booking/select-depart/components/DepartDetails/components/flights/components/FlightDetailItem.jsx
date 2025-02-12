@@ -1,11 +1,16 @@
 import { useFlights } from '@/context/FlightContext';
-import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight, FaCross } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 import BusinessSelect from './PriceVariantFeatures/BusinessSelect';
 import {} from 'next/navigation';
 import Anytime from './PriceVariantFeatures/Anytime';
 import WannaGetAwayPlus from './PriceVariantFeatures/WannaGetAwayPlus';
 import WannaGetAway from './PriceVariantFeatures/WannaGetAway';
+import { BiCross } from 'react-icons/bi';
+import { RiCrossLine } from 'react-icons/ri';
+import { Cross, CrossIcon } from 'lucide-react';
+import { TbCancel } from 'react-icons/tb';
+import { ImCross } from 'react-icons/im';
 
 export default function FlightDetailItem({ flight, metadata }) {
   const { priceVariants, selectedDepartFlight, handlePriceSelection } =
@@ -164,6 +169,15 @@ export default function FlightDetailItem({ flight, metadata }) {
             {selectedDepartFlight.price === priceVariants[3].variant && (
               <WannaGetAway />
             )}
+            {/* clear selection */}
+            <div className="mt-3 flex w-full justify-end">
+              <button className="flex items-end gap-1 leading-none text-blue-sw">
+                <ImCross size={18} />
+                <span className="text-[16px] font-bold transition-all duration-300 hover:text-black-sw hover:underline">
+                  Clear flight selection
+                </span>
+              </button>
+            </div>
           </section>
         )}
       </div>

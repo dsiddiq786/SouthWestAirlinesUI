@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useFlights } from '@/context/FlightContext';
 import { useEffect } from 'react';
 import DepartDetails from './components/DepartDetails/DepartDetails';
+import Footer from '@/app/components/Footer/Footer';
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -91,6 +92,7 @@ export default function Home() {
             <DepartDetails />
           </div>
         </div>
+        <Footer isLinks={false} />
       </div>
     </>
   );

@@ -67,6 +67,7 @@ export default function FlightDetails({ flights }) {
         </div>
       </div>
 
+      {/* Flights    */}
       <div className="mt-8 flex flex-col gap-6">
         {selectedDepartFlight ? (
           <section>

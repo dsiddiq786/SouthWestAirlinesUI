@@ -4,10 +4,19 @@ import { useFlights } from '@/context/FlightContext';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { useState } from 'react';
 
-export default function FlightItem({ departure, arrival, flights }) {
-  const { codeDetailsWithCityState, filteredFlights } = useFlights();
+export default function FlightItem({
+  departure,
+  arrival,
+  flights,
+  flightIndex,
+}) {
+  const {
+    codeDetailsWithCityState,
+    filteredFlights,
+    openDepartDropdown,
+    handleDepartDropDown,
+  } = useFlights();
 
-  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   return (
     <>
       {filteredFlights.length > 1 ? (
@@ -50,9 +59,9 @@ export default function FlightItem({ departure, arrival, flights }) {
               </div>
             </div>
             {/* Dropdown button */}
-            <button onClick={() => setIsDropDownOpen(!isDropDownOpen)}>
+            <button onClick={() => handleDepartDropDown(flightIndex)}>
               <span>
-                {isDropDownOpen ? (
+                {openDepartDropdown === flightIndex ? (
                   <FaChevronUp size={30} className="text-[#636363]" />
                 ) : (
                   <FaChevronDown size={30} className="text-[#636363]" />
@@ -60,7 +69,9 @@ export default function FlightItem({ departure, arrival, flights }) {
               </span>
             </button>
           </div>
-          {isDropDownOpen && <FlightDetails flights={flights} />}
+          {openDepartDropdown === flightIndex && (
+            <FlightDetails flights={flights} />
+          )}
         </li>
       ) : (
         <li>

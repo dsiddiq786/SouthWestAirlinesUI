@@ -60,7 +60,7 @@ const FooterLinks = () => {
   ];
 
   return (
-    <div className="mt-10 grid grid-cols-1 border-b pb-8 md:grid-cols-2 lg:grid-cols-4">
+    <div className="mt-10 grid grid-cols-1 pb-8 md:grid-cols-2 lg:grid-cols-4">
       {/* About Southwest */}
       <div>
         <h3 className="mb-2 text-[16px] font-bold text-blue-sw">
