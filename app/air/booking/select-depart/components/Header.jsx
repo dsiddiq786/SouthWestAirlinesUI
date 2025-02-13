@@ -6,7 +6,7 @@ import { useFlights } from '@/context/FlightContext';
 import { formatRangeDate } from '@/utils/formatDate';
 import { MdAirplanemodeActive } from 'react-icons/md';
 
-export default function Header() {
+export default function Header({ isModifyVisiblle }) {
   const {
     selectedDepartCodes,
     selectedArriveCodes,
@@ -14,7 +14,9 @@ export default function Header() {
     filteredArriveCitiesByState,
     departDate,
     returnDate,
+    selectedDepartFlight,
   } = useFlights();
+
   return (
     <header className="flex flex-col">
       {/* login */}
@@ -66,33 +68,51 @@ export default function Header() {
               {/* details */}
               <div className="-space-y-2">
                 <span className="text-[11px] font-bold uppercase text-white">
-                  {formatRangeDate(departDate)}
-                  {returnDate ? ` - ${formatRangeDate(returnDate)}` : ''}
+                  {formatRangeDate(departDate, returnDate)}
                 </span>
                 <div className="flex items-center gap-2 text-white">
                   {/* Departure */}
-                  {selectedDepartCodes.length > 1 ? (
-                    <span className="text-[22px] font-bold">{`${filteredDepartCitiesByState[0].state} Airports`}</span>
-                  ) : (
+                  {selectedDepartFlight ? (
                     <span className="text-[22px] font-bold">
-                      {selectedDepartCodes[0]}
+                      {selectedDepartFlight?.flight?.departurePort}
                     </span>
+                  ) : (
+                    <>
+                      {selectedDepartCodes.length > 1 ? (
+                        <span className="text-[22px] font-bold">{`${filteredDepartCitiesByState[0].state} Airports`}</span>
+                      ) : (
+                        <span className="text-[22px] font-bold">
+                          {selectedDepartCodes[0]}
+                        </span>
+                      )}
+                    </>
                   )}
+
                   <FaArrowRight size={12} className="font-bold" />
                   {/* Arrival */}
-                  {selectedArriveCodes.length > 1 ? (
-                    <span className="text-[22px] font-bold">{`${filteredArriveCitiesByState[0].state} Airports`}</span>
-                  ) : (
+                  {selectedDepartFlight ? (
                     <span className="text-[22px] font-bold">
-                      {selectedArriveCodes[0]}
+                      {selectedDepartFlight?.flight?.arrivalPort}
                     </span>
+                  ) : (
+                    <>
+                      {selectedArriveCodes.length > 1 ? (
+                        <span className="text-[22px] font-bold">{`${filteredArriveCitiesByState[0].state} Airports`}</span>
+                      ) : (
+                        <span className="text-[22px] font-bold">
+                          {selectedArriveCodes[0]}
+                        </span>
+                      )}
+                    </>
                   )}
                 </div>
               </div>
             </div>
-            <button className="h-min rounded-sm border border-white px-[20px] py-[4px] text-[14px] font-bold text-white hover:underline">
-              Modify
-            </button>
+            {isModifyVisiblle && (
+              <button className="h-min rounded-sm border border-white px-[20px] py-[4px] text-[14px] font-bold text-white hover:underline">
+                Modify
+              </button>
+            )}
           </div>
         </div>
       </div>

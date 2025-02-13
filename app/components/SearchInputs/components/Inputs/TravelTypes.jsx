@@ -3,8 +3,12 @@ import { v4 as uuidv4 } from 'uuid';
 import RadioItem from '@/app/components/General/RadioItem';
 import { useFlights } from '@/context/FlightContext';
 export default function TravelTypes() {
-  const { travelTypeOptions, selectedTravelType, setSelectedTravelType } =
-    useFlights();
+  const {
+    travelTypeOptions,
+    selectedTravelType,
+    setSelectedTravelType,
+    setReturnDate,
+  } = useFlights();
 
   return (
     <div className="flex items-center gap-4">
@@ -15,7 +19,10 @@ export default function TravelTypes() {
           label={option}
           name="travel-type"
           value={option}
-          onChange={(e) => setSelectedTravelType(e.target.value)}
+          onChange={(e) => {
+            setSelectedTravelType(e.target.value);
+            setReturnDate('');
+          }}
         />
       ))}
     </div>

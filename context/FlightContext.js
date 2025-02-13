@@ -14,6 +14,8 @@ import { useSearchSubmit } from './InputContexts/SearchSubmitContext';
 import { useDepartDate } from './InputContexts/DepartDateContext';
 import { useReturnDate } from './InputContexts/ReturnDateContext';
 import { useDepartFlight } from './SelectDepart/DepartFlightContext';
+import { useReturnFlight } from './SelectDepart/ReturnFlightContext';
+import { useFlightPrice } from './SelectDepart/FlightPriceContext';
 
 const FlightContext = createContext();
 
@@ -39,7 +41,11 @@ export function FlightProvider({ children }) {
     setTimeout(loadFlights, 0); // Delay execution to allow smooth rendering
   }, []); // Run only once
 
+  // departure flights
   const [filteredFlights, setFilteredFlights] = useState(flights);
+
+  // return flights
+  const [filteredReturnFlights, setFilteredReturnFlights] = useState(flights);
   const [airports] = useState(airportsData);
 
   const codeDetailsWithCityState = airports.map(
@@ -109,15 +115,8 @@ export function FlightProvider({ children }) {
   // Depart Date
   const { departDate, setDepartDate } = useDepartDate();
 
-  // Arrive Date
+  // Return Date
   const { returnDate, setReturnDate } = useReturnDate();
-
-  // Resetting the return date if one-way is selected as the travel type
-  useEffect(() => {
-    if (selectedTravelType === travelTypeOptions[1]) {
-      setReturnDate('');
-    }
-  }, [selectedTravelType]);
 
   // Depart Flight
   const {
@@ -126,10 +125,40 @@ export function FlightProvider({ children }) {
     setSelectedDepartFlight,
     handlePriceSelection,
     updateDepartFlightURL,
-    openDepartDropdown, setDepartOpenDropdownId,
-    handleDepartDropDown
-  } = useDepartFlight();
+    openDepartDropdown,
+    setDepartOpenDropdownId,
+    handleDepartDropDown,
+    clearDepartFlightSelection,
+    isDepartContinueBtnClicked,
+    setIsDepartContinueBtnClicked,
+    handleContinueClick,
+  } = useDepartFlight(returnDate);
 
+  // Return Flight
+  const {
+    selectedReturnFlight,
+    setSelectedReturnFlight,
+    handleReturnPriceSelection,
+    updateReturnFlightURL,
+    clearReturnFlightSelection,
+    handleReturnContinueClick,
+  } = useReturnFlight();
+
+  // Price
+  const {
+    flightBaseFare,
+    setFlightBaseFare,
+    TotalFlightPrice,
+    setTotalFlightPrice,
+    Tax,
+    handlePriceContinue,
+    handlePriceModify,
+  } = useFlightPrice(
+    selectedDepartFlight,
+    selectedReturnFlight,
+    totalPassengers,
+    priceVariants
+  );
 
   // Search submit
   const {
@@ -152,15 +181,20 @@ export function FlightProvider({ children }) {
     totalPassengers,
     departDate,
     returnDate,
-    travelTypeOptions
+    travelTypeOptions,
+    selectedDepartFlight,
+    selectedReturnFlight
   );
 
+  // Filtered departure flights
   useEffect(() => {
     if (!flights || flights.length === 0) return; // Ensure flights data exists
 
     // Convert selectedDepartCodes & selectedArriveCodes to Sets for O(1) lookup
     const departSet = new Set(selectedDepartCodes);
     const arriveSet = new Set(selectedArriveCodes);
+
+    let idCounter = 0; // Start ID from 0
 
     // Use `reduce()` to iterate `flights` only ONCE
     const groupedFlights = flights.reduce((acc, flight) => {
@@ -174,6 +208,7 @@ export function FlightProvider({ children }) {
         // If route doesn't exist in accumulator, create an entry
         if (!acc[key]) {
           acc[key] = {
+            id: idCounter++, // Assign and increment the ID counter
             departure: flight.departurePort,
             arrival: flight.arrivalPort,
             flights: [],
@@ -190,6 +225,45 @@ export function FlightProvider({ children }) {
     setFilteredFlights(Object.values(groupedFlights));
   }, [flights, selectedDepartCodes, selectedArriveCodes]);
 
+  // Filtered Return flight
+  useEffect(() => {
+    if (!flights || flights.length === 0 || !selectedDepartFlight) return; // Ensure flights & selectedDepartFlight exist
+
+    // Get the departure & arrival for return flights
+    const returnDepartCode = selectedDepartFlight?.flight?.arrivalPort; // Arrival of depart flight becomes departure
+    const returnArriveCode = selectedDepartFlight?.flight?.departurePort; // Departure of depart flight becomes arrival
+
+    let idCounter = 0; // Start ID from 0
+
+    // Use `reduce()` to filter only return flights
+    const groupedReturnFlights = flights.reduce((acc, flight) => {
+      // Check if flight matches the reverse route
+      if (
+        flight.departurePort === returnDepartCode &&
+        flight.arrivalPort === returnArriveCode
+      ) {
+        const key = `${flight.departurePort}-${flight.arrivalPort}`;
+
+        // If route doesn't exist in accumulator, create an entry
+        if (!acc[key]) {
+          acc[key] = {
+            id: idCounter++, // Assign and increment the ID counter
+            departure: flight.departurePort,
+            arrival: flight.arrivalPort,
+            flights: [],
+          };
+        }
+
+        // Push flight data to its corresponding departure → arrival group
+        acc[key].flights.push(flight);
+      }
+      return acc;
+    }, {});
+
+    // Convert object to array & update state
+    setFilteredReturnFlights(Object.values(groupedReturnFlights));
+  }, [selectedDepartFlight]); // Runs when flights or selectedDepartFlight change
+
   // console.log('Depart Codes: ', selectedDepartCodes);
   // console.log('Arrive Codes: ', selectedArriveCodes);
   // console.log('Travel Type: ', selectedTravelType);
@@ -201,6 +275,7 @@ export function FlightProvider({ children }) {
   // console.log('Return Date: ', returnDate);
   // console.log(selectedDepartFlight);
   // console.log(filteredFlights);
+  console.log(isDepartContinueBtnClicked);
 
   return (
     <FlightContext.Provider
@@ -208,6 +283,10 @@ export function FlightProvider({ children }) {
         // flights
         allFlights: flights,
         filteredFlights,
+
+        // Return flight
+        filteredReturnFlights,
+        setFilteredReturnFlights,
 
         // codeDetailsWithCityState array
         codeDetailsWithCityState,
@@ -274,8 +353,30 @@ export function FlightProvider({ children }) {
         setSelectedDepartFlight,
         handlePriceSelection,
         updateDepartFlightURL,
-        openDepartDropdown, setDepartOpenDropdownId,
+        openDepartDropdown,
+        setDepartOpenDropdownId,
         handleDepartDropDown,
+        clearDepartFlightSelection,
+        isDepartContinueBtnClicked,
+        setIsDepartContinueBtnClicked,
+        handleContinueClick,
+
+        // Return Flight
+        selectedReturnFlight,
+        setSelectedReturnFlight,
+        handleReturnPriceSelection,
+        updateReturnFlightURL,
+        clearReturnFlightSelection,
+        handleReturnContinueClick,
+
+        // Price
+        flightBaseFare,
+        setFlightBaseFare,
+        TotalFlightPrice,
+        setTotalFlightPrice,
+        Tax,
+        handlePriceContinue,
+        handlePriceModify,
 
         // Search Submit
         isSearchClicked,

@@ -1,21 +1,22 @@
 import { useFlights } from '@/context/FlightContext';
-import FlightDetailItem from './FlightDetailItem';
+import FlightDetailItem from './ReturnFlightDetailItem';
 import { v4 as uuidv4 } from 'uuid';
+import ReturnFlightDetailItem from './ReturnFlightDetailItem';
 
-export default function FlightDetails({ flights }) {
-  const { selectedDepartFlight } = useFlights();
+export default function ReturnFlightDetails({ flights }) {
+  const { selectedReturnFlight } = useFlights();
 
   return (
-    <div className="flex flex-col">
+    <li className="flex flex-col">
       {/* Filters */}
-      {!selectedDepartFlight && <div className="pt-[12px]">Filters</div>}
+      {!selectedReturnFlight && <div className="pt-[12px]">Filters</div>}
 
       {/* title column */}
       <div className="flex pt-[12px]">
         {/* flights, stops, duration */}
         <div className="flex flex-1 items-center justify-between border-y py-2">
           <span className="text-[20px] font-bold tracking-tighter text-black-sw">
-            Departing flights
+            Returning flights
           </span>
 
           <div className="flex text-[13px] text-gray-sw">
@@ -69,15 +70,15 @@ export default function FlightDetails({ flights }) {
 
       {/* Flights    */}
       <div className="mt-8 flex flex-col gap-6">
-        {selectedDepartFlight ? (
+        {selectedReturnFlight ? (
           <section>
             {flights
               .filter(
                 (flightDetail) =>
-                  flightDetail.id === selectedDepartFlight?.flight?.id
+                  flightDetail.id === selectedReturnFlight?.flight?.id
               )
               .map((flightDetail) => (
-                <FlightDetailItem
+                <ReturnFlightDetailItem
                   key={uuidv4()}
                   flight={flightDetail}
                   {...flightDetail}
@@ -88,7 +89,7 @@ export default function FlightDetails({ flights }) {
           <section className="flex flex-col gap-6">
             {flights.map((flightDetail) => {
               return (
-                <FlightDetailItem
+                <ReturnFlightDetailItem
                   key={uuidv4()}
                   flight={flightDetail}
                   {...flightDetail}
@@ -98,6 +99,6 @@ export default function FlightDetails({ flights }) {
           </section>
         )}
       </div>
-    </div>
+    </li>
   );
 }

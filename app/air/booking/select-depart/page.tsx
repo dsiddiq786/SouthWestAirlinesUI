@@ -6,6 +6,7 @@ import { useFlights } from '@/context/FlightContext';
 import { useEffect } from 'react';
 import DepartDetails from './components/DepartDetails/DepartDetails';
 import Footer from '@/app/components/Footer/Footer';
+import ReturnDetails from './components/ReturnDetails/ReturnDetails';
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -18,14 +19,15 @@ export default function Home() {
     setSelectedArriveCodes,
     setDepartDate,
     setReturnDate,
-    selectedTravelType,
-    travelTypeOptions,
-    selectedDepartFlight,
     setSelectedDepartFlight,
+    setSelectedReturnFlight,
+    handleDepartDropDown,
+    openDepartDropdown,
+    isDepartContinueBtnClicked,
+    setIsDepartContinueBtnClicked,
   } = useFlights();
-  const { filteredFlights } = useFlights();
+  const { filteredFlights, filteredReturnFlights } = useFlights();
 
-  let tempDepartFlight: any;
   useEffect(() => {
     // Retrieve values from search params
     const travelType = searchParams.get('travelType') || '';
@@ -34,10 +36,8 @@ export default function Home() {
     const departCodes = searchParams.get('departCodes')?.split(',') || [];
     const arriveCodes = searchParams.get('arriveCodes')?.split(',') || [];
     const departDate = searchParams.get('departDate') || '';
-    if (selectedTravelType === travelTypeOptions[0]) {
-      const returnDate = searchParams.get('returnDate') || '';
-      setReturnDate(returnDate);
-    }
+    const returnDate = searchParams.get('returnDate') || '';
+    const isReturnFlight = searchParams.get('isReturnFlight') || false;
 
     // set the values according to the searchParams
     setSelectedTravelType(travelType);
@@ -46,6 +46,8 @@ export default function Home() {
     setSelectedDepartCodes(departCodes);
     setSelectedArriveCodes(arriveCodes);
     setDepartDate(departDate);
+    setReturnDate(returnDate);
+    setIsDepartContinueBtnClicked(isReturnFlight);
   }, [searchParams]); // Runs when search params change
 
   useEffect(() => {
@@ -55,25 +57,40 @@ export default function Home() {
         await new Promise((resolve) => setTimeout(resolve, 100)); // Check every 100ms
       }
 
-      if (searchParams.get('departFlight') !== 'undefined') {
+      if (searchParams.get('departFlight') !== 'null') {
         try {
           const departFlight = JSON.parse(
             decodeURIComponent(searchParams.get('departFlight') || '')
           );
 
-          // console.log('Filtered Flights:', filteredFlights);
-          // console.log('Depart Flight:', departFlight);
           const testFlight = {
-            flight: filteredFlights[0]?.flights.filter(
-              (flightDetail: { id: any }) =>
-                flightDetail.id === departFlight.flightId
-            ),
+            flight:
+              filteredFlights.flatMap((group: { flights: any[] }) =>
+                group.flights.filter(
+                  (flightDetail: { id: any }) =>
+                    flightDetail.id === departFlight.flightId
+                )
+              )[0] || null, // Extract the first matching flight or set null if not found
+
             price: departFlight?.price,
           };
 
-          // console.log(testFlight);
-
           setSelectedDepartFlight(testFlight);
+
+          // toggling the dropdown
+          // Find the ID of the filteredFlight that contains the selectedDepartFlight
+          if (openDepartDropdown === null) {
+            const toggleId = filteredFlights.find((group: { flights: any[] }) =>
+              group.flights.some((flightDetail) =>
+                Array.isArray(testFlight?.flight)
+                  ? testFlight.flight.some(
+                      (selected: { id: any }) => selected.id === flightDetail.id
+                    )
+                  : testFlight?.flight?.id === flightDetail.id
+              )
+            )?.id;
+            handleDepartDropDown(toggleId);
+          }
         } catch (error) {
           console.error('Error parsing departFlight:', error);
         }
@@ -83,13 +100,48 @@ export default function Home() {
     fetchDepartFlight();
   }, [searchParams, filteredFlights]); // Runs when `filteredFlights` updates
 
+  useEffect(() => {
+    const fetchReturnFlight = async () => {
+      // Wait until `filteredReturnFlights` contains data
+      while (filteredReturnFlights.length === 0) {
+        await new Promise((resolve) => setTimeout(resolve, 100)); // Check every 100ms
+      }
+
+      if (searchParams.get('returnFlight') !== 'null') {
+        try {
+          const returnFlight = JSON.parse(
+            decodeURIComponent(searchParams.get('returnFlight') || '')
+          );
+
+          const testFlight = {
+            flight:
+              filteredReturnFlights.flatMap((group: { flights: any[] }) =>
+                group.flights.filter(
+                  (flightDetail: { id: any }) =>
+                    flightDetail.id === returnFlight.flightId
+                )
+              )[0] || null, // Extract the first matching flight or set null if not found
+
+            price: returnFlight?.price,
+          };
+
+          setSelectedReturnFlight(testFlight);
+        } catch (error) {
+          console.error('Error parsing returnFlight:', error);
+        }
+      }
+    };
+
+    fetchReturnFlight();
+  }, [searchParams, filteredReturnFlights]); // Runs when `return filtered flights` updates
+
   return (
     <>
       <div className="-ml-2">
-        <Header />
+        <Header isModifyVisiblle={true} />
         <div className="bg-white">
           <div className="container-sw pb-[40px] pt-[15px]">
-            <DepartDetails />
+            {isDepartContinueBtnClicked ? <ReturnDetails /> : <DepartDetails />}
           </div>
         </div>
         <Footer isLinks={false} />

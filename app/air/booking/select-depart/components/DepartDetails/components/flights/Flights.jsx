@@ -3,7 +3,12 @@ import FlightItem from './components/FlightItem';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function Flights() {
-  const { filteredFlights, selectedDepartFlight } = useFlights();
+  const {
+    filteredFlights,
+    selectedDepartFlight,
+    returnDate,
+    handleContinueClick,
+  } = useFlights();
 
   // If there is a selectedDepartFlight, find which filteredFlight contains it
   const displayedFlights = selectedDepartFlight
@@ -11,11 +16,12 @@ export default function Flights() {
         .map((flight) => ({
           ...flight,
           flights: flight.flights.filter(
-            (f) => f.id === selectedDepartFlight.flight[0].id
+            (f) => f.id === selectedDepartFlight?.flight?.id
           ),
         }))
         .filter((flight) => flight.flights.length > 0) // Remove empty results
     : filteredFlights;
+
   return (
     <div>
       {displayedFlights.length === 0 ? (
@@ -26,13 +32,16 @@ export default function Flights() {
         <>
           <ol className="flex w-full list-none flex-col gap-4">
             {displayedFlights.map((flight, index) => (
-              <FlightItem key={uuidv4()} flightIndex={index} {...flight} />
+              <FlightItem key={uuidv4()} flightIndex={flight.id} {...flight} />
             ))}
           </ol>
           {/* Continue button */}
           <div className="mt-8 flex w-full justify-end">
-            <button className="box-shadow-sw rounded-sm bg-yellow-sw px-[22px] py-3 text-[17px] font-bold text-black-sw">
-              Continue
+            <button
+              onClick={() => handleContinueClick()}
+              className="box-shadow-sw rounded-sm border border-transparent bg-yellow-sw px-[22px] py-3 text-[17px] font-bold text-black-sw transition-all duration-300 hover:border-black-sw hover:shadow-none"
+            >
+              {returnDate ? 'Select next flight' : 'Continue'}
             </button>
           </div>
         </>

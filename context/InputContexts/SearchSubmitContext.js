@@ -11,7 +11,8 @@ export function useSearchSubmit(
   departDate,
   returnDate,
   travelTypeOptions,
-  selectedDepartFlight
+  selectedDepartFlight,
+  selectedReturnFlight
 ) {
   const router = useRouter();
 
@@ -47,9 +48,10 @@ export function useSearchSubmit(
         params.set('travelType', selectedTravelType);
         params.set('bagFee', selectedBagFee);
         params.set('totalPassengers', totalPassengers);
-        params.set('departDate', formatDate(departDate));
-        params.set('returnDate', formatDate(returnDate));
+        params.set('departDate', departDate);
+        params.set('returnDate', returnDate);
         params.set('departFlight', selectedDepartFlight);
+        params.set('returnFlight', selectedReturnFlight);
 
         // Navigate to the flights page with search params
         router.push(`/air/booking/select-depart?${params.toString()}`);
@@ -61,7 +63,9 @@ export function useSearchSubmit(
         params.set('bagFee', selectedBagFee);
         params.set('totalPassengers', totalPassengers);
         params.set('departDate', departDate);
+        params.set('returnDate', returnDate);
         params.set('departFlight', selectedDepartFlight);
+        params.set('returnFlight', selectedReturnFlight);
 
         // Navigate to the flights page with search params
         router.push(`/air/booking/select-depart?${params.toString()}`);

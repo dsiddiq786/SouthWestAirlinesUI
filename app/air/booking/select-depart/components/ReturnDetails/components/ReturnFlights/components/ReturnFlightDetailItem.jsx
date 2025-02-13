@@ -1,20 +1,18 @@
 import { useFlights } from '@/context/FlightContext';
-import { FaArrowRight, FaCross } from 'react-icons/fa';
+import { FaArrowRight } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
-import BusinessSelect from './PriceVariantFeatures/BusinessSelect';
-import {} from 'next/navigation';
-import Anytime from './PriceVariantFeatures/Anytime';
-import WannaGetAwayPlus from './PriceVariantFeatures/WannaGetAwayPlus';
-import WannaGetAway from './PriceVariantFeatures/WannaGetAway';
 import { RxCross2 } from 'react-icons/rx';
-import { ImCross } from 'react-icons/im';
+import BusinessSelect from '../../../../DepartDetails/components/flights/components/PriceVariantFeatures/BusinessSelect';
+import WannaGetAwayPlus from '../../../../DepartDetails/components/flights/components/PriceVariantFeatures/WannaGetAwayPlus';
+import WannaGetAway from '../../../../DepartDetails/components/flights/components/PriceVariantFeatures/WannaGetAway';
+import Anytime from '../../../../DepartDetails/components/flights/components/PriceVariantFeatures/Anytime';
 
-export default function FlightDetailItem({ flight, metadata }) {
+export default function ReturnFlightDetailItem({ flight, metadata }) {
   const {
     priceVariants,
-    selectedDepartFlight,
-    handlePriceSelection,
-    clearDepartFlightSelection,
+    selectedReturnFlight,
+    handleReturnPriceSelection,
+    clearReturnFlightSelection,
   } = useFlights();
 
   return (
@@ -98,14 +96,14 @@ export default function FlightDetailItem({ flight, metadata }) {
             {metadata.prices.map((price, index) => {
               return (
                 <button
-                  onClick={() => handlePriceSelection(flight, index)}
+                  onClick={() => handleReturnPriceSelection(flight, index)}
                   disabled={price === 'Unavailable'}
                   key={uuidv4()}
                   className={`group/priceBtn relative flex w-[94px] items-center justify-center rounded-sm border py-4 ${
                     price === 'Unavailable'
                       ? 'bg-price-unavailable cursor-not-allowed border-[#8f8f8f] bg-cover'
                       : priceVariants[index].variant ===
-                          selectedDepartFlight?.price
+                          selectedReturnFlight?.price
                         ? priceVariants[index].class
                         : 'border-[#a4baf2] bg-white text-center text-blue-sw transition-all duration-300 hover:bg-[#e8ecf9]'
                   }`}
@@ -119,7 +117,7 @@ export default function FlightDetailItem({ flight, metadata }) {
                     <span
                       className={` ${price === 'Unavailable' ? 'text-[13px] text-gray-sw' : 'text-[22px]'} ${
                         priceVariants[index].variant ===
-                        selectedDepartFlight?.price
+                        selectedReturnFlight?.price
                           ? 'underline decoration-2 underline-offset-4'
                           : ''
                       } font-bold`}
@@ -128,7 +126,7 @@ export default function FlightDetailItem({ flight, metadata }) {
                     </span>
                   </span>
                   {/* points */}
-                  {price !== 'Unavailable' && !selectedDepartFlight && (
+                  {price !== 'Unavailable' && !selectedReturnFlight && (
                     <span className="absolute bottom-1 text-[11px] italic text-gray-sw opacity-0 group-hover/priceBtn:opacity-100">
                       earn {priceVariants[index].points} pts
                     </span>
@@ -136,11 +134,11 @@ export default function FlightDetailItem({ flight, metadata }) {
 
                   {/* bottom background */}
                   {priceVariants[index].variant ===
-                    selectedDepartFlight?.price && (
+                    selectedReturnFlight?.price && (
                     <div
                       className={`absolute -bottom-2 h-2 w-full ${
                         priceVariants[index].variant ===
-                        selectedDepartFlight?.price
+                        selectedReturnFlight?.price
                           ? priceVariants[index].bottomBackground
                           : ''
                       }`}
@@ -153,24 +151,24 @@ export default function FlightDetailItem({ flight, metadata }) {
         </div>
 
         {/* price variant features */}
-        {selectedDepartFlight && (
+        {selectedReturnFlight && (
           <section>
-            {selectedDepartFlight.price === priceVariants[0].variant && (
+            {selectedReturnFlight.price === priceVariants[0].variant && (
               <BusinessSelect />
             )}
-            {selectedDepartFlight.price === priceVariants[1].variant && (
+            {selectedReturnFlight.price === priceVariants[1].variant && (
               <Anytime />
             )}
-            {selectedDepartFlight.price === priceVariants[2].variant && (
+            {selectedReturnFlight.price === priceVariants[2].variant && (
               <WannaGetAwayPlus />
             )}
-            {selectedDepartFlight.price === priceVariants[3].variant && (
+            {selectedReturnFlight.price === priceVariants[3].variant && (
               <WannaGetAway />
             )}
             {/* clear selection */}
             <div className="mt-3 flex w-full justify-end">
               <button
-                onClick={() => clearDepartFlightSelection()}
+                onClick={() => clearReturnFlightSelection()}
                 className="group/clear flex items-center gap-1 leading-none text-blue-sw"
               >
                 <RxCross2
