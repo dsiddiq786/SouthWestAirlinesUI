@@ -161,7 +161,9 @@ export default function PriceBreakout() {
               TOTAL AFTER <br /> STATEMENT CREDIT
             </span>
 
-            <span className="text-[28px]">${TotalFlightPrice - 200.0}</span>
+            <span className="text-[28px]">
+              ${(TotalFlightPrice - 200.0).toFixed(2)}
+            </span>
           </div>
         </div>
       </div>

@@ -11,9 +11,10 @@ export function useFlightPrice(
   const router = useRouter();
   const [flightBaseFare, setFlightBaseFare] = useState(0);
   const Tax = 91.74;
-  const [TotalFlightPrice, setTotalFlightPrice] = useState(
-    flightBaseFare + Tax
-  );
+  const [TotalFlightPrice, setTotalFlightPrice] = useState(0); // Initialize properly
+
+  // Ensure totalPassengers is a valid number
+  const passengers = Number(totalPassengers) || 1; // Default to 1 if NaN
 
   // Get price index for depart flight
   const departFlightPriceIndex = priceVariants.findIndex(
@@ -22,42 +23,38 @@ export function useFlightPrice(
 
   // Get price at that index
   const departFlightPrice =
-    departFlightPriceIndex !== -1
-      ? Number(
-          selectedDepartFlight?.flight?.metadata?.prices[departFlightPriceIndex]
-        )
-      : 0; // Convert string to number
+    departFlightPriceIndex !== -1 &&
+      selectedDepartFlight?.flight?.metadata?.prices?.[departFlightPriceIndex]
+      ? Number(selectedDepartFlight.flight.metadata.prices[departFlightPriceIndex])
+      : 0; // Fallback to 0 if not found
 
   // Get price index for return flight
   const returnFlightPriceIndex = priceVariants.findIndex(
     (variant) => variant.variant === selectedReturnFlight?.price
   );
 
-  console.log(selectedDepartFlight);
-  // Get price at that index
+  // Get price at that index (fixing incorrect index reference)
   const returnFlightPrice =
-    returnFlightPriceIndex !== -1
-      ? Number(
-          selectedReturnFlight?.flight?.metadata?.prices[departFlightPriceIndex]
-        )
-      : 0; // Convert string to number
+    returnFlightPriceIndex !== -1 &&
+      selectedReturnFlight?.flight?.metadata?.prices?.[returnFlightPriceIndex]
+      ? Number(selectedReturnFlight.flight.metadata.prices[returnFlightPriceIndex])
+      : 0; // Fallback to 0 if not found
 
   useEffect(() => {
-    // Calculate base fare based on selected flights & passengers
-    const baseFare = (departFlightPrice + returnFlightPrice) * totalPassengers;
+    // Ensure we do not set NaN
+    const baseFare = ((departFlightPrice + returnFlightPrice) * passengers);
+
     setFlightBaseFare(baseFare);
-
-    // Update total price
     setTotalFlightPrice(baseFare + Tax);
-  }, [selectedDepartFlight, selectedReturnFlight, totalPassengers]);
+  }, [departFlightPrice, returnFlightPrice, passengers]); // Added dependencies
 
-  //   Continue button click handle
+  // Continue button click handle
   const handlePriceContinue = () => {
     const params = new URLSearchParams(searchParams);
     router.push(`/air/booking/purchase?${params.toString()}`);
   };
 
-  //   Continue button click handle
+  // Modify button click handle
   const handlePriceModify = () => {
     const params = new URLSearchParams(searchParams);
     router.push(`/air/booking/select-depart?${params.toString()}`);

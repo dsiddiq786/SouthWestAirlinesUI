@@ -121,83 +121,88 @@ export default function FlightPurchaseDetails() {
             </div>
 
             {/* Return flight */}
-            <div className="mt-6 flex items-center gap-12 pl-5">
-              <div className="flex items-center gap-3">
-                {/* Return icon */}
-                <div className="relative mt-1 rotate-[230deg] rounded-full bg-[#008020] p-[5px]">
-                  <IoIosAirplane size={20} className="text-white" />
-                </div>
-                {/* Date */}
-                <div className="text-[16px] font-bold">
-                  {formatDateToDayDate(
-                    returnDate
-                      ? returnDate
-                      : today(getLocalTimeZone()).toString()
-                  )}
-                </div>
-              </div>
-
-              <div className="flex items-center gap-8">
-                {/* Flight */}
-                <div className="flex flex-col">
-                  {/* flight tag */}
-                  <span className="block cursor-pointer text-[11px] text-blue-sw transition-all hover:text-black-sw hover:underline">
-                    #{selectedReturnFlight?.flight?.metadata?.flightNums[0]}
-                  </span>
-                  {/* route */}
-                  <div className="flex items-center gap-6 text-[42px] leading-none tracking-tight text-black-sw">
-                    {/* Depart Codes */}
-                    <div className="flex flex-col">
-                      <span className="text-[26px] font-bold">
-                        {selectedReturnFlight?.flight?.departurePort}
-                      </span>
-                      {/* start time */}
-                      <span className="pt-[5px] text-[13px]">
-                        {selectedReturnFlight?.flight?.metadata?.deptTime}
-                      </span>
-                    </div>
-                    {/* right icon */}
-                    <span>
-                      <FaArrowRight size={13} className="text-[#a0a0a0]" />
-                    </span>
-                    {/* Arrival Codes */}
-                    <div className="flex flex-col">
-                      <span className="text-[26px] font-bold">
-                        {selectedReturnFlight?.flight?.arrivalPort}
-                      </span>
-                      {/* end time */}
-                      <span className="pt-[5px] text-[13px]">
-                        {selectedReturnFlight?.flight?.metadata?.arrTime}
-                      </span>
-                    </div>
+            {selectedReturnFlight && (
+              <div className="mt-6 flex items-center gap-12 pl-5">
+                <div className="flex items-center gap-3">
+                  {/* Return icon */}
+                  <div className="relative mt-1 rotate-[230deg] rounded-full bg-[#008020] p-[5px]">
+                    <IoIosAirplane size={20} className="text-white" />
+                  </div>
+                  {/* Date */}
+                  <div className="text-[16px] font-bold">
+                    {formatDateToDayDate(
+                      returnDate
+                        ? returnDate
+                        : today(getLocalTimeZone()).toString()
+                    )}
                   </div>
                 </div>
-                {/* Duration and stops */}
-                <div className="flex items-center gap-4">
-                  <span className="pr-4 text-[13px]">
-                    {selectedReturnFlight?.flight?.metadata?.duration
-                      .replace('h', ' hr')
-                      .replace('m', ' min')}
-                  </span>
-                  <span className="h-[13px] w-[2px] bg-[#e6e7e8]"></span>
-                  <span className="flex items-center text-[13px]">
-                    <span className="cursor-pointer text-blue-sw transition-all hover:text-black-sw hover:underline">
-                      {selectedReturnFlight?.flight?.metadata?.numStops} stops
+
+                <div className="flex items-center gap-8">
+                  {/* Flight */}
+                  <div className="flex flex-col">
+                    {/* flight tag */}
+                    <span className="block cursor-pointer text-[11px] text-blue-sw transition-all hover:text-black-sw hover:underline">
+                      #{selectedReturnFlight?.flight?.metadata?.flightNums[0]}
                     </span>
-                    {/* icon */}
-                    <span>
-                      <MdOutlineAltRoute size={20} className="text-[#b2c5f3]" />
+                    {/* route */}
+                    <div className="flex items-center gap-6 text-[42px] leading-none tracking-tight text-black-sw">
+                      {/* Depart Codes */}
+                      <div className="flex flex-col">
+                        <span className="text-[26px] font-bold">
+                          {selectedReturnFlight?.flight?.departurePort}
+                        </span>
+                        {/* start time */}
+                        <span className="pt-[5px] text-[13px]">
+                          {selectedReturnFlight?.flight?.metadata?.deptTime}
+                        </span>
+                      </div>
+                      {/* right icon */}
+                      <span>
+                        <FaArrowRight size={13} className="text-[#a0a0a0]" />
+                      </span>
+                      {/* Arrival Codes */}
+                      <div className="flex flex-col">
+                        <span className="text-[26px] font-bold">
+                          {selectedReturnFlight?.flight?.arrivalPort}
+                        </span>
+                        {/* end time */}
+                        <span className="pt-[5px] text-[13px]">
+                          {selectedReturnFlight?.flight?.metadata?.arrTime}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Duration and stops */}
+                  <div className="flex items-center gap-4">
+                    <span className="pr-4 text-[13px]">
+                      {selectedReturnFlight?.flight?.metadata?.duration
+                        .replace('h', ' hr')
+                        .replace('m', ' min')}
                     </span>
-                  </span>
-                </div>
-                {/* Price variant */}
-                <div className="underline decoration-blue-sw decoration-[3px] underline-offset-8">
-                  <span className="cursor-pointer text-[13.4px] text-blue-sw underline-offset-[1px] transition-all hover:text-black-sw hover:underline">
-                    {selectedReturnFlight?.price}
-                  </span>
+                    <span className="h-[13px] w-[2px] bg-[#e6e7e8]"></span>
+                    <span className="flex items-center text-[13px]">
+                      <span className="cursor-pointer text-blue-sw transition-all hover:text-black-sw hover:underline">
+                        {selectedReturnFlight?.flight?.metadata?.numStops} stops
+                      </span>
+                      {/* icon */}
+                      <span>
+                        <MdOutlineAltRoute
+                          size={20}
+                          className="text-[#b2c5f3]"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                  {/* Price variant */}
+                  <div className="underline decoration-blue-sw decoration-[3px] underline-offset-8">
+                    <span className="cursor-pointer text-[13.4px] text-blue-sw underline-offset-[1px] transition-all hover:text-black-sw hover:underline">
+                      {selectedReturnFlight?.price}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Price Details */}

@@ -8,9 +8,22 @@ import Header from '../select-depart/components/Header';
 import Accordians from '../select-depart/components/DepartDetails/components/Accordians/Accordians';
 import PurchaseProgress from './components/PurchaseProgress';
 import FlightPurchaseDetails from './components/FlightPurchaseDetails';
+import PassengerInfo from './components/WhoIsFlying/PassengerInfo';
+import { useForm } from 'react-hook-form';
 
 export default function Home() {
   const searchParams = useSearchParams();
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    setValue,
+  } = useForm();
+
+  const onSubmit = (data: any) => {
+    console.log('Form Submitted:', data);
+  };
 
   const {
     setSelectedTravelType,
@@ -22,9 +35,6 @@ export default function Home() {
     setReturnDate,
     setSelectedDepartFlight,
     setSelectedReturnFlight,
-    handleDepartDropDown,
-    openDepartDropdown,
-    isDepartContinueBtnClicked,
     setIsDepartContinueBtnClicked,
   } = useFlights();
   const { filteredFlights, filteredReturnFlights } = useFlights();
@@ -39,6 +49,8 @@ export default function Home() {
     const departDate = searchParams.get('departDate') || '';
     const returnDate = searchParams.get('returnDate') || '';
     const isReturnFlight = searchParams.get('isReturnFlight') || false;
+
+    console.log(totalPassengers);
 
     // set the values according to the searchParams
     setSelectedTravelType(travelType);
@@ -77,21 +89,6 @@ export default function Home() {
           };
 
           setSelectedDepartFlight(testFlight);
-
-          // toggling the dropdown
-          // Find the ID of the filteredFlight that contains the selectedDepartFlight
-          if (openDepartDropdown === null) {
-            const toggleId = filteredFlights.find((group: { flights: any[] }) =>
-              group.flights.some((flightDetail) =>
-                Array.isArray(testFlight?.flight)
-                  ? testFlight.flight.some(
-                      (selected: { id: any }) => selected.id === flightDetail.id
-                    )
-                  : testFlight?.flight?.id === flightDetail.id
-              )
-            )?.id;
-            handleDepartDropDown(toggleId);
-          }
         } catch (error) {
           console.error('Error parsing departFlight:', error);
         }
@@ -143,20 +140,107 @@ export default function Home() {
         <div className="bg-white">
           <div className="container-sw pb-[40px] pt-[15px]">
             {/* Progress */}
-            <div>
+            <section>
               <PurchaseProgress />
-            </div>
+            </section>
 
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-3">
               {/* Purchase flight details */}
-              <div>
+              <section>
                 <FlightPurchaseDetails />
-              </div>
+              </section>
+
+              <form
+                className="flex flex-col gap-3"
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <input
+                  {...register('name', { required: 'Name is required' })}
+                  placeholder="Name"
+                />
+                <span className="h-4 text-sm">
+                  {errors.name && (
+                    <span>{errors.name.message?.toString()}</span>
+                  )}
+                </span>
+
+                {/* who is flying */}
+                <section>
+                  <PassengerInfo />
+                </section>
+
+                {/* material info and submit button */}
+                <section className="flex w-full flex-col justify-end pr-7 text-right">
+                  {/* info */}
+                  <div className="flex flex-col gap-2">
+                    <h2 className="text-[13px] font-bold text-black-sw">
+                      Transportation of hazardous materials
+                    </h2>
+                    <p className="text-[11px] text-gray-sw">
+                      Federal law forbids the carriage of hazardous materials
+                      such as aerosols, fireworks,
+                      <br />
+                      lithium batteries, and flammable liquids aboard the
+                      aircraft in your checked or carryon baggage.
+                      <br />
+                      E-cigarettes are not permitted in checked baggage and must
+                      be transported in carryon baggage only.
+                      <br />
+                      By clicking 'Purchase', you acknowledge that you
+                      understand the hazardous materials restrictions and
+                      penalties.
+                      <br />{' '}
+                      <span className="cursor-pointer text-blue-sw underline transition-all hover:text-black-sw">
+                        View more on hazardous materials
+                      </span>{' '}
+                    </p>
+                  </div>
+
+                  <div className="mt-14 flex flex-col gap-1 text-[13px] text-gray-sw">
+                    <p className="leading-4">
+                      All fares and fare ranges are subject to change until{' '}
+                      <br />
+                      purchased and are per person for each way of travel.
+                    </p>
+                    <p className="">
+                      By clicking ‘Purchase’, I agree to and acknowledge receipt
+                      of the{' '}
+                      <span className="cursor-pointer text-blue-sw underline transition-all hover:text-black-sw">
+                        Terms and conditions,
+                      </span>{' '}
+                      <br />{' '}
+                      <span className="cursor-pointer text-blue-sw underline transition-all hover:text-black-sw">
+                        Privacy Policy,
+                      </span>{' '}
+                      <span className="cursor-pointer text-blue-sw underline transition-all hover:text-black-sw">
+                        Fare Rules,
+                      </span>{' '}
+                      <span className="cursor-pointer text-blue-sw underline transition-all hover:text-black-sw">
+                        Contract of Carriage,
+                      </span>{' '}
+                      and{' '}
+                      <span className="cursor-pointer text-blue-sw underline transition-all hover:text-black-sw">
+                        Notice of Incorporated Terms
+                      </span>
+                    </p>
+                  </div>
+                  {/* Purchase/Submit button */}
+                  <div className="mt-8">
+                    <button
+                      // onClick={() => handleContinueClick()}
+                      type="submit"
+                      className="box-shadow-sw rounded-sm border border-transparent bg-yellow-sw px-[22px] py-3 text-[17px] font-bold text-black-sw transition-all duration-300 hover:border-black-sw hover:shadow-none"
+                    >
+                      Purchase
+                    </button>
+                  </div>
+                </section>
+              </form>
 
               {/* Accordian */}
-              <div>
+              <section className="my-16">
                 <Accordians />
-              </div>
+              </section>
             </div>
           </div>
         </div>

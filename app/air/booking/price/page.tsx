@@ -83,18 +83,6 @@ export default function Home() {
 
           // toggling the dropdown
           // Find the ID of the filteredFlight that contains the selectedDepartFlight
-          if (openDepartDropdown === null) {
-            const toggleId = filteredFlights.find((group: { flights: any[] }) =>
-              group.flights.some((flightDetail) =>
-                Array.isArray(testFlight?.flight)
-                  ? testFlight.flight.some(
-                      (selected: { id: any }) => selected.id === flightDetail.id
-                    )
-                  : testFlight?.flight?.id === flightDetail.id
-              )
-            )?.id;
-            handleDepartDropDown(toggleId);
-          }
         } catch (error) {
           console.error('Error parsing departFlight:', error);
         }

@@ -16,6 +16,7 @@ import { useReturnDate } from './InputContexts/ReturnDateContext';
 import { useDepartFlight } from './SelectDepart/DepartFlightContext';
 import { useReturnFlight } from './SelectDepart/ReturnFlightContext';
 import { useFlightPrice } from './SelectDepart/FlightPriceContext';
+import { usePassengerInfo } from './purchase/PassengerInfoContext';
 
 const FlightContext = createContext();
 
@@ -160,6 +161,8 @@ export function FlightProvider({ children }) {
     priceVariants
   );
 
+  const { passengerInfo, setPassengerInfo } = usePassengerInfo(totalPassengers);
+
   // Search submit
   const {
     isSearchClicked,
@@ -275,7 +278,8 @@ export function FlightProvider({ children }) {
   // console.log('Return Date: ', returnDate);
   // console.log(selectedDepartFlight);
   // console.log(filteredFlights);
-  console.log(isDepartContinueBtnClicked);
+  // console.log(isDepartContinueBtnClicked);
+
 
   return (
     <FlightContext.Provider
@@ -377,6 +381,10 @@ export function FlightProvider({ children }) {
         Tax,
         handlePriceContinue,
         handlePriceModify,
+
+        // Passenger Info
+        passengerInfo,
+        setPassengerInfo,
 
         // Search Submit
         isSearchClicked,

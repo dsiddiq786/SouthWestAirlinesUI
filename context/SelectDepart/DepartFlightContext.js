@@ -77,7 +77,6 @@ export function useDepartFlight(returnDate) {
 
   const handleContinueClick = () => {
     if (selectedDepartFlight) {
-      console.log(returnDate);
       if (returnDate) {
         setIsDepartContinueBtnClicked(true);
         const params = new URLSearchParams(searchParams);
@@ -85,7 +84,7 @@ export function useDepartFlight(returnDate) {
 
         replace(`?${params.toString()}`, { scroll: false });
       } else {
-        const params = new URLSearchParams();
+        const params = new URLSearchParams(searchParams);
         router.push(`/air/booking/price?${params.toString()}`);
       }
     }
