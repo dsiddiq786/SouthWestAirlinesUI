@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useFlights } from '@/context/FlightContext';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Footer from '@/app/components/Footer/Footer';
 import Header from '../select-depart/components/Header';
 import Accordians from '../select-depart/components/DepartDetails/components/Accordians/Accordians';
@@ -10,25 +10,15 @@ import PurchaseProgress from './components/PurchaseProgress';
 import FlightPurchaseDetails from './components/FlightPurchaseDetails';
 import PassengerInfo from './components/WhoIsFlying/PassengerInfo';
 import { useForm } from 'react-hook-form';
+import { usePassengerForms } from './components/WhoIsFlying/components/PassengerFormInstance';
 
 export default function Home() {
   const searchParams = useSearchParams();
 
   const {
-    handleSubmit,
-    register,
-    formState: { errors },
-    setValue,
-  } = useForm();
-
-  const onSubmit = (data: any) => {
-    console.log('Form Submitted:', data);
-  };
-
-  const {
     setSelectedTravelType,
     setSelectedBagFee,
-    setTotalPassengers,
+    setPassengerCounts,
     setSelectedDepartCodes,
     setSelectedArriveCodes,
     setDepartDate,
@@ -43,19 +33,19 @@ export default function Home() {
     // Retrieve values from search params
     const travelType = searchParams.get('travelType') || '';
     const bagFee = searchParams.get('bagFee') || '';
-    const totalPassengers = searchParams.get('totalPassengers') || 0;
+    const passengerCount = JSON.parse(
+      decodeURIComponent(searchParams.get('passengerCount') || '')
+    );
     const departCodes = searchParams.get('departCodes')?.split(',') || [];
     const arriveCodes = searchParams.get('arriveCodes')?.split(',') || [];
     const departDate = searchParams.get('departDate') || '';
     const returnDate = searchParams.get('returnDate') || '';
     const isReturnFlight = searchParams.get('isReturnFlight') || false;
 
-    console.log(totalPassengers);
-
     // set the values according to the searchParams
     setSelectedTravelType(travelType);
     setSelectedBagFee(bagFee);
-    setTotalPassengers(totalPassengers);
+    setPassengerCounts(passengerCount);
     setSelectedDepartCodes(departCodes);
     setSelectedArriveCodes(arriveCodes);
     setDepartDate(departDate);
@@ -133,6 +123,47 @@ export default function Home() {
     fetchReturnFlight();
   }, [searchParams, filteredReturnFlights]); // Runs when `return filtered flights` updates
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    clearErrors,
+  } = useForm();
+
+  // Function to submit all forms only if all are valid
+  // const handleAllFormsSubmit = async () => {
+  //   if (!passengerForms || passengerForms.length === 0) {
+  //     console.warn('Forms are not yet initialized.');
+  //     return;
+  //   }
+
+  //   let allFormsValid = true;
+
+  //   // Manually trigger validation for each form before checking isValid
+  //   for (let i = 0; i < passengerForms.length; i++) {
+  //     const isValid = await passengerForms[i].trigger(); // Trigger validation
+  //     if (!isValid) {
+  //       allFormsValid = false;
+  //     }
+  //   }
+
+  //   if (!allFormsValid) {
+  //     console.log('Please fill all required fields before submitting.');
+  //     return;
+  //   }
+
+  //   // If all forms are valid, submit each one asynchronously
+  //   for (let i = 0; i < passengerForms.length; i++) {
+  //     await passengerForms[i].handleSubmit((data: any) => {
+  //       console.log(`Passenger ${i + 1} Data:`, data);
+  //     })();
+  //   }
+  // };
+
+  const onSubmit = (data: any) => {
+    console.log('Form Submitted:', data);
+  };
+
   return (
     <>
       <div className="-ml-2 text-black-sw">
@@ -154,19 +185,13 @@ export default function Home() {
                 className="flex flex-col gap-3"
                 onSubmit={handleSubmit(onSubmit)}
               >
-                <input
-                  {...register('name', { required: 'Name is required' })}
-                  placeholder="Name"
-                />
-                <span className="h-4 text-sm">
-                  {errors.name && (
-                    <span>{errors.name.message?.toString()}</span>
-                  )}
-                </span>
-
                 {/* who is flying */}
                 <section>
-                  <PassengerInfo />
+                  <PassengerInfo
+                    register={register}
+                    errors={errors}
+                    clearErrors={clearErrors}
+                  />
                 </section>
 
                 {/* material info and submit button */}
@@ -227,7 +252,7 @@ export default function Home() {
                   {/* Purchase/Submit button */}
                   <div className="mt-8">
                     <button
-                      // onClick={() => handleContinueClick()}
+                      // onClick={() => handleAllFormsSubmit()}
                       type="submit"
                       className="box-shadow-sw rounded-sm border border-transparent bg-yellow-sw px-[22px] py-3 text-[17px] font-bold text-black-sw transition-all duration-300 hover:border-black-sw hover:shadow-none"
                     >

@@ -14,24 +14,28 @@ export function useDepartFlight(returnDate) {
       points: '5,193',
       class: 'rounded-b-none border-none bg-blue-sw text-white',
       bottomBackground: 'bg-[#304cb2]',
+      decoration: 'decoration-[#304cb2]',
     },
     {
       variant: 'Anytime',
       points: '3,863',
       class: 'rounded-b-none border-none bg-[#a4baf2] text-black-sw',
       bottomBackground: 'bg-[#a4baf2]',
+      decoration: 'decoration-[#a4baf2]',
     },
     {
       variant: 'Wanna Get Away plus',
       points: '2,398',
       class: 'rounded-b-none  bg-[#f5f5f5] text-black-sw',
       bottomBackground: 'bg-[#f5f5f5]',
+      decoration: 'decoration-[#f5f5f5]',
     },
     {
       variant: 'Wanna Get Away',
       points: '1,687',
       class: 'rounded-b-none border-none bg-[#ffbf27] text-black-sw',
       bottomBackground: 'bg-[#ffbf27]',
+      decoration: 'decoration-[#ffbf27]',
     },
   ];
 

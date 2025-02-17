@@ -181,7 +181,7 @@ export function FlightProvider({ children }) {
     selectedArriveCodes,
     selectedTravelType,
     selectedBagFee,
-    totalPassengers,
+    passengerCounts,
     departDate,
     returnDate,
     travelTypeOptions,
@@ -279,7 +279,6 @@ export function FlightProvider({ children }) {
   // console.log(selectedDepartFlight);
   // console.log(filteredFlights);
   // console.log(isDepartContinueBtnClicked);
-
 
   return (
     <FlightContext.Provider

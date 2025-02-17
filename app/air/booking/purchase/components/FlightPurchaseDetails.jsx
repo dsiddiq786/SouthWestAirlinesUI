@@ -16,6 +16,7 @@ export default function FlightPurchaseDetails() {
     selectedDepartFlight,
     selectedReturnFlight,
     handlePriceModify,
+    priceVariants,
   } = useFlights();
   return (
     <div className="flex flex-col">
@@ -42,7 +43,7 @@ export default function FlightPurchaseDetails() {
           {/* flight details */}
           <div className="flex h-[233px] flex-1 flex-col justify-start gap-7">
             {/* Depart flight */}
-            <div className="mt-6 flex items-center gap-12 pl-5">
+            <div className="mt-6 flex items-center gap-8 pl-5">
               <div className="flex items-center gap-3">
                 {/* depart icon */}
                 <div className="relative mt-1 -rotate-45 rounded-full bg-black-sw p-[5px]">
@@ -112,7 +113,19 @@ export default function FlightPurchaseDetails() {
                   </span>
                 </div>
                 {/* Price variant */}
-                <div className="underline decoration-blue-sw decoration-[3px] underline-offset-8">
+                <div
+                  className={`underline decoration-[3px] underline-offset-8 ${
+                    selectedDepartFlight?.price === 'Business Select'
+                      ? 'decoration-[#304cb2]'
+                      : selectedDepartFlight?.price === 'Anytime'
+                        ? 'decoration-[#a4baf2]'
+                        : selectedDepartFlight?.price === 'Wanna Get Away plus'
+                          ? 'decoration-[#d5152e]'
+                          : selectedDepartFlight?.price === 'Wanna Get Away'
+                            ? 'decoration-[#ffbf27]'
+                            : 'decoration-transparent' // Default
+                  }`}
+                >
                   <span className="cursor-pointer text-[13.4px] text-blue-sw underline-offset-[1px] transition-all hover:text-black-sw hover:underline">
                     {selectedDepartFlight?.price}
                   </span>
@@ -122,7 +135,7 @@ export default function FlightPurchaseDetails() {
 
             {/* Return flight */}
             {selectedReturnFlight && (
-              <div className="mt-6 flex items-center gap-12 pl-5">
+              <div className="mt-6 flex items-center gap-8 pl-5">
                 <div className="flex items-center gap-3">
                   {/* Return icon */}
                   <div className="relative mt-1 rotate-[230deg] rounded-full bg-[#008020] p-[5px]">
@@ -195,7 +208,20 @@ export default function FlightPurchaseDetails() {
                     </span>
                   </div>
                   {/* Price variant */}
-                  <div className="underline decoration-blue-sw decoration-[3px] underline-offset-8">
+                  <div
+                    className={`underline decoration-[3px] underline-offset-8 ${
+                      selectedReturnFlight?.price === 'Business Select'
+                        ? 'decoration-[#304cb2]'
+                        : selectedReturnFlight?.price === 'Anytime'
+                          ? 'decoration-[#a4baf2]'
+                          : selectedReturnFlight?.price ===
+                              'Wanna Get Away plus'
+                            ? 'decoration-[#d5152e]'
+                            : selectedReturnFlight?.price === 'Wanna Get Away'
+                              ? 'decoration-[#ffbf27]'
+                              : 'decoration-transparent' // Default
+                    }`}
+                  >
                     <span className="cursor-pointer text-[13.4px] text-blue-sw underline-offset-[1px] transition-all hover:text-black-sw hover:underline">
                       {selectedReturnFlight?.price}
                     </span>
@@ -206,11 +232,11 @@ export default function FlightPurchaseDetails() {
           </div>
 
           {/* Price Details */}
-          <div className="flex w-[232px] flex-col bg-[#e8ecf9] p-[24px] text-[11px] font-bold">
+          <div className="flex w-[232px] flex-col bg-[#e8ecf9] p-[24px] font-bold">
             {/* Base fare */}
             <div className="flex justify-between">
               {/* Passengers */}
-              <div className="flex flex-col leading-none">
+              <div className="flex flex-col text-[11px] leading-none">
                 <span>Base fare</span>
                 <span className="font-normal">
                   {totalPassengers} Passengers (s)
@@ -218,22 +244,22 @@ export default function FlightPurchaseDetails() {
               </div>
 
               {/* Price */}
-              <span>${flightBaseFare}</span>
+              <span className="text-[13px]">${flightBaseFare}</span>
             </div>
 
             {/* Taxes and fees*/}
             <div className="my-3 flex justify-between border-y border-[#cccccc] py-4">
               {/* Passengers */}
-              <span>Taxes and fees</span>
+              <span className="text-[11px]">Taxes and fees</span>
 
               {/* Price */}
-              <span className="text-blue-sw">${Tax}</span>
+              <span className="text-[13px] text-blue-sw">${Tax}</span>
             </div>
 
             {/* Flight total*/}
             <div className="flex justify-between">
               {/* Passengers */}
-              <span>Flight total</span>
+              <span className="text-[11px]">Flight total</span>
 
               {/* Price */}
               <span className="text-[16px]">${TotalFlightPrice}</span>

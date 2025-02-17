@@ -15,7 +15,7 @@ export default function PriceBreakout() {
           </span>
 
           {/* Features */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 pl-8">
             {/* two bags */}
             <div className="flex items-center gap-4">
               <div>

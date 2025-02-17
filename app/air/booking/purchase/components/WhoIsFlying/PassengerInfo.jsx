@@ -2,9 +2,10 @@ import React from 'react';
 import PassengerInfoItem from './components/PassengerInfoItem';
 import { IoIosAirplane } from 'react-icons/io';
 import { useFlights } from '@/context/FlightContext';
+import { useForm } from 'react-hook-form';
 
-export default function PassengerInfo() {
-  const { passengerInfo, setPassengerInfo } = useFlights();
+export default function PassengerInfo({ register, errors, clearErrors }) {
+  const { passengerInfo } = useFlights();
   return (
     <div className="flex flex-col bg-[#f5f5f5] px-[30px] pb-[30px] pt-[24px]">
       {/* icon and title */}
@@ -23,15 +24,38 @@ export default function PassengerInfo() {
       {/* PassengerInfo */}
       <div className="bg-white pb-[20px] pl-[40px] pr-[15px] pt-[16px]">
         {/* Required span */}
-        <span className="pb-[22px] text-[13px] text-gray-sw">
+        <span className="mb-[22px] mt-[20px] block text-[13px] text-gray-sw">
           <span className="text-red-600">* </span>
           Required
         </span>
 
-        {passengerInfo.map((passenger, index) => {
+        {/* {passengerInfo.map((passenger, index) => {
           return (
             <div key={passenger.passengerNo}>
-              <PassengerInfoItem passenger={passenger} passengerIndex={index} />
+              <PassengerInfoItem
+                register={register}
+                passenger={passenger}
+                passengerIndex={index}
+                errors={errors}
+              />
+            </div>
+          );
+        })} */}
+        {passengerInfo.map((passenger, index) => {
+          // const {
+          //   register,
+          //   formState: { errors },
+          // } = passengerForms[index] || useForm(); // Ensure fallback
+
+          return (
+            <div key={passenger.passengerNo}>
+              <PassengerInfoItem
+                register={register}
+                passenger={passenger}
+                passengerIndex={index}
+                errors={errors}
+                clearErrors={clearErrors}
+              />
             </div>
           );
         })}

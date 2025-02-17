@@ -14,7 +14,7 @@ export default function Home() {
   const {
     setSelectedTravelType,
     setSelectedBagFee,
-    setTotalPassengers,
+    setPassengerCounts,
     setSelectedDepartCodes,
     setSelectedArriveCodes,
     setDepartDate,
@@ -32,7 +32,9 @@ export default function Home() {
     // Retrieve values from search params
     const travelType = searchParams.get('travelType') || '';
     const bagFee = searchParams.get('bagFee') || '';
-    const totalPassengers = searchParams.get('totalPassengers') || 0;
+    const passengerCount = JSON.parse(
+      decodeURIComponent(searchParams.get('passengerCount') || '')
+    );
     const departCodes = searchParams.get('departCodes')?.split(',') || [];
     const arriveCodes = searchParams.get('arriveCodes')?.split(',') || [];
     const departDate = searchParams.get('departDate') || '';
@@ -42,7 +44,7 @@ export default function Home() {
     // set the values according to the searchParams
     setSelectedTravelType(travelType);
     setSelectedBagFee(bagFee);
-    setTotalPassengers(totalPassengers);
+    setPassengerCounts(passengerCount);
     setSelectedDepartCodes(departCodes);
     setSelectedArriveCodes(arriveCodes);
     setDepartDate(departDate);

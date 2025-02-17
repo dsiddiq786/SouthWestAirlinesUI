@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { formatDate } from '@/utils/formatDate';
 
 export function useSearchSubmit(
   selectedDepartCodes,
   selectedArriveCodes,
   selectedTravelType,
   selectedBagFee,
-  totalPassengers,
+  passengerCounts,
   departDate,
   returnDate,
   travelTypeOptions,
@@ -47,7 +46,10 @@ export function useSearchSubmit(
         params.set('arriveCodes', selectedArriveCodes.join(','));
         params.set('travelType', selectedTravelType);
         params.set('bagFee', selectedBagFee);
-        params.set('totalPassengers', totalPassengers);
+        params.set(
+          'passengerCount',
+          encodeURIComponent(JSON.stringify(passengerCounts))
+        );
         params.set('departDate', departDate);
         params.set('returnDate', returnDate);
         params.set('departFlight', selectedDepartFlight);
@@ -61,7 +63,10 @@ export function useSearchSubmit(
         params.set('arriveCodes', selectedArriveCodes.join(','));
         params.set('travelType', selectedTravelType);
         params.set('bagFee', selectedBagFee);
-        params.set('totalPassengers', totalPassengers);
+        params.set(
+          'passengerCount',
+          encodeURIComponent(JSON.stringify(passengerCounts))
+        );
         params.set('departDate', departDate);
         params.set('returnDate', returnDate);
         params.set('departFlight', selectedDepartFlight);
