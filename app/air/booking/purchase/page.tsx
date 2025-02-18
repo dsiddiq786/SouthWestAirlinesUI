@@ -10,6 +10,7 @@ import PurchaseProgress from './components/PurchaseProgress';
 import FlightPurchaseDetails from './components/FlightPurchaseDetails';
 import PassengerInfo from './components/WhoIsFlying/PassengerInfo';
 import { useForm } from 'react-hook-form';
+import KeepConnected from './components/KeepConnected/KeepConnected';
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -127,37 +128,9 @@ export default function Home() {
     handleSubmit,
     formState: { errors },
     clearErrors,
+    setValue,
+    getValues,
   } = useForm();
-
-  // Function to submit all forms only if all are valid
-  // const handleAllFormsSubmit = async () => {
-  //   if (!passengerForms || passengerForms.length === 0) {
-  //     console.warn('Forms are not yet initialized.');
-  //     return;
-  //   }
-
-  //   let allFormsValid = true;
-
-  //   // Manually trigger validation for each form before checking isValid
-  //   for (let i = 0; i < passengerForms.length; i++) {
-  //     const isValid = await passengerForms[i].trigger(); // Trigger validation
-  //     if (!isValid) {
-  //       allFormsValid = false;
-  //     }
-  //   }
-
-  //   if (!allFormsValid) {
-  //     console.log('Please fill all required fields before submitting.');
-  //     return;
-  //   }
-
-  //   // If all forms are valid, submit each one asynchronously
-  //   for (let i = 0; i < passengerForms.length; i++) {
-  //     await passengerForms[i].handleSubmit((data: any) => {
-  //       console.log(`Passenger ${i + 1} Data:`, data);
-  //     })();
-  //   }
-  // };
 
   const onSubmit = (data: any) => {
     console.log('Form Submitted:', data);
@@ -190,6 +163,18 @@ export default function Home() {
                     register={register}
                     errors={errors}
                     clearErrors={clearErrors}
+                    setValue={setValue}
+                  />
+                </section>
+
+                {/* Keep connected */}
+                <section>
+                  <KeepConnected
+                    register={register}
+                    errors={errors}
+                    clearErrors={clearErrors}
+                    setValue={setValue}
+                    getValues={getValues}
                   />
                 </section>
 

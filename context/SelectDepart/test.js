@@ -45,3 +45,15 @@ const ddd = {
     points: '5,193',
   },
 };
+
+Other Useful autoComplete Values
+Purpose	autoComplete Value
+Full Name	name
+First Name	given-name
+Last Name	family-name
+Email	email
+Phone Number	tel
+Address	street-address
+Country	country
+City	address-level2
+Postal Code	postal-code

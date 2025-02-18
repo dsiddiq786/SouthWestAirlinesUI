@@ -4,7 +4,12 @@ import { IoIosAirplane } from 'react-icons/io';
 import { useFlights } from '@/context/FlightContext';
 import { useForm } from 'react-hook-form';
 
-export default function PassengerInfo({ register, errors, clearErrors }) {
+export default function PassengerInfo({
+  register,
+  errors,
+  clearErrors,
+  setValue,
+}) {
   const { passengerInfo } = useFlights();
   return (
     <div className="flex flex-col bg-[#f5f5f5] px-[30px] pb-[30px] pt-[24px]">
@@ -37,6 +42,7 @@ export default function PassengerInfo({ register, errors, clearErrors }) {
                 passenger={passenger}
                 errors={errors}
                 clearErrors={clearErrors}
+                setValue={setValue}
               />
             </div>
           );

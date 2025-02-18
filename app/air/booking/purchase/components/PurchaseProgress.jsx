@@ -19,7 +19,7 @@ export default function PurchaseProgress() {
           </div>
 
           {/* Separator */}
-          <div className="h-[2px] w-[110px] bg-[#e6e7e8]"></div>
+          <div className="h-[2px] w-[110px] bg-black-sw"></div>
 
           {/* Payment */}
           <div className="bg-[#008020 flex h-5 w-5 items-center justify-center rounded-full bg-black-sw">
