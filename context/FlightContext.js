@@ -279,6 +279,9 @@ export function FlightProvider({ children }) {
   // console.log(selectedDepartFlight);
   // console.log(filteredFlights);
   // console.log(isDepartContinueBtnClicked);
+  console.log('passengerInfo', passengerInfo);
+  console.log("Abdul Rafay")
+
 
   return (
     <FlightContext.Provider

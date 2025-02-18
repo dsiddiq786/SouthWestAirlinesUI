@@ -10,7 +10,6 @@ import PurchaseProgress from './components/PurchaseProgress';
 import FlightPurchaseDetails from './components/FlightPurchaseDetails';
 import PassengerInfo from './components/WhoIsFlying/PassengerInfo';
 import { useForm } from 'react-hook-form';
-import { usePassengerForms } from './components/WhoIsFlying/components/PassengerFormInstance';
 
 export default function Home() {
   const searchParams = useSearchParams();

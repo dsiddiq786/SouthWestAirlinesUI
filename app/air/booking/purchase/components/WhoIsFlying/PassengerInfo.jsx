@@ -29,30 +29,12 @@ export default function PassengerInfo({ register, errors, clearErrors }) {
           Required
         </span>
 
-        {/* {passengerInfo.map((passenger, index) => {
+        {passengerInfo.map((passenger) => {
           return (
             <div key={passenger.passengerNo}>
               <PassengerInfoItem
                 register={register}
                 passenger={passenger}
-                passengerIndex={index}
-                errors={errors}
-              />
-            </div>
-          );
-        })} */}
-        {passengerInfo.map((passenger, index) => {
-          // const {
-          //   register,
-          //   formState: { errors },
-          // } = passengerForms[index] || useForm(); // Ensure fallback
-
-          return (
-            <div key={passenger.passengerNo}>
-              <PassengerInfoItem
-                register={register}
-                passenger={passenger}
-                passengerIndex={index}
                 errors={errors}
                 clearErrors={clearErrors}
               />
