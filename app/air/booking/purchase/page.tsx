@@ -11,6 +11,7 @@ import FlightPurchaseDetails from './components/FlightPurchaseDetails';
 import PassengerInfo from './components/WhoIsFlying/PassengerInfo';
 import { useForm } from 'react-hook-form';
 import KeepConnected from './components/KeepConnected/KeepConnected';
+import PaymentMethod from './components/Payment/PaymentMethod';
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -175,6 +176,17 @@ export default function Home() {
                     clearErrors={clearErrors}
                     setValue={setValue}
                     getValues={getValues}
+                  />
+                </section>
+
+                {/* Payment Method */}
+                <section>
+                  <PaymentMethod
+                    register={register}
+                    errors={errors}
+                    clearErrors={clearErrors}
+                    setValue={setValue}
+                    // getValues={getValues}
                   />
                 </section>
 

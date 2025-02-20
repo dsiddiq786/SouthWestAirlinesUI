@@ -10,11 +10,19 @@ export function useFlightPrice(
   const searchParams = useSearchParams();
   const router = useRouter();
   const [flightBaseFare, setFlightBaseFare] = useState(0);
-  const Tax = 91.74;
+  const [Tax, setTax] = useState(91.74);
   const [TotalFlightPrice, setTotalFlightPrice] = useState(0); // Initialize properly
 
   // Ensure totalPassengers is a valid number
   const passengers = Number(totalPassengers) || 1; // Default to 1 if NaN
+
+  // Hardcoded tax values based on provided rules
+  const EXCISE_TAX = 15; // Static value (previously 7.5% but now fixed)
+  const ARRIVAL_DEPARTURE_TAX = 11.40; // Static for Hawaii
+  const PUERTO_RICO_TAX = 22.90; // Static for Puerto Rico
+  const SEGMENT_FEE = 5.20 * 2; // Assuming round trip (2 segments)
+  const SECURITY_FEE = 5.60 * 2; // Assuming round trip
+  const PFC = 18; // Static max charge
 
   // Get price index for depart flight
   const departFlightPriceIndex = priceVariants.findIndex(
@@ -43,6 +51,10 @@ export function useFlightPrice(
   useEffect(() => {
     // Ensure we do not set NaN
     const baseFare = ((departFlightPrice + returnFlightPrice) * passengers);
+
+    // Calculate total tax (all static values)
+    const totalTaxes = EXCISE_TAX + ARRIVAL_DEPARTURE_TAX + PUERTO_RICO_TAX + SEGMENT_FEE + SECURITY_FEE + PFC + baseFare * 0.075;
+    setTax(totalTaxes);
 
     setFlightBaseFare(baseFare);
     setTotalFlightPrice(baseFare + Tax);

@@ -3,23 +3,25 @@ import { IoCaretDownSharp, IoCaretUpSharp } from 'react-icons/io5';
 import { MdError } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function PassengerContactMethod({
+export default function PaymentCardType({
   register,
-  setValue,
   errors,
   clearErrors,
+  setValue,
 }) {
-  const contactMethods = ['Email me', 'Text me', 'Call me (automated)'];
+  const cardTypes = [
+    'Select',
+    'Rapid Rewards Visa',
+    'Visa',
+    'MasterCard',
+    'Discover/UnionPay',
+    'American Express',
+    'UATP',
+    'Diners Club/JCB',
+  ];
 
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-  const [selectedContactMethod, setSelectedContactMethod] = useState(
-    contactMethods[1]
-  );
-  // Move the setValue call inside useEffect to avoid it being called on every render
-  useEffect(() => {
-    setValue(`contactDetails.contactMethod`, contactMethods[1]); // Register input value
-  }, [setValue]);
-
+  const [selectedCardType, setSelectedCardType] = useState('');
   const dropdownRef = useRef(null);
 
   // Close dropdown on clicking outside or pressing Escape
@@ -48,10 +50,10 @@ export default function PassengerContactMethod({
   }, []);
 
   // Handle option selection
-  const handleSelect = (contactMethod) => {
-    setSelectedContactMethod(contactMethod);
-    setValue(`contactDetails.contactMethod`, contactMethod); // Register input value
-    clearErrors(`contactDetails.contactMethod`);
+  const handleSelect = (cardType) => {
+    setSelectedCardType(cardType);
+    setValue(`payment.cardType`, cardType); // Register input value
+    clearErrors(`payment.cardType`);
     setIsDropDownOpen(false);
   };
 
@@ -59,22 +61,22 @@ export default function PassengerContactMethod({
     <div ref={dropdownRef} className="relative">
       <div className="relative flex flex-col">
         <span className="pb-[8px] text-[11px] font-bold text-gray-sw">
-          CONTACT METHOD <span className="text-red-600">*</span>
+          CARD TYPE <span className="text-red-600">*</span>
         </span>
         <div>
           {/* Hidden Input Field (for React Hook Form) */}
           <input
             type="hidden"
-            {...register(`contactDetails.contactMethod`, {
-              required: 'Select contact method.',
+            {...register(`payment.cardType`, {
+              required: 'Select card type.',
             })}
           />
         </div>
         {/* Custom Select Button */}
         <button
           type="button"
-          className={`flex h-[32px] w-[388px] ${
-            errors?.contactDetails?.contactMethod
+          className={`flex h-[32px] w-[214px] ${
+            errors?.payment?.cardType
               ? 'border border-red-600'
               : 'box-shadow-sw hover:border hover:border-black-sw'
           } ${
@@ -84,11 +86,9 @@ export default function PassengerContactMethod({
           } items-center justify-between rounded-sm border px-[7px] py-[3px] leading-none text-black-sw transition-all`}
           onClick={() => setIsDropDownOpen(!isDropDownOpen)}
         >
-          <span className="text-[13px]">
-            {selectedContactMethod || 'Select'}
-          </span>
+          <span className="text-[13px]">{selectedCardType || 'Select'}</span>
           <span>
-            {errors?.contactDetails?.contactMethod ? (
+            {errors?.payment?.cardType ? (
               <MdError size={20} className="text-red-600" />
             ) : (
               <IoCaretDownSharp className="text-lg text-blue-sw" />
@@ -96,9 +96,9 @@ export default function PassengerContactMethod({
           </span>
         </button>
         <span className="h-4 text-sm">
-          {errors?.contactDetails?.contactMethod && (
+          {errors?.payment?.cardType && (
             <span className="text-[11px] text-red-600">
-              {errors.contactDetails.contactMethod.message?.toString()}
+              {errors.payment.cardType.message?.toString()}
             </span>
           )}
         </span>
@@ -107,22 +107,20 @@ export default function PassengerContactMethod({
       {/* Dropdown List */}
       {isDropDownOpen && (
         <>
-          <div className="absolute bottom-[4.2rem] left-24 z-50 w-[224px] rounded-sm border bg-white shadow-lg shadow-gray-400">
+          <div className="absolute -left-10 bottom-[4.2rem] z-50 w-[323px] rounded-sm border bg-white shadow-lg shadow-gray-400">
             <ul className="-mb-6 p-[10px]">
               {/* Suffix options (Show only 4 at a time) */}
-              {contactMethods.map((contactMethod) => (
+              {cardTypes.map((cardType) => (
                 <li
                   key={uuidv4()}
                   className={`cursor-pointer gap-2 px-2 py-1 transition-all duration-300 ${
-                    selectedContactMethod === contactMethod
+                    selectedCardType === cardType
                       ? 'bg-[#e6e7e8]'
                       : 'hover:bg-[#e6e7e8]'
                   }`}
-                  onClick={() => handleSelect(contactMethod)}
+                  onClick={() => handleSelect(cardType)}
                 >
-                  <span className="text-[16px] text-blue-sw">
-                    {contactMethod}
-                  </span>
+                  <span className="text-[16px] text-blue-sw">{cardType}</span>
                 </li>
               ))}
             </ul>
