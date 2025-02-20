@@ -1,6 +1,14 @@
+import { useState } from 'react';
 import { MdError } from 'react-icons/md';
 
-export default function PassengerEmail({ register, errors, clearErrors }) {
+export default function PaymentConfirmEmailAddress({
+  register,
+  errors,
+  clearErrors,
+  getValues,
+}) {
+  const [isEmailConfirmed, setIsEmailConfirmed] = useState(true);
+  const originalEmail = getValues('payment.sendReceipt.email');
   const formatEmail = (event) => {
     let value = event.target.value;
 
@@ -23,43 +31,50 @@ export default function PassengerEmail({ register, errors, clearErrors }) {
 
     // Update input field
     event.target.value = value;
+
+    setIsEmailConfirmed(originalEmail === value); // Update state
   };
 
   return (
     <div className="flex flex-col">
       <span className="pb-[8px] text-[11px] font-bold text-gray-sw">
-        EMAIL ADDRESS <span className="text-red-600">*</span>
+        CONFIRM EMAIL ADDRESS <span className="text-red-600">*</span>
       </span>
       <div className="relative">
         <input
           type="email"
-          autoComplete="email"
-          {...register(`contactDetails.email`, {
-            required: 'Enter email address',
+          name="email"
+          autoComplete="new-password"
+          readOnly
+          onFocus={(e) => e.target.removeAttribute('readOnly')}
+          {...register(`payment.sendReceipt.confirmEmail`, {
+            required: 'Enter confirmation email address',
           })}
           onChange={(event) => {
-            clearErrors(`contactDetails.email`);
+            clearErrors(`payment.sendReceipt.confirmEmail`);
             formatEmail(event);
           }} // Clear error on input change
-          className={`h-[32px] w-[388px] rounded-sm py-[3px] pl-[7px] text-[13px] ${
-            errors?.contactDetails?.email
+          className={`h-[32px] w-[300px] rounded-sm py-[3px] pl-[7px] text-[13px] ${
+            errors?.payment?.sendReceipt?.confirmEmail || !isEmailConfirmed
               ? 'border border-red-600'
               : 'inner-box-shadow-sw border'
           } text-black-sw shadow-inner`}
         />
-        {errors?.contactDetails?.email && (
+        {(errors?.payment?.sendReceipt?.confirmEmail || !isEmailConfirmed) && (
           <span className="absolute right-[0.9rem] top-[0.35em]">
             <MdError size={20} className="text-red-600" />
           </span>
         )}
       </div>
-      <span className="h-4 text-sm">
-        {errors?.contactDetails?.email && (
+      {(errors?.payment?.sendReceipt?.confirmEmail || !isEmailConfirmed) && (
+        <span className="h-4 text-sm">
           <span className="text-[11px] text-red-600">
-            {errors.contactDetails.email.message?.toString()}
+            {errors?.payment?.sendReceipt?.confirmEmail?.message
+              ? errors?.payment?.sendReceipt?.confirmEmail?.message?.toString()
+              : 'Enter confirmation email address'}
           </span>
-        )}
-      </span>
+        </span>
+      )}
     </div>
   );
 }

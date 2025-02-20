@@ -5,7 +5,7 @@ import { formatDateToDayDate } from '@/utils/formatDate';
 import { MdOutlineAltRoute } from 'react-icons/md';
 import { FaArrowRight } from 'react-icons/fa';
 
-export default function FlightPurchaseDetails() {
+export default function FlightPurchaseDetails({ isModify }) {
   const {
     departDate,
     returnDate,
@@ -16,7 +16,6 @@ export default function FlightPurchaseDetails() {
     selectedDepartFlight,
     selectedReturnFlight,
     handlePriceModify,
-    priceVariants,
   } = useFlights();
   return (
     <div className="flex flex-col">
@@ -27,13 +26,17 @@ export default function FlightPurchaseDetails() {
           <h2 className="text-[22px] font-bold">Flight Details</h2>
         </div>
 
-        {/* modifify */}
-        <button
-          onClick={() => handlePriceModify()}
-          className="text-[13px] text-blue-sw transition-all hover:text-black-sw hover:underline"
-        >
-          Modify
-        </button>
+        {isModify && (
+          <>
+            {/* modifify */}
+            <button
+              onClick={() => handlePriceModify()}
+              className="text-[13px] text-blue-sw transition-all hover:text-black-sw hover:underline"
+            >
+              Modify
+            </button>
+          </>
+        )}
       </div>
 
       {/* flight details and price and lists */}
@@ -253,7 +256,9 @@ export default function FlightPurchaseDetails() {
               <span className="text-[11px]">Taxes and fees</span>
 
               {/* Price */}
-              <span className="text-[13px] text-blue-sw">${Tax}</span>
+              <span className="text-[13px] text-blue-sw">
+                ${Tax.toFixed(2)}
+              </span>
             </div>
 
             {/* Flight total*/}

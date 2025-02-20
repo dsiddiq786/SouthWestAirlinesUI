@@ -6,10 +6,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default function PaymentCountry({ register, errors, setValue }) {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState(countries[1]);
+  const [selectedCountry, setSelectedCountry] = useState(countries[185]);
 
   useEffect(() => {
-    setValue(`payment.country`, countries[1]); // Register input value
+    setValue(`payment.billingInfo.country`, countries[185]); // Register input value
   }, [setValue]);
 
   const [startIndex, setStartIndex] = useState(0); // Track visible countries
@@ -44,7 +44,7 @@ export default function PaymentCountry({ register, errors, setValue }) {
   // Handle option selection
   const handleSelect = (country) => {
     setSelectedCountry(country);
-    setValue(`payment.country`, country); // Register input value
+    setValue(`payment.billingInfo.country`, country); // Register input value
     setIsDropDownOpen(false);
   };
 
@@ -70,7 +70,7 @@ export default function PaymentCountry({ register, errors, setValue }) {
         </span>
         <div>
           {/* Hidden Input Field (for React Hook Form) */}
-          <input type="hidden" {...register(`payment.country`)} />
+          <input type="hidden" {...register(`payment.billingInfo.country`)} />
         </div>
         {/* Custom Select Button */}
         <button
@@ -96,9 +96,9 @@ export default function PaymentCountry({ register, errors, setValue }) {
           </span>
         </button>
         <span className="h-4 text-sm">
-          {errors?.payment?.country && (
+          {errors?.payment?.billingInfo?.country && (
             <span className="text-[11px] text-red-600">
-              {errors.payment.country.message?.toString()}
+              {errors.payment.billingInfo.country.message?.toString()}
             </span>
           )}
         </span>

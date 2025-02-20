@@ -12,8 +12,13 @@ import PassengerInfo from './components/WhoIsFlying/PassengerInfo';
 import { useForm } from 'react-hook-form';
 import KeepConnected from './components/KeepConnected/KeepConnected';
 import PaymentMethod from './components/Payment/PaymentMethod';
+import ShareYourPlans from './components/ShareYourPlans';
+import PurchasePriceBreakout from './components/Payment/components/PurchasePriceBreakout';
+import { useRouter } from 'next/navigation'; // Use next/router for older Next.js versions
+import { Spinner } from '@heroui/react';
 
 export default function Home() {
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   const {
@@ -124,17 +129,74 @@ export default function Home() {
     fetchReturnFlight();
   }, [searchParams, filteredReturnFlights]); // Runs when `return filtered flights` updates
 
+  const [isSpinnerVisible, setIsSpinnerVisible] = useState(false);
+
+  const handleConfirmationPageRedirect = () => {
+    const params = new URLSearchParams(searchParams);
+    router.push(`/air/booking/confirmation?${params.toString()}`);
+  };
+
   const {
+    setTempFormDetails,
     register,
     handleSubmit,
+    formState,
     formState: { errors },
     clearErrors,
     setValue,
     getValues,
-  } = useForm();
+    trigger,
+    watch,
+    setFocus,
+    reset,
+  } = useFlights();
+
+  // const [formDetails, setFormDetails] = useState({});
+  const formValues = watch(); // Watches all form fields dynamically
+  // setFormDetails(formValues);
 
   const onSubmit = (data: any) => {
-    console.log('Form Submitted:', data);
+    setTempFormDetails(watch());
+    reset();
+    handleConfirmationPageRedirect();
+  };
+
+  // Function to recursively extract field names from nested objects/arrays
+  const extractFieldNames = (obj: any, prefix = ''): string[] => {
+    let fieldNames: string[] = [];
+
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        const fieldPath = prefix ? `${prefix}.${key}` : key;
+
+        if (typeof obj[key] === 'object' && obj[key] !== null) {
+          fieldNames = [
+            ...fieldNames,
+            ...extractFieldNames(obj[key], fieldPath),
+          ];
+        } else {
+          fieldNames.push(fieldPath);
+        }
+      }
+    }
+
+    return fieldNames;
+  };
+
+  // General function to focus on each registered input before submission
+  const focusOnAllFieldsAndSubmit = async (event: any) => {
+    event.preventDefault();
+
+    const fieldNames = extractFieldNames(formValues); // Extract all field names dynamically
+
+    setIsSpinnerVisible(true);
+    for (const field of fieldNames) {
+      setFocus(field as any);
+      await new Promise((resolve) => setTimeout(resolve, 10)); // Small delay for visibility
+    }
+    setIsSpinnerVisible(false);
+
+    handleSubmit(onSubmit)(); // Submit the form after focusing on all fields
   };
 
   return (
@@ -151,12 +213,12 @@ export default function Home() {
             <div className="flex flex-col gap-3">
               {/* Purchase flight details */}
               <section>
-                <FlightPurchaseDetails />
+                <FlightPurchaseDetails isModify={true} />
               </section>
 
               <form
                 className="flex flex-col gap-3"
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={focusOnAllFieldsAndSubmit}
               >
                 {/* who is flying */}
                 <section>
@@ -186,9 +248,17 @@ export default function Home() {
                     errors={errors}
                     clearErrors={clearErrors}
                     setValue={setValue}
-                    // getValues={getValues}
+                    getValues={getValues}
                   />
                 </section>
+
+                {/* Share you plans */}
+                <section>
+                  <ShareYourPlans />
+                </section>
+
+                {/* Price breakout */}
+                <PurchasePriceBreakout />
 
                 {/* material info and submit button */}
                 <section className="flex w-full flex-col justify-end pr-7 text-right">
@@ -267,6 +337,11 @@ export default function Home() {
         </div>
         <Footer isLinks={false} />
       </div>
+      {isSpinnerVisible && (
+        <div className="fixed inset-0 grid place-items-center bg-white">
+          <Spinner />
+        </div>
+      )}
     </>
   );
 }

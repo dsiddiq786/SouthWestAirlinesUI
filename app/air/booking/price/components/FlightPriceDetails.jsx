@@ -259,7 +259,7 @@ export default function FlightPriceDetails() {
               <span className="text-[11px]">Taxes and fees</span>
 
               {/* Price */}
-              <span className="text-[13px] text-blue-sw">${Tax}</span>
+              <span className="text-[13px] text-blue-sw">${Tax.toFixed(2)}</span>
             </div>
 
             {/* Flight total*/}

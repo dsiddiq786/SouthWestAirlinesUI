@@ -13,6 +13,9 @@ import PaymentStreetAddress from './Inputs/Billing Info/PaymentStreetAddress';
 import PaymentStreetAddress2 from './Inputs/Billing Info/PaymentStreetAddress2';
 import PaymentCityTown from './Inputs/Billing Info/PaymentCityTown';
 import PaymentState from './Inputs/Billing Info/PaymentState';
+import PaymentZipCode from './Inputs/Billing Info/PaymentZipCode';
+import PaymentCountryCode from './Inputs/Billing Info/PaymentCountryCode';
+import PaymentPhoneNumber from './Inputs/Billing Info/PaymentPhoneNumber';
 
 export default function PaymentDetails({
   register,
@@ -130,7 +133,7 @@ export default function PaymentDetails({
           </div>
 
           {/* Inputs */}
-          <div className="border pl-[35px]">
+          <div className="border pb-4 pl-[35px]">
             {/* Required span */}
             <span className="mb-[22px] mt-[20px] block text-[13px] text-gray-sw">
               <span className="text-red-600">* </span>
@@ -241,6 +244,30 @@ export default function PaymentDetails({
                         register={register}
                       />
                     </div>
+
+                    {/* Zip code */}
+                    <PaymentZipCode
+                      register={register}
+                      errors={errors}
+                      clearErrors={clearErrors}
+                    />
+                  </div>
+
+                  {/* Country code, Phone number */}
+                  <div className="flex gap-5">
+                    {/* Country code */}
+                    <PaymentCountryCode
+                      register={register}
+                      setValue={setValue}
+                      errors={errors}
+                    />
+
+                    {/* Phone number */}
+                    <PaymentPhoneNumber
+                      register={register}
+                      errors={errors}
+                      clearErrors={clearErrors}
+                    />
                   </div>
                 </div>
               </div>
@@ -249,7 +276,7 @@ export default function PaymentDetails({
         </section>
 
         {/* Save on credit */}
-        <div className="w-[220px] 2xl:fixed 2xl:right-[5.5rem] 2xl:top-[7.5rem]">
+        <div className="w-[220px] 2xl:fixed 2xl:hidden">
           <SaveOnCredits />
         </div>
       </div>

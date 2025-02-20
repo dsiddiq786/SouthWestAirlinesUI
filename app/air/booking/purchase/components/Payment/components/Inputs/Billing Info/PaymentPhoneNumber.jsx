@@ -1,6 +1,6 @@
 import { MdError } from 'react-icons/md';
 
-export default function PassengerPhoneNum({ register, errors, clearErrors }) {
+export default function PaymentPhoneNumber({ register, errors, clearErrors }) {
   const formatPhoneNumber = (event) => {
     let value = event.target.value.replace(/\D/g, ''); // Remove all non-numeric characters
 
@@ -32,29 +32,29 @@ export default function PassengerPhoneNum({ register, errors, clearErrors }) {
         <input
           type="text"
           autoComplete="tel-national"
-          {...register(`contactDetails.phoneNumber`, {
+          {...register(`payment.billingInfo.phoneNumber`, {
             required: 'Enter phone number',
           })}
           onChange={(event) => {
-            clearErrors(`contactDetails.phoneNumber`);
+            clearErrors(`payment.billingInfo.phoneNumber`);
             formatPhoneNumber(event);
           }} // Clear error on input change
           className={`h-[32px] w-[270px] rounded-sm py-[3px] pl-[7px] text-[13px] ${
-            errors?.contactDetails?.phoneNumber
+            errors?.payment?.billingInfo?.phoneNumber
               ? 'border border-red-600'
               : 'inner-box-shadow-sw border'
           } text-black-sw shadow-inner`}
         />
-        {errors?.contactDetails?.phoneNumber && (
+        {errors?.payment?.billingInfo?.phoneNumber && (
           <span className="absolute right-[0.9rem] top-[0.35em]">
             <MdError size={20} className="text-red-600" />
           </span>
         )}
       </div>
       <span className="h-4 text-sm">
-        {errors?.contactDetails?.phoneNumber && (
+        {errors?.payment?.billingInfo?.phoneNumber && (
           <span className="text-[11px] text-red-600">
-            {errors.contactDetails.phoneNumber.message?.toString()}
+            {errors.payment.billingInfo.phoneNumber.message?.toString()}
           </span>
         )}
       </span>

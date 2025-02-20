@@ -1,6 +1,6 @@
 import { MdError } from 'react-icons/md';
 
-export default function PassengerEmail({ register, errors, clearErrors }) {
+export default function PaymentEmailAddress({ register, errors, clearErrors }) {
   const formatEmail = (event) => {
     let value = event.target.value;
 
@@ -33,33 +33,36 @@ export default function PassengerEmail({ register, errors, clearErrors }) {
       <div className="relative">
         <input
           type="email"
-          autoComplete="email"
-          {...register(`contactDetails.email`, {
+          name="email"
+          autoComplete="new-password"
+          readOnly
+          onFocus={(e) => e.target.removeAttribute('readOnly')}
+          {...register(`payment.sendReceipt.email`, {
             required: 'Enter email address',
           })}
           onChange={(event) => {
-            clearErrors(`contactDetails.email`);
+            clearErrors(`payment.sendReceipt.email`);
             formatEmail(event);
           }} // Clear error on input change
-          className={`h-[32px] w-[388px] rounded-sm py-[3px] pl-[7px] text-[13px] ${
-            errors?.contactDetails?.email
+          className={`h-[32px] w-[300px] rounded-sm py-[3px] pl-[7px] text-[13px] ${
+            errors?.payment?.sendReceipt?.email
               ? 'border border-red-600'
               : 'inner-box-shadow-sw border'
           } text-black-sw shadow-inner`}
         />
-        {errors?.contactDetails?.email && (
+        {errors?.payment?.sendReceipt?.email && (
           <span className="absolute right-[0.9rem] top-[0.35em]">
             <MdError size={20} className="text-red-600" />
           </span>
         )}
       </div>
-      <span className="h-4 text-sm">
-        {errors?.contactDetails?.email && (
+      {errors?.payment?.sendReceipt?.email && (
+        <span className="h-4">
           <span className="text-[11px] text-red-600">
-            {errors.contactDetails.email.message?.toString()}
+            {errors.payment.sendReceipt.email.message?.toString()}
           </span>
-        )}
-      </span>
+        </span>
+      )}
     </div>
   );
 }

@@ -40,12 +40,12 @@ export default function PaymentRedeem({ register, setValue }) {
           <input
             className="hidden"
             type="checkbox"
-            {...register('payment.applyCashPoints')}
+            {...register('payment.redeem.applyCashPoints')}
             checked={isCashPoints}
             onChange={() => {
               const newValue = !isCashPoints;
               setIsCashPoints(newValue);
-              setValue('payment.applyCashPoints', newValue); // Use newValue instead of isCashPoints
+              setValue('payment.redeem.applyCashPoints', newValue); // Use newValue instead of isCashPoints
             }}
           />
           {/* Left Side - Text */}
@@ -87,12 +87,12 @@ export default function PaymentRedeem({ register, setValue }) {
           <input
             className="hidden"
             type="checkbox"
-            {...register('payment.applyFlightCredits')}
+            {...register('payment.redeem.applyFlightCredits')}
             checked={isFlightCredits}
             onChange={() => {
               const newValue = !isFlightCredits;
               setIsFlightCredits(newValue);
-              setValue('payment.applyFlightCredits', newValue);
+              setValue('payment.redeem.applyFlightCredits', newValue);
             }}
           />
           {/* Left Side - Text */}
@@ -128,12 +128,12 @@ export default function PaymentRedeem({ register, setValue }) {
           <input
             className="hidden"
             type="checkbox"
-            {...register('payment.applyGiftCard')}
+            {...register('payment.redeem.applyGiftCard')}
             checked={isGiftCard}
             onChange={() => {
               const newValue = !isGiftCard;
               setIsGiftCard(newValue);
-              setValue('payment.applyGiftCard', newValue);
+              setValue('payment.redeem.applyGiftCard', newValue);
             }}
           />
           {/* Left Side - Text */}
@@ -167,12 +167,12 @@ export default function PaymentRedeem({ register, setValue }) {
           <input
             className="hidden"
             type="checkbox"
-            {...register('payment.applyLUVVouchers')}
+            {...register('payment.redeem.applyLUVVouchers')}
             checked={isLUVVouchers}
             onChange={() => {
               const newValue = !isLUVVouchers;
               setIsLUVVouchers(newValue);
-              setValue('payment.applyLUVVouchers', newValue);
+              setValue('payment.redeem.applyLUVVouchers', newValue);
             }}
           />
           {/* Left Side - Text */}

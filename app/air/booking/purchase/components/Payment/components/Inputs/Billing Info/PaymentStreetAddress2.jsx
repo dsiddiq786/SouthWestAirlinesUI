@@ -10,7 +10,7 @@ export default function PaymentStreetAddress2({ register }) {
         <input
           type="text"
           autoComplete="address-line2"
-          {...register(`payment.streetAddress2`)}
+          {...register(`payment.billingInfo.streetAddress2`)}
           className={`inner-box-shadow-sw h-[32px] w-[263px] rounded-sm border py-[3px] pl-[7px] text-[13px] text-black-sw shadow-inner`}
         />
       </div>

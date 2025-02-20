@@ -21,7 +21,11 @@ export default function PaymentCardType({
   ];
 
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-  const [selectedCardType, setSelectedCardType] = useState('');
+  const [selectedCardType, setSelectedCardType] = useState(cardTypes[3]);
+
+  useEffect(() => {
+    setValue(`payment.cardDetails.cardType`, cardTypes[3]); // Register input value
+  }, [setValue]);
   const dropdownRef = useRef(null);
 
   // Close dropdown on clicking outside or pressing Escape
@@ -52,8 +56,8 @@ export default function PaymentCardType({
   // Handle option selection
   const handleSelect = (cardType) => {
     setSelectedCardType(cardType);
-    setValue(`payment.cardType`, cardType); // Register input value
-    clearErrors(`payment.cardType`);
+    setValue(`payment.cardDetails.cardType`, cardType); // Register input value
+    clearErrors(`payment.cardDetails.cardType`);
     setIsDropDownOpen(false);
   };
 
@@ -67,7 +71,7 @@ export default function PaymentCardType({
           {/* Hidden Input Field (for React Hook Form) */}
           <input
             type="hidden"
-            {...register(`payment.cardType`, {
+            {...register(`payment.cardDetails.cardType`, {
               required: 'Select card type.',
             })}
           />
@@ -76,7 +80,7 @@ export default function PaymentCardType({
         <button
           type="button"
           className={`flex h-[32px] w-[214px] ${
-            errors?.payment?.cardType
+            errors?.payment?.cardDetails?.cardType
               ? 'border border-red-600'
               : 'box-shadow-sw hover:border hover:border-black-sw'
           } ${
@@ -88,7 +92,7 @@ export default function PaymentCardType({
         >
           <span className="text-[13px]">{selectedCardType || 'Select'}</span>
           <span>
-            {errors?.payment?.cardType ? (
+            {errors?.payment?.cardDetails?.cardType ? (
               <MdError size={20} className="text-red-600" />
             ) : (
               <IoCaretDownSharp className="text-lg text-blue-sw" />
@@ -96,9 +100,9 @@ export default function PaymentCardType({
           </span>
         </button>
         <span className="h-4 text-sm">
-          {errors?.payment?.cardType && (
+          {errors?.payment?.cardDetails?.cardType && (
             <span className="text-[11px] text-red-600">
-              {errors.payment.cardType.message?.toString()}
+              {errors.payment.cardDetails.cardType.message?.toString()}
             </span>
           )}
         </span>

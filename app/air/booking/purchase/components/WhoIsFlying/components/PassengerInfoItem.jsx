@@ -101,6 +101,7 @@ export default function PassengerInfoItem({
       </div>
       <div className="h-[16px] w-full"></div>
       {passengerInfo.length !== passenger.passengerNo && (
+        // Separator
         <div className="mb-[37px] mt-[20px] h-[2px] w-full bg-[#f5f5f5]"></div>
       )}
     </>

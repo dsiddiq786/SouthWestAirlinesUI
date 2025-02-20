@@ -6,7 +6,7 @@ export function useTravelType() {
 
   // State to manage the selected travel type
   const [selectedTravelType, setSelectedTravelType] = useState(
-    travelTypeOptions[1]
+    travelTypeOptions[0]
   ); // Default to "Round Trip"
 
   return {

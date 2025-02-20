@@ -4,14 +4,14 @@ import countryCodes from '@/data/country_codes.json'; // Ensure you have a fligh
 import { MdError } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function PassengerCountryCode({ register, setValue, errors }) {
+export default function PaymentCountryCode({ register, setValue, errors }) {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [selectedCountryCode, setSelectedCountryCode] = useState(
     countryCodes[1]
   );
 
   useEffect(() => {
-    setValue(`contactDetails.countryCode`, countryCodes[1]); // Register input value
+    setValue(`payment.billingInfo.countryCode`, countryCodes[1]); // Register input value
   }, [setValue]);
 
   const [startIndex, setStartIndex] = useState(0); // Track visible countryCodes
@@ -46,7 +46,7 @@ export default function PassengerCountryCode({ register, setValue, errors }) {
   // Handle option selection
   const handleSelect = (countryCode) => {
     setSelectedCountryCode(countryCode);
-    setValue(`contactDetails.countryCode`, countryCode); // Register input value
+    setValue(`payment.billingInfo.countryCode`, countryCode); // Register input value
     setIsDropDownOpen(false);
   };
 
@@ -72,13 +72,16 @@ export default function PassengerCountryCode({ register, setValue, errors }) {
         </span>
         <div>
           {/* Hidden Input Field (for React Hook Form) */}
-          <input type="hidden" {...register(`contactDetails.countryCode`)} />
+          <input
+            type="hidden"
+            {...register(`payment.billingInfo.countryCode`)}
+          />
         </div>
         {/* Custom Select Button */}
         <button
           type="button"
           className={`flex h-[32px] w-[98px] ${
-            errors?.contactDetails?.countryCode
+            errors?.payment?.billingInfo?.countryCode
               ? 'border border-red-600'
               : 'box-shadow-sw hover:border hover:border-black-sw'
           } ${
@@ -90,7 +93,7 @@ export default function PassengerCountryCode({ register, setValue, errors }) {
         >
           <span className="text-[13px]">{selectedCountryCode || 'Select'}</span>
           <span>
-            {errors?.contactDetails?.countryCode ? (
+            {errors?.payment?.billingInfo?.countryCode ? (
               <MdError size={20} className="text-red-600" />
             ) : (
               <IoCaretDownSharp className="text-lg text-blue-sw" />
@@ -98,9 +101,9 @@ export default function PassengerCountryCode({ register, setValue, errors }) {
           </span>
         </button>
         <span className="h-4 text-sm">
-          {errors?.contactDetails?.countryCode && (
+          {errors?.payment?.billingInfo?.countryCode && (
             <span className="text-[11px] text-red-600">
-              {errors.contactDetails.countryCode.message?.toString()}
+              {errors.payment.billingInfo.countryCode.message?.toString()}
             </span>
           )}
         </span>

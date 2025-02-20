@@ -45,30 +45,30 @@ export default function PaymentExpirationDate({
           placeholder="MM/YY"
           type="text"
           autoComplete="cc-exp"
-          {...register(`payment.expirationDate`, {
+          {...register(`payment.cardDetails.expirationDate`, {
             required: 'Enter expiration date',
           })}
           onChange={(event) => {
-            clearErrors(`payment.expirationDate`);
+            clearErrors(`payment.cardDetails.expirationDate`);
             formatDateInput(event);
           }} // Clear error on input change & format input
           className={`h-[32px] w-[131px] rounded-sm py-[3px] pl-[7px] text-[13px] placeholder:text-gray-sw ${
-            errors?.payment?.expirationDate
+            errors?.payment?.cardDetails?.expirationDate
               ? 'border border-red-600'
               : 'inner-box-shadow-sw border'
           } text-black-sw shadow-inner`}
         />
 
-        {errors?.payment?.expirationDate && (
+        {errors?.payment?.cardDetails?.expirationDate && (
           <span className="absolute right-[0.9rem] top-[0.35em]">
             <MdError size={20} className="text-red-600" />
           </span>
         )}
       </div>
       <span className="h-4 text-sm">
-        {errors?.payment?.expirationDate && (
+        {errors?.payment?.cardDetails?.expirationDate && (
           <span className="text-[11px] text-red-600">
-            {errors.payment.expirationDate.message?.toString()}
+            {errors.payment.cardDetails.expirationDate.message?.toString()}
           </span>
         )}
       </span>

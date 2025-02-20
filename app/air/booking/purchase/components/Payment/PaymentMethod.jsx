@@ -2,12 +2,15 @@ import { IoIosCard } from 'react-icons/io';
 import { BsInfoCircleFill } from 'react-icons/bs';
 import PaymentRedeem from './components/PaymentRedeem';
 import PaymentDetails from './components/PaymentDetails';
+import PaymentReceipt from './components/PaymentReceipt';
+import PaymentPurposeOfTravel from './components/PaymentPurposeOfTravel';
 
 export default function PaymentMethod({
   register,
   errors,
   clearErrors,
   setValue,
+  getValues,
 }) {
   return (
     <div className="flex flex-col bg-[#f5f5f5] px-[30px] pb-[30px] pt-[24px]">
@@ -27,7 +30,6 @@ export default function PaymentMethod({
         </span>
       </span>
 
-      {/* PassengerInfo */}
       <div className="bg-white px-[40px] pb-[30px] pt-[19px]">
         {/* Redeem */}
         <PaymentRedeem register={register} setValue={setValue} />
@@ -38,6 +40,24 @@ export default function PaymentMethod({
           errors={errors}
           clearErrors={clearErrors}
           setValue={setValue}
+        />
+
+        {/* Send you receipt */}
+        <PaymentReceipt
+          register={register}
+          errors={errors}
+          clearErrors={clearErrors}
+          setValue={setValue}
+          getValues={getValues}
+        />
+
+        {/* Purpose of Travel */}
+        <PaymentPurposeOfTravel
+          register={register}
+          errors={errors}
+          clearErrors={clearErrors}
+          setValue={setValue}
+          getValues={getValues}
         />
       </div>
     </div>

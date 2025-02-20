@@ -78,7 +78,7 @@ export default function PriceBreakout() {
               <span className="text-[11px]">TAXES & FEES</span>
               <span className="flex items-start font-bold">
                 <span className="mt-[5px] text-[13.2px]">$</span>
-                <span className="pt-[2px] text-[22px]">{Tax}</span>
+                <span className="pt-[2px] text-[22px]">{Tax.toFixed(2)}</span>
               </span>
             </li>
             <li className="flex w-full items-end justify-between">

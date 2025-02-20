@@ -9,7 +9,7 @@ export default function PaymentState({ register, errors, setValue }) {
   const [selectedState, setSelectedState] = useState(states[1]);
 
   useEffect(() => {
-    setValue(`payment.state`, states[1]); // Register input value
+    setValue(`payment.billingInfo.state`, states[1]); // Register input value
   }, [setValue]);
 
   const [startIndex, setStartIndex] = useState(0); // Track visible states
@@ -44,7 +44,7 @@ export default function PaymentState({ register, errors, setValue }) {
   // Handle option selection
   const handleSelect = (state) => {
     setSelectedState(state);
-    setValue(`payment.state`, state); // Register input value
+    setValue(`payment.billingInfo.state`, state); // Register input value
     setIsDropDownOpen(false);
   };
 
@@ -66,17 +66,17 @@ export default function PaymentState({ register, errors, setValue }) {
     <div ref={dropdownRef} className="relative">
       <div className="relative flex flex-col">
         <span className="pb-[8px] text-[11px] font-bold uppercase text-gray-sw">
-          Country <span className="text-red-600">*</span>
+          state <span className="text-red-600">*</span>
         </span>
         <div>
           {/* Hidden Input Field (for React Hook Form) */}
-          <input type="hidden" {...register(`payment.state`)} />
+          <input type="hidden" {...register(`payment.billingInfo.state`)} />
         </div>
         {/* Custom Select Button */}
         <button
           type="button"
-          className={`flex h-[32px] w-[214px] ${
-            errors?.payment?.state
+          className={`flex h-[32px] w-[149px] ${
+            errors?.payment?.billingInfo?.state
               ? 'border border-red-600'
               : 'box-shadow-sw hover:border hover:border-black-sw'
           } ${
@@ -88,7 +88,7 @@ export default function PaymentState({ register, errors, setValue }) {
         >
           <span className="text-[13px]">{selectedState || 'Select'}</span>
           <span>
-            {errors?.payment?.state ? (
+            {errors?.payment?.billingInfo?.state ? (
               <MdError size={20} className="text-red-600" />
             ) : (
               <IoCaretDownSharp className="text-lg text-blue-sw" />
@@ -96,9 +96,9 @@ export default function PaymentState({ register, errors, setValue }) {
           </span>
         </button>
         <span className="h-4 text-sm">
-          {errors?.payment?.state && (
+          {errors?.payment?.billingInfo?.state && (
             <span className="text-[11px] text-red-600">
-              {errors.payment.state.message?.toString()}
+              {errors.payment.billingInfo.state.message?.toString()}
             </span>
           )}
         </span>

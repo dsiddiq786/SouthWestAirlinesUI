@@ -17,12 +17,15 @@ import { useDepartFlight } from './SelectDepart/DepartFlightContext';
 import { useReturnFlight } from './SelectDepart/ReturnFlightContext';
 import { useFlightPrice } from './SelectDepart/FlightPriceContext';
 import { usePassengerInfo } from './purchase/PassengerInfoContext';
+import { useForm } from 'react-hook-form';
+import { useTempForm } from './confirmation/TempFormContext';
 
 const FlightContext = createContext();
 
 // Prevent multiple interactions in the browser (optional feature)
 if (typeof window !== 'undefined' && !window.filterInteractions) {
-  window.filterInteractions = {};
+  window.currentBookingInfo = {};
+  window.bookingResults = {};
 }
 
 export function FlightProvider({ children }) {
@@ -74,6 +77,7 @@ export function FlightProvider({ children }) {
   const [updatedSelectedArriveCodes, setUpdatedSelectedArriveCodes] = useState(
     []
   );
+
   // Departure
   const {
     groupedDepartCitiesByState,
@@ -189,6 +193,24 @@ export function FlightProvider({ children }) {
     selectedReturnFlight
   );
 
+  // Temp form
+  const { tempFormDetails, setTempFormDetails } = useTempForm();
+
+  // React hook form
+  const {
+    register,
+    handleSubmit,
+    formState,
+    formState: { errors },
+    clearErrors,
+    setValue,
+    getValues,
+    trigger,
+    watch,
+    setFocus,
+    reset,
+  } = useForm();
+
   // Filtered departure flights
   useEffect(() => {
     if (!flights || flights.length === 0) return; // Ensure flights data exists
@@ -266,6 +288,24 @@ export function FlightProvider({ children }) {
     // Convert object to array & update state
     setFilteredReturnFlights(Object.values(groupedReturnFlights));
   }, [selectedDepartFlight]); // Runs when flights or selectedDepartFlight change
+
+  // Update global filter interactions
+  const updateCurrentBookingInfo = () => {
+    const interactions = {
+      bookingDetails: {
+        travelType: selectedTravelType,
+        bagFee: selectedBagFee,
+        departure: selectedDepartCodes,
+        arrival: selectedArriveCodes,
+        departDate: departDate,
+        returnDate: returnDate,
+        passengers: passengerCounts,
+        totalPassengers: totalPassengers,
+      },
+    };
+
+    window.filterInteractions = interactions;
+  };
 
   // console.log('Depart Codes: ', selectedDepartCodes);
   // console.log('Arrive Codes: ', selectedArriveCodes);
@@ -398,6 +438,23 @@ export function FlightProvider({ children }) {
         setIsDepartDateEmpty,
         isReturnDateEmpty,
         setIsReturnDateEmpty,
+
+        // Temp form
+        tempFormDetails,
+        setTempFormDetails,
+
+        // Form
+        register,
+        handleSubmit,
+        formState,
+        formState: { errors },
+        clearErrors,
+        setValue,
+        getValues,
+        trigger,
+        watch,
+        setFocus,
+        reset,
       }}
     >
       {children}
