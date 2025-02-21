@@ -19,6 +19,7 @@ import { useFlightPrice } from './SelectDepart/FlightPriceContext';
 import { usePassengerInfo } from './purchase/PassengerInfoContext';
 import { useForm } from 'react-hook-form';
 import { useTempForm } from './confirmation/TempFormContext';
+import { usePathname } from 'next/navigation';
 
 const FlightContext = createContext();
 
@@ -158,6 +159,8 @@ export function FlightProvider({ children }) {
     Tax,
     handlePriceContinue,
     handlePriceModify,
+    departFlightPrice,
+    returnFlightPrice
   } = useFlightPrice(
     selectedDepartFlight,
     selectedReturnFlight,
@@ -289,8 +292,12 @@ export function FlightProvider({ children }) {
     setFilteredReturnFlights(Object.values(groupedReturnFlights));
   }, [selectedDepartFlight]); // Runs when flights or selectedDepartFlight change
 
+  // getting the current pathname for updating the isFinalPage state
+  const pathname = usePathname();
+
   // Update global filter interactions
   const updateCurrentBookingInfo = () => {
+    console.log("Updating current booking info...");
     const interactions = {
       bookingDetails: {
         travelType: selectedTravelType,
@@ -302,10 +309,85 @@ export function FlightProvider({ children }) {
         passengers: passengerCounts,
         totalPassengers: totalPassengers,
       },
+      flightDetails: {
+        filteredDepartureFlights: filteredFlights,
+        filteredReturnFlights: filteredReturnFlights,
+        selectedDepartFlight: selectedDepartFlight ? {
+          flight: selectedDepartFlight?.flight,
+          price: departFlightPrice,
+        } : null,
+        selectedReturnFlight: selectedReturnFlight ? {
+          flight: selectedReturnFlight?.flight,
+          price: returnFlightPrice,
+        } : null,
+      },
+      priceDetails: {
+        baseFare: flightBaseFare,
+        tax: Tax,
+        totalFlightPrice: TotalFlightPrice,
+      },
+      passengerAndPaymentInfo: watch(),
+      isInFinalPage: {
+        withPayment: pathname === '/air/booking/purchase', // Check if in payment page
+      }
     };
 
-    window.filterInteractions = interactions;
+    window.currentBookingInfo = interactions;
   };
+
+  useEffect(() => {
+    // Update global filter interactions
+    if (pathname === '/air/booking/confirmation' && Object.keys(tempFormDetails).length > 0) {
+      // Retrieve existing bookings from localStorage
+      const existingBookings = JSON.parse(localStorage.getItem('bookingResults')) || [];
+
+      // Create a copy of currentBookingInfo without `isInFinalPage`
+      const { isInFinalPage, ...bookingInfoWithoutFinalPage } = window.currentBookingInfo;
+
+      // Add the new booking result to the array
+      let updatedBookings = [...existingBookings, bookingInfoWithoutFinalPage];
+
+      // Remove empty objects and arrays
+      updatedBookings = updatedBookings.filter(
+        (booking) =>
+          booking &&
+          Object.keys(booking).length > 0 && // Remove empty objects
+          (!Array.isArray(booking) || booking.length > 0) // Remove empty arrays
+      );
+
+      // Save back to localStorage
+      localStorage.setItem('bookingResults', JSON.stringify(updatedBookings));
+
+      // Update window variable
+      window.bookingResults = updatedBookings;
+
+      // Reset current booking info
+      window.currentBookingInfo = {};
+    } else {
+      updateCurrentBookingInfo();
+    }
+
+
+  }, [
+    selectedTravelType,
+    selectedBagFee,
+    selectedDepartCodes,
+    selectedArriveCodes,
+    departDate,
+    returnDate,
+    passengerCounts,
+    totalPassengers,
+    filteredFlights,
+    filteredReturnFlights,
+    selectedDepartFlight,
+    selectedReturnFlight,
+    departFlightPrice,
+    returnFlightPrice,
+    flightBaseFare,
+    Tax,
+    TotalFlightPrice,
+    watch(),
+  ]);
 
   // console.log('Depart Codes: ', selectedDepartCodes);
   // console.log('Arrive Codes: ', selectedArriveCodes);

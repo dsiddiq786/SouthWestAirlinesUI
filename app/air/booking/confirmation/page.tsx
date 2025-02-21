@@ -122,7 +122,6 @@ export default function Home() {
   }, [searchParams, filteredReturnFlights]); // Runs when `return filtered flights` updates
 
   const { tempFormDetails } = useFlights();
-  console.log(tempFormDetails);
 
   return (
     <>

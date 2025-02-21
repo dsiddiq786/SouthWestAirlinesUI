@@ -80,5 +80,7 @@ export function useFlightPrice(
     Tax,
     handlePriceContinue,
     handlePriceModify,
+    departFlightPrice,
+    returnFlightPrice
   };
 }
